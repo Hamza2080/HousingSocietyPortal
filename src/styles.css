@@ -1,0 +1,112 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./styles.scss"; 
+.linkButtonActive{
+    color: #77c72f !important
+}
+.bgWhite{
+    background-color: white !important;
+}
+.curserPointer{
+    cursor: pointer;
+}
+.modal-backdrop.fade
+{
+  opacity: 0.5;
+}
+.modal-open .modal
+{
+  opacity: 1;
+}
+input {
+  text-transform: none;
+}
+.modal {
+    position: fixed;
+    top: 50px !important;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+.toast {
+  opacity: 1 !important;
+}
+.loader{
+  text-align: center;
+  margin-top: 25%;
+}
+
+.service-text p {
+  font-size: 15px;
+  color:#555;
+  line-height: 24px;
+  font-weight: 500;
+  margin-bottom: 0;
+  transition: .3s;
+}
+.our-services-text > p {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 25px;
+  color: #555;
+  margin-bottom: 0;
+}
+.tab-menu > li {
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  position: relative;
+  text-transform: capitalize;
+}
+.about-text p {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 0;
+  color: #555;
+  line-height: 24px;
+}
+.our-services-text > h3 a {
+  color:#666;
+  font-weight: 500;
+}
+.about-text h4 {
+  color: #555;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+.offer-content p {
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 36px;
+}
+.project-details-2-content p {
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 25px;
+  margin-bottom: 22px;
+}
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+  box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  outline: 0;
+  margin-top: 200px !important;
+}
+input{
+  text-transform: unset !important ;
+}

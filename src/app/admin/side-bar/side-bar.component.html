@@ -1,0 +1,36 @@
+<div class="sidebar" data-color="purple" style="background-image: url(assets/img/sidebar-5.jpg);">
+  <div class="sidebar-wrapper">
+         <div class="logo">
+             <a router-link="/customer" class="simple-text">
+                 <img width="123" src="./assets/img/logo/logo_white.png"/>
+             </a>
+         </div>
+ 
+         <ul class="nav">
+             <li routerLinkActive='active'>
+                 <a [routerLink]="['/admin/manager']" >
+                     <i class="pe-7s-graph"></i>
+                     <p>View Manager</p>
+                 </a>
+             </li>
+             <li routerLinkActive='active'>
+              <a [routerLink]="['/admin/land']" >
+                  <i class="pe-7s-graph"></i>
+                  <p>Land</p>
+              </a>
+          </li>
+             <li routerLinkActive='active'>
+              <a [routerLink]="['/admin/Town']" >
+                  <i class="pe-7s-graph"></i>
+                  <p>Town</p>
+              </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/payment-plan']" >
+                <i class="pe-7s-graph"></i>
+                <p>Payment Plan</p>
+            </a>
+        </li>
+         </ul>
+   </div>
+ </div>
