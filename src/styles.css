@@ -110,3 +110,19 @@ input {
 input{
   text-transform: unset !important ;
 }
+.invalid-feedback{
+  color: red !important;
+  margin-left: 5px !important;
+}
+.form-group label {
+  margin-left: 5px !important;
+  font-weight: bold !important;
+}
+.modal-title{
+  font-weight: bold !important;
+  color: #fff !important;
+}
+.modal-header{
+  background-color: #77c72f !important;
+  color: #fff !important;
+}

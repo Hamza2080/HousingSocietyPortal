@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
+import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measuring.component';
+import { AddLandComponent } from '../add-land/add-land.component';
 
 @Component({
   selector: 'app-land',
@@ -13,8 +15,9 @@ public landList = []
   constructor(private modelService:NgbModal,private adminService: AdminService) { }
 
   ngOnInit() {
+    this.getLand();
   }
-  getManager() {
+  getLand() {
     this.isLoaded = true;
     this.adminService.getAllLand().then(res => {
       this.landList = res as any[];
@@ -26,10 +29,16 @@ public landList = []
     });
   }
   openModel() {
-    const modelRef = this.modelService.open(LandComponent, { size: 'lg' });
-    // modelRef.componentInstance.providerId = providerId;
+    const modelRef = this.modelService.open(AddLandComponent, { size: 'lg' });
+    modelRef.result.then((data) => {
+      // console.log('modal is closed', data);
+      if(data){
+        this.getLand();
+      }
+  
+    })
   }
   openModelMeasurement(){
-
+    const modelRef = this.modelService.open(AddLandMeasuringComponent, { size: 'sm' });
   }
 }

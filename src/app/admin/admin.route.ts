@@ -5,6 +5,9 @@ import { TownComponent } from './town/town.component';
 import { PaymentPlanComponent } from './payment-plan/payment-plan.component';
 import { AddLandMeasuringComponent } from './add-land-measuring/add-land-measuring.component';
 import { LandComponent } from './land/land.component';
+import { ViewLandLordComponent } from './view-land-lord/view-land-lord.component';
+import { AuthorizedDealerComponent } from './authorized-dealer/authorized-dealer.component';
+import { ViewCustomerComponent } from './view-customer/view-customer.component';
 
 export const AdminRoutes: Routes = [
     {
@@ -26,6 +29,18 @@ export const AdminRoutes: Routes = [
             path: 'land',
             component: LandComponent
         },
+        {
+            path: 'landlord',
+            component: ViewLandLordComponent
+        },
+        {
+            path: 'authorized-dealer',
+            component: AuthorizedDealerComponent
+        },
+        {
+            path: 'customers',
+            component: ViewCustomerComponent
+        }
         ]
     }
-]
+];

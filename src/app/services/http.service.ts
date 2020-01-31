@@ -14,9 +14,9 @@ export class HttpService {
     return this.http.get(environment.API_URL + endpoint,{headers: this.header});
   }
   public post(endpoint,payLoad): Observable<any> {
-    return this.http.post(environment.API_URL + endpoint, payLoad);
+    return this.http.post(environment.API_URL + endpoint, payLoad,{headers: this.header});
   }
   public put(endpoint,payLoad): Observable<any> {
-    return this.http.put(environment.API_URL + endpoint, payLoad);
+    return this.http.put(environment.API_URL + endpoint, payLoad,{headers: this.header});
   }
 }

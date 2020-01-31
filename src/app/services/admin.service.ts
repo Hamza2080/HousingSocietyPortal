@@ -70,7 +70,7 @@ export class AdminService {
   }
   addLand(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.post('/lands',payload).subscribe(res => {
+      this.httpSecure.post('/lands', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
         console.log(res);
         resolve(res.data);
@@ -87,7 +87,7 @@ export class AdminService {
   }
   updateLand(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.put('/lands',payload).subscribe(res => {
+      this.httpSecure.put('/lands', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
         console.log(res);
         resolve(res.data);
@@ -104,7 +104,7 @@ export class AdminService {
   }
   addLandMeasurement(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.post('/land_measuring_units',payload).subscribe(res => {
+      this.httpSecure.post('/land_measuring_units', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
         console.log(res);
         resolve(res.data);
@@ -148,9 +148,84 @@ export class AdminService {
       });
     });
   }
-  addLandLord(payload){
+  addLandLord(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.post('/landlords',payload).subscribe(res => {
+      this.httpSecure.post('/landlords', payload).subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllTowns() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/towns').subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addTown(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/towns', payload).subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllCustomers() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/Customers').subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addCustomer(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/Customers', payload).subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllAuthDealers() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/authorized_dealers').subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addAuthDealers(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/authorized_dealers', payload).subscribe(res => {
         console.log(res);
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);

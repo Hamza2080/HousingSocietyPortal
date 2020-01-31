@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 ;
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     RouterModule,
     NgbModule,
+    BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
     NgxPaginationModule,

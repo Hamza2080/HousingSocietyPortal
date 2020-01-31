@@ -1,0 +1,85 @@
+<div class="modal-header">
+  <h5 class="modal-title" style="width: 70%; float: left;">Add Land Lord</h5>
+  <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="marginLeft">Name</label>
+                <input type="text" class="form-control" placeholder="Land Lord Name..." name="name"
+                    #name="ngModel" [(ngModel)]="payload.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                    <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" >
+                      <div *ngIf="name.errors.required">Name is required</div>
+                  </div>
+            </div>
+        </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="marginLeft">Total Land</label>
+            <input type="text" class="form-control" placeholder="Total Land..." name="phone" pattern="[0-9]*"
+                #phone="ngModel" [(ngModel)]="payload.total_land" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required >
+                <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
+                  <div *ngIf="phone.errors.required">Phone  is required</div>
+                  <div *ngIf="phone.errors.pattern">Phone is Only Number</div>
+              </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+          <label class="marginLeft">Land Measuring Unit</label>
+          <select class="form-control" name="landMeasuring" #landMeasuring="ngModel" [(ngModel)]="payload.landMeasuringUnitId" [ngClass]="{ 'is-invalid': f.submitted && landMeasuring.invalid }" required>
+            <option [value]= 'null' disabled>Land Measuring Unit</option>
+            <option *ngFor="let item of measurementsList" [value]="item?.id"> {{item?.measuring_unit}}</option>
+          </select>
+              <div *ngIf="f.submitted && landMeasuring.invalid" class="invalid-feedback">
+                <div *ngIf="landMeasuring.errors.required">Land Measuring Unit is required</div>
+                <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+            </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="form-group">
+        <label class="marginLeft">Land Lord</label>
+        <select class="form-control" name="land" #land="ngModel" [(ngModel)]="payload.landlordId" [ngClass]="{ 'is-invalid': f.submitted && land.invalid }" required>
+          <option [value]= 'null' disabled>Select land lord</option>
+          <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option>
+        </select>
+            <div *ngIf="f.submitted && land.invalid" class="invalid-feedback">
+              <div *ngIf="land.errors.required">Land lord is required</div>
+              <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+          </div>
+    </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="form-group">
+          <label class="marginLeft">Town</label>
+          <select class="form-control" name="SubCategoryId" #SubCategoryId="ngModel" [(ngModel)]="payload.townId" [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
+            <option [value]= 'null' disabled>Select Town</option>
+            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+          </select>
+              <div *ngIf="f.submitted && SubCategoryId.invalid" class="invalid-feedback">
+                <div *ngIf="SubCategoryId.errors.required">Town is required</div>
+                <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+            </div>
+      </div>
+  </div>
+  </div>
+<div class="row">
+<div class="col-md-12">
+  <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save<span *ngIf="isLoading"
+    class="btn-spinnerr"></span></button>
+</div>
+</div>
+  </form>
+  </div>
+  <!-- </div> -->
