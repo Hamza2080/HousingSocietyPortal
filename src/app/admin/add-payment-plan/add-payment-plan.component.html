@@ -1,0 +1,89 @@
+
+  <div class="modal-header">
+    <h5 class="modal-title" style="width: 70%; float: left;">Add Town</h5>
+    <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                  <label class="marginLeft">Payment Plan Name</label>
+                  <input type="text" class="form-control" placeholder="Payment Plan Name" name="name"
+                      #name="ngModel" [(ngModel)]="payload.payment_plan_name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                      <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" >
+                        <div *ngIf="name.errors.required">Name is required</div>
+                    </div>
+              </div>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+          <div class="form-group">
+              <label class="marginLeft">Payment Plan Duration</label>
+              <input type="text" class="form-control" placeholder="Payment Plan Duration" name="ownedBy"
+                  #ownedBy="ngModel" [(ngModel)]="payload.payment_plan_duration" [ngClass]="{ 'is-invalid': f.submitted && ownedBy.invalid }" required >
+                  <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" [ngClass]="{ 'is-invalid': f.submitted && ownedBy.invalid }" required >
+                    <div *ngIf="ownedBy.errors.required">Owned By is required</div>
+                </div>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+            <label class="marginLeft">Duration Type</label>
+            <select type="text" class="form-control" placeholder="Duration Type" name="duration"
+                #duration="ngModel" [(ngModel)]="payload.is_monthly_plan_type" [ngClass]="{ 'is-invalid': f.submitted && duration.invalid }" required >
+              <option value = true>Monthly</option>
+              <option value = false>Yearly</option>
+              </select>
+                <div *ngIf="f.submitted && duration.invalid" class="invalid-feedback">
+                  <div *ngIf="duration.errors.required">Duration Type is required</div>
+              </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+      <div class="form-group">
+          <label class="marginLeft">First Payment</label>
+          <input type="text" class="form-control" placeholder="Payment" name="payment"
+              #payment="ngModel" [(ngModel)]="payload.first_payment" [ngClass]="{ 'is-invalid': f.submitted && payment.invalid }" required>
+              <div *ngIf="f.submitted && payment.invalid" class="invalid-feedback" >
+                <div *ngIf="payment.errors.required">Payment is required</div>
+            </div>
+      </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+        <label class="marginLeft">Total Payment</label>
+        <input type="text" class="form-control" placeholder="Total Payment" name="total"
+            #total="ngModel" [(ngModel)]="payload.total_amount" [ngClass]="{ 'is-invalid': f.submitted && total.invalid }" required>
+            <div *ngIf="f.submitted && total.invalid" class="invalid-feedback" >
+              <div *ngIf="total.errors.required">Total Payment is required</div>
+          </div>
+    </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="form-group">
+          <label class="marginLeft">Description</label>
+          <textarea type="text" style="height: 80px !important;" class="form-control" placeholder="Description" name="description"
+              #description="ngModel" [(ngModel)]="payload.description" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required ></textarea>
+              <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required >
+                <div *ngIf="description.errors.required">Description is required</div>
+            </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Update Profile <span *ngIf="isLoading"
+      class="btn-spinnerr"></span></button>
+  </div>
+</div>
+    </form>
+    </div>
+    <!-- </div> -->

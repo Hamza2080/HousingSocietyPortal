@@ -1,3 +1,52 @@
-<p>
-  payment-plan works!
-</p>
+<div class="content">
+  <div class="container-fluid">
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 style="width: 400px;float: left;" class="title">Payment Plans</h4>
+            <div style="float: right;">
+              <button type="button" (click)="openModel()" class="btn btn-info btn-fill">Add Payment Plan</button>
+              <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
+            </div>
+
+
+          </div>
+          <hr>
+          <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;"
+              src="assets/img/loading-bubbles.svg"></div>
+          <div *ngIf="!isLoaded" class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead *ngIf="paymentPlansList?.length === 0">No Record Found</thead>
+              <thead *ngIf="paymentPlansList?.length > 0">
+                <tr>
+                  <th>Payment Plan Name</th>
+                  <th>Total Land</th>
+                  <th>Acquired Date</th>
+                  <th>Land Lord</th>
+                  <th>Land Lord Phone</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="paymentPlansList?.length > 0">
+                <tr *ngFor="let item of paymentPlansList| paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td>{{item?.payment_plan_name}}</td>
+                  <td>{{item?.total_land}} {{item?.measuring_unit}}</td>
+                  <td>{{item?.acquired_date |date:'medium'}}</td>
+                  <td>{{item?.landLord?.name}}</td>
+                  <td>{{item?.landLord?.phone}}</td>
+                </tr>
+              </tbody>
+
+            </table>
+            <pagination-controls *ngIf="paymentPlansList?.length > 0" (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

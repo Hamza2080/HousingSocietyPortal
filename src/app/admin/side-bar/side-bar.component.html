@@ -1,8 +1,8 @@
 <div class="sidebar" data-color="purple" style="background-image: url(assets/img/sidebar-5.jpg);">
   <div class="sidebar-wrapper">
          <div class="logo">
-             <a router-link="/customer" class="simple-text">
-                 <img width="123" src="./assets/img/logo/logo_white.png"/>
+             <a router-link="/Town" class="simple-text">
+                Housing Society Portal
              </a>
          </div>
  
@@ -54,6 +54,12 @@
             <a [routerLink]="['/admin/authorized-dealer']" >
                 <i class="fa fa-industry" aria-hidden="true"></i>
                 <p>Authorized Dealer</p>
+            </a>
+        </li>
+        <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/plots']" >
+                <i class="fa fa-area-chart" aria-hidden="true"></i>
+                <p>plots</p>
             </a>
         </li>
          </ul>

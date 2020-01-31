@@ -236,4 +236,29 @@ export class AdminService {
       });
     });
   }
+  getAllPaymentPlans() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/land_payment_plans').subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addPaymentPlans(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/land_payment_plans', payload).subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
 }

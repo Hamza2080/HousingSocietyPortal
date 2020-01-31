@@ -14,16 +14,18 @@ export class LoginComponent implements OnInit {
   public errorMessage = null;
   public isLoading = false;
   public loadingPromise: Promise<any>;
-  constructor(private adminService:AdminService) { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
   }
-  onSubmit(){
-    this.adminService.login(this.payLoad).then(res =>{
+  onSubmit() {
+    this.isLoading = true;
+    this.adminService.login(this.payLoad).then(res => {
       console.log(res);
-
-  }).catch(err =>{
-    console.log(err);
-  })
-}
+      this.isLoading = false;
+    }).catch(err => {
+      console.log(err);
+      this.isLoading = false;
+    })
+  }
 }

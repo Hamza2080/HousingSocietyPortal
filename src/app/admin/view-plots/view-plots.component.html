@@ -1,0 +1,60 @@
+<div class="content">
+  <div class="container-fluid">
+
+
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="header">
+                      <h4 style="width: 400px;float: left;" class="title">All Plote</h4>
+                      <div style="float: right;">
+                        <button type="button" (click)="openModel()" class="btn btn-info btn-fill">Add Plots</button>
+                        <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
+                      </div>
+                      
+
+                  </div>
+                  <hr>
+                  <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;" src="assets/img/loading-bubbles.svg"></div> 
+                  <div *ngIf="!isLoaded" class="content table-responsive table-full-width">
+                      <table class="table table-hover table-striped">
+                          <thead *ngIf = "landLordList?.length === 0">No Record Found</thead>
+                          <thead *ngIf = "landLordList?.length > 0">
+                                  <tr>
+                                      <th>Name</th>
+                                      <th>Plot Number</th>
+                                      <th>Size</th>
+                                      <th>Amount Received</th>
+                                      <th>Amount Remaining</th>
+                                      <th>Plot Type</th>
+                                      <th>Purchase Date</th>
+                                    </tr>
+                              </thead>
+                              <tbody *ngIf = "landLordList?.length > 0">
+                                  <!-- <tr *ngFor = "let item of landLordList | paginate: { itemsPerPage: 10, currentPage: p }"> -->
+                                    <tr>
+                                <!-- <td>{{item?.name}}</td>
+                                <td>{{item?.phone}}</td>
+                                <td>{{item?.cnic}}</td>
+                                <td>{{item?.address}}</td> -->
+                                <td>Park</td>
+                                <td>00550044</td>
+                                <td>10 Marla</td>
+                                <td>500000</td>
+                                <td>1000000</td>
+                                <td>Park</td>
+                                <td>{{date}}</td>
+                              </tr>
+                            </tbody>
+                              
+                            </table>
+                            <!-- <pagination-controls *ngIf = "landLordList?.length > 0" (pageChange)="p = $event"></pagination-controls> -->
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+</div>
+</div>

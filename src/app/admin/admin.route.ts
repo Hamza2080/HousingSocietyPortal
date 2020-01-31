@@ -8,6 +8,7 @@ import { LandComponent } from './land/land.component';
 import { ViewLandLordComponent } from './view-land-lord/view-land-lord.component';
 import { AuthorizedDealerComponent } from './authorized-dealer/authorized-dealer.component';
 import { ViewCustomerComponent } from './view-customer/view-customer.component';
+import { ViewPlotsComponent } from './view-plots/view-plots.component';
 
 export const AdminRoutes: Routes = [
     {
@@ -40,6 +41,10 @@ export const AdminRoutes: Routes = [
         {
             path: 'customers',
             component: ViewCustomerComponent
+        },
+        {
+            path: 'plots',
+            component: ViewPlotsComponent
         }
         ]
     }
