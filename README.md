@@ -1,2 +1,2 @@
-# HousingSocietyPortal
+# HousingSocietyPortalFrontEnd
 Housing society portal(Angular) is a system for town and societies to manage their business and revenue...
