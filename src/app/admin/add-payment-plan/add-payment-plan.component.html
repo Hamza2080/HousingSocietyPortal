@@ -21,50 +21,47 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-          <div class="form-group">
-              <label class="marginLeft">Payment Plan Duration</label>
-              <input type="text" class="form-control" placeholder="Payment Plan Duration" name="ownedBy"
-                  #ownedBy="ngModel" [(ngModel)]="payload.payment_plan_duration" [ngClass]="{ 'is-invalid': f.submitted && ownedBy.invalid }" required >
-                  <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" [ngClass]="{ 'is-invalid': f.submitted && ownedBy.invalid }" required >
-                    <div *ngIf="ownedBy.errors.required">Owned By is required</div>
-                </div>
-          </div>
-      </div>
+        <div class="form-group">
+            <label class="marginLeft">Total Payment</label>
+            <input type="text" class="form-control" placeholder="Total Payment" name="total"
+                #total="ngModel" [(ngModel)]="payload.totalAmount" [ngClass]="{ 'is-invalid': f.submitted && total.invalid }" required>
+                <div *ngIf="f.submitted && total.invalid" class="invalid-feedback" >
+                  <div *ngIf="total.errors.required">Total Payment is required</div>
+              </div>
+        </div>
+    </div>
       <div class="col-md-6">
         <div class="form-group">
-            <label class="marginLeft">Duration Type</label>
-            <select type="text" class="form-control" placeholder="Duration Type" name="duration"
-                #duration="ngModel" [(ngModel)]="payload.is_monthly_plan_type" [ngClass]="{ 'is-invalid': f.submitted && duration.invalid }" required >
-              <option value = true>Monthly</option>
-              <option value = false>Yearly</option>
-              </select>
-                <div *ngIf="f.submitted && duration.invalid" class="invalid-feedback">
-                  <div *ngIf="duration.errors.required">Duration Type is required</div>
+            <label class="marginLeft">Installment Gap</label>
+            <input type="text" class="form-control" placeholder="Installment Gap In Months" name="installmentGap"
+                #installmentGap="ngModel" [(ngModel)]="payload.installmentGap" [ngClass]="{ 'is-invalid': f.submitted && installmentGap.invalid }" required>
+                <div *ngIf="f.submitted && installmentGap.invalid" class="invalid-feedback" >
+                  <div *ngIf="installmentGap.errors.required">Installment Gap is required</div>
               </div>
         </div>
     </div>
 </div>
 <div class="row">
   <div class="col-md-6">
-      <div class="form-group">
-          <label class="marginLeft">First Payment</label>
-          <input type="text" class="form-control" placeholder="Payment" name="payment"
-              #payment="ngModel" [(ngModel)]="payload.first_payment" [ngClass]="{ 'is-invalid': f.submitted && payment.invalid }" required>
-              <div *ngIf="f.submitted && payment.invalid" class="invalid-feedback" >
-                <div *ngIf="payment.errors.required">Payment is required</div>
-            </div>
-      </div>
-  </div>
-  <div class="col-md-6">
     <div class="form-group">
-        <label class="marginLeft">Total Payment</label>
-        <input type="text" class="form-control" placeholder="Total Payment" name="total"
-            #total="ngModel" [(ngModel)]="payload.total_amount" [ngClass]="{ 'is-invalid': f.submitted && total.invalid }" required>
-            <div *ngIf="f.submitted && total.invalid" class="invalid-feedback" >
-              <div *ngIf="total.errors.required">Total Payment is required</div>
+        <label class="marginLeft">Down Payment</label>
+        <input type="text" class="form-control" placeholder="Down Payment" name="ownedBy"
+            #ownedBy="ngModel" [(ngModel)]="payload.downPayment" [ngClass]="{ 'is-invalid': f.submitted && ownedBy.invalid }" required >
+            <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" >
+              <div *ngIf="ownedBy.errors.required">Down Payment By is required</div>
           </div>
     </div>
 </div>
+  <div class="col-md-6">
+      <div class="form-group">
+          <label class="marginLeft">Installment Amount</label>
+          <input type="text" class="form-control" placeholder="Installment Amount" name="installmentAmount"
+              #installmentAmount="ngModel" [(ngModel)]="payload.installmentAmount" [ngClass]="{ 'is-invalid': f.submitted && installmentAmount.invalid }" required>
+              <div *ngIf="f.submitted && installmentAmount.invalid" class="invalid-feedback" >
+                <div *ngIf="installmentAmount.errors.required">Installment Amount is required</div>
+            </div>
+      </div>
+  </div>
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -80,7 +77,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Update Profile <span *ngIf="isLoading"
+    <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save <span *ngIf="isLoading"
       class="btn-spinnerr"></span></button>
   </div>
 </div>

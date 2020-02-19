@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
 import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measuring.component';
 import { AddLandComponent } from '../add-land/add-land.component';
+import { InstallmentComponent } from '../installment/installment.component';
 
 @Component({
   selector: 'app-land',
@@ -37,6 +38,17 @@ public landList = []
       }
   
     })
+  }
+  openInstallment(item){
+    const modelRef = this.modelService.open(InstallmentComponent, { size: 'lg' });
+    modelRef.componentInstance.installment = item.installments;
+    modelRef.componentInstance.landId = item.id;
+    modelRef.componentInstance.isplotSide = false;
+    modelRef.result.then((data) => {
+      if (data) {
+        this.getLand();
+      }
+    });
   }
   openModelMeasurement(){
     const modelRef = this.modelService.open(AddLandMeasuringComponent, { size: 'sm' });

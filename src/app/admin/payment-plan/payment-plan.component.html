@@ -23,19 +23,24 @@
               <thead *ngIf="paymentPlansList?.length > 0">
                 <tr>
                   <th>Payment Plan Name</th>
-                  <th>Total Land</th>
-                  <th>Acquired Date</th>
-                  <th>Land Lord</th>
-                  <th>Land Lord Phone</th>
+                  <th>Total Amount</th>
+                  <th>Down Payment</th>
+                  <th>Installment Amount</th>
+                  <th>Installment</th>
+                  <th>Installment Gap</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody *ngIf="paymentPlansList?.length > 0">
                 <tr *ngFor="let item of paymentPlansList| paginate: { itemsPerPage: 10, currentPage: p }">
                   <td>{{item?.payment_plan_name}}</td>
-                  <td>{{item?.total_land}} {{item?.measuring_unit}}</td>
-                  <td>{{item?.acquired_date |date:'medium'}}</td>
-                  <td>{{item?.landLord?.name}}</td>
-                  <td>{{item?.landLord?.phone}}</td>
+                  <td>{{item?.totalAmount}}</td>
+                  <td>{{item?.downPayment}}</td>
+                  <td>{{item?.installmentAmount}}</td>
+                  <td>{{item?.no_of_installment}}</td>
+                  <td>{{item?.installmentGap}}</td>
+                  <td>{{item?.description}}</td>
+
                 </tr>
               </tbody>
 

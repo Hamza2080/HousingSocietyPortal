@@ -7,26 +7,39 @@
 <div class="modal-body">
   <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
-                <label class="marginLeft">Name</label>
-                <input type="text" class="form-control" placeholder="Land Lord Name..." name="name"
-                    #name="ngModel" [(ngModel)]="payload.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                <label class="marginLeft">Plot Number</label>
+                <input type="text" class="form-control" placeholder="Plot Number" name="name"
+                    #name="ngModel" [(ngModel)]="payload.plotNumber" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
                     <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" >
                       <div *ngIf="name.errors.required">Name is required</div>
                   </div>
             </div>
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+              <label class="marginLeft">Plot Category</label>
+              <select class="form-control" name="land" #land="ngModel" [(ngModel)]="payload.plotcategoriesId" [ngClass]="{ 'is-invalid': f.submitted && land.invalid }" required>
+                <option [value]= 'null' disabled>Select Plot Category</option>
+                <option *ngFor="let item of plotcategories" [value]="item?.id"> {{item?.name}}</option>
+              </select>
+                  <div *ngIf="f.submitted && land.invalid" class="invalid-feedback">
+                    <div *ngIf="land.errors.required">Plot Category is required</div>
+                    <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+                </div>
+          </div>
+      </div>
   </div>
   <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label class="marginLeft">Total Land</label>
-            <input type="text" class="form-control" placeholder="Total Land..." name="phone" pattern="[0-9]*"
-                #phone="ngModel" [(ngModel)]="payload.total_land" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required >
+            <label class="marginLeft">Plot Size</label>
+            <input type="text" class="form-control" placeholder="Plot Size" name="phone" pattern="[0-9]*"
+                #phone="ngModel" [(ngModel)]="payload.size" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required >
                 <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
-                  <div *ngIf="phone.errors.required">Phone  is required</div>
-                  <div *ngIf="phone.errors.pattern">Phone is Only Number</div>
+                  <div *ngIf="phone.errors.required">size  is required</div>
+                  <div *ngIf="phone.errors.pattern">size is Only Number</div>
               </div>
         </div>
     </div>
@@ -45,34 +58,72 @@
   </div>
 </div>
 <div class="row">
-<div class="col-md-12">
+<div class="col-md-6">
     <div class="form-group">
-        <label class="marginLeft">Land Lord</label>
-        <select class="form-control" name="land" #land="ngModel" [(ngModel)]="payload.landlordId" [ngClass]="{ 'is-invalid': f.submitted && land.invalid }" required>
-          <option [value]= 'null' disabled>Select land lord</option>
-          <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option>
+        <label class="marginLeft">Customer</label>
+        <select class="form-control" name="customerId" #customerId="ngModel" [(ngModel)]="payload.customerId" [ngClass]="{ 'is-invalid': f.submitted && customerId.invalid }" required>
+          <option [value]= 'null' disabled>Select Customer</option>
+          <option *ngFor="let item of cutomerList" [value]="item?.id"> {{item?.name}}</option>
         </select>
-            <div *ngIf="f.submitted && land.invalid" class="invalid-feedback">
-              <div *ngIf="land.errors.required">Land lord is required</div>
+            <div *ngIf="f.submitted && customerId.invalid" class="invalid-feedback">
+              <div *ngIf="customerId.errors.required">customer is required</div>
               <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
           </div>
     </div>
 </div>
+<div class="col-md-6">
+  <div class="form-group">
+      <label class="marginLeft">Town</label>
+      <select class="form-control" name="SubCategoryId" #SubCategoryId="ngModel" [(ngModel)]="payload.townId" [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
+        <option [value]= 'null' disabled>Select Town</option>
+        <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+      </select>
+          <div *ngIf="f.submitted && SubCategoryId.invalid" class="invalid-feedback">
+            <div *ngIf="SubCategoryId.errors.required">Town is required</div>
+            <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+        </div>
+  </div>
+</div>
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6">
       <div class="form-group">
-          <label class="marginLeft">Town</label>
-          <select class="form-control" name="SubCategoryId" #SubCategoryId="ngModel" [(ngModel)]="payload.townId" [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
-            <option [value]= 'null' disabled>Select Town</option>
-            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+          <label class="marginLeft">Payment Type</label>
+          <select class="form-control" name="isOnInstallment" #isOnInstallment="ngModel" [(ngModel)]="payload.isOnInstallment" [ngClass]="{ 'is-invalid': f.submitted && isOnInstallment.invalid }" required>
+            <option [value]= 'null' disabled>Select Payment Type</option>
+            <!-- <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>-->
+            <option value= true>Installment</option>
+            <option value=false>Cash</option>
           </select>
-              <div *ngIf="f.submitted && SubCategoryId.invalid" class="invalid-feedback">
-                <div *ngIf="SubCategoryId.errors.required">Town is required</div>
+              <div *ngIf="f.submitted && isOnInstallment.invalid" class="invalid-feedback">
+                <div *ngIf="isOnInstallment.errors.required">Payment Type is required</div>
                 <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
             </div>
       </div>
   </div>
+  <div *ngIf="payload.isOnInstallment" class="col-md-6">
+    <div class="form-group">
+        <label class="marginLeft">Payment Plan</label>
+        <select class="form-control" name="plotPaymentPlanId" #plotPaymentPlanId="ngModel" [(ngModel)]="payload.plotPaymentPlanId" [ngClass]="{ 'is-invalid': f.submitted && plotPaymentPlanId.invalid }" required>
+          <option [value]= 'null' disabled>Select Plan</option>
+          <option *ngFor="let item of paymentPlan" [value]="item?.id"> {{item?.payment_plan_name}}</option>
+        </select>
+            <div *ngIf="f.submitted && plotPaymentPlanId.invalid" class="invalid-feedback">
+              <div *ngIf="plotPaymentPlanId.errors.required">Payment Plan is required</div>
+          </div>
+    </div>
+</div>
+<div *ngIf="!payload.isOnInstallment" class="col-md-6">
+  <div class="form-group">
+      <label class="marginLeft">Total Payment</label>
+      <input type="text" class="form-control" placeholder="Total Payment" name="totalPayment" pattern="[0-9]*"
+          #totalPayment="ngModel" [(ngModel)]="payload.totalPayment" [ngClass]="{ 'is-invalid': f.submitted && totalPayment.invalid }" required >
+          <div *ngIf="f.submitted && totalPayment.invalid" class="invalid-feedback">
+            <div *ngIf="totalPayment.errors.required">Total Payment  is required</div>
+            <div *ngIf="totalPayment.errors.pattern">Total Payment is Only Number</div>
+        </div>
+  </div>
+</div>
   </div>
 <div class="row">
 <div class="col-md-12">

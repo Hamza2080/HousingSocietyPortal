@@ -11,26 +11,25 @@ export class AddPaymentPlanComponent implements OnInit {
   public payload = {
     payment_plan_name: null,
     description: null,
-    payment_plan_duration: 1,
-    is_monthly_plan_type: true,
-    first_payment: null,
-    installment_gap: "1 Month",
-    total_no_of_installment: 12,
-    total_amount: null,
-    installment_amount: 0,
-    created_by: 'admin',
+    downPayment: null,
+    installmentGap: null,
+    noOfInstallment: null,
+    totalAmount: null,
+    installmentAmount: null,
     created_at: new Date(),
-    id: null
+    id: null,
+    created_by_Id: null
   }
   public isLoading = false;
   constructor(public relatedModal: NgbActiveModal, private adminService: AdminService) { }
 
   ngOnInit() {
-
+    this.payload.created_by_Id = localStorage.getItem('userId');
   }
   onSubmit() {
-    this.payload.total_amount = Number(this.payload.total_amount)
-    this.payload.first_payment = Number(this.payload.first_payment)
+    this.payload.downPayment = Number(this.payload.downPayment);
+    this.payload.installmentGap = Number(this.payload.installmentGap);
+    this.payload.installmentAmount = Number(this.payload.installmentAmount);
     this.isLoading = true;
     this.adminService.addPaymentPlans(this.payload).then(res => {
       console.log(res);
@@ -39,6 +38,6 @@ export class AddPaymentPlanComponent implements OnInit {
     }).catch(err => {
       console.log(err);
       this.isLoading = false;
-    })
+    });
   }
 }

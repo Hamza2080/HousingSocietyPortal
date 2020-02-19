@@ -74,6 +74,46 @@
       </div>
   </div>
   </div>
+  <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="marginLeft">Payment Type</label>
+            <select class="form-control" name="isOnInstallment" #isOnInstallment="ngModel" [(ngModel)]="payload.isOnInstallment" [ngClass]="{ 'is-invalid': f.submitted && isOnInstallment.invalid }" required>
+              <option [value]= 'null' disabled>Select Payment Type</option>
+              <!-- <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>-->
+              <option value= true>Installment</option>
+              <option value=false>Cash</option>
+            </select>
+                <div *ngIf="f.submitted && isOnInstallment.invalid" class="invalid-feedback">
+                  <div *ngIf="isOnInstallment.errors.required">Payment Type is required</div>
+                  <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+              </div>
+        </div>
+    </div>
+    <div *ngIf="payload.isOnInstallment" class="col-md-6">
+      <div class="form-group">
+          <label class="marginLeft">Payment Plan</label>
+          <select class="form-control" name="plotPaymentPlanId" #plotPaymentPlanId="ngModel" [(ngModel)]="payload.plotPaymentPlanId" [ngClass]="{ 'is-invalid': f.submitted && plotPaymentPlanId.invalid }" required>
+            <option [value]= 'null' disabled>Select Plan</option>
+            <option *ngFor="let item of paymentPlan" [value]="item?.id"> {{item?.payment_plan_name}}</option>
+          </select>
+              <div *ngIf="f.submitted && plotPaymentPlanId.invalid" class="invalid-feedback">
+                <div *ngIf="plotPaymentPlanId.errors.required">Payment Plan is required</div>
+            </div>
+      </div>
+  </div>
+  <div *ngIf="!payload.isOnInstallment" class="col-md-6">
+    <div class="form-group">
+        <label class="marginLeft">Total Payment</label>
+        <input type="text" class="form-control" placeholder="Total Payment" name="totalPayment" pattern="[0-9]*"
+            #totalPayment="ngModel" [(ngModel)]="payload.totalPayment" [ngClass]="{ 'is-invalid': f.submitted && totalPayment.invalid }" required >
+            <div *ngIf="f.submitted && totalPayment.invalid" class="invalid-feedback">
+              <div *ngIf="totalPayment.errors.required">Total Payment  is required</div>
+              <div *ngIf="totalPayment.errors.pattern">Total Payment is Only Number</div>
+          </div>
+    </div>
+  </div>
+    </div>
 <div class="row">
 <div class="col-md-12">
   <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save<span *ngIf="isLoading"

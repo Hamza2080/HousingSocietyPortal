@@ -238,7 +238,7 @@ export class AdminService {
   }
   getAllPaymentPlans() {
     return new Promise((resolve, reject) => {
-      this.httpSecure.get('/land_payment_plans').subscribe(res => {
+      this.httpSecure.get('/plot_payment_plans').subscribe(res => {
         console.log(res);
         resolve(res.data);
       }, err => {
@@ -250,7 +250,7 @@ export class AdminService {
   }
   addPaymentPlans(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.post('/land_payment_plans', payload).subscribe(res => {
+      this.httpSecure.post('/plot_payment_plans', payload).subscribe(res => {
         console.log(res);
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
@@ -258,6 +258,100 @@ export class AdminService {
         this.toastr.error('Error!', err.error.error.message);
         reject(err);
 
+      });
+    });
+  }
+  getAllPlotCategories() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/plotcategories').subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  addPlotCategories(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/plotcategories',payload).subscribe(res => {
+        console.log(res);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  addPlots(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/plots',payload).subscribe(res => {
+        console.log(res);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  getAllPlots() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/plots').subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  salePlot(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/plots/salePlot',payload).subscribe(res => {
+        console.log(res);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  submitPlotInstallment(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/plots/submitInstallment',payload).subscribe(res => {
+        console.log(res);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  submitLandInstallment(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/lands/submitInstallment',payload).subscribe(res => {
+        console.log(res);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  submitLand(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/plots/salePlot',payload).subscribe(res => {
+        console.log(res);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
       });
     });
   }

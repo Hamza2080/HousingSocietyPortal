@@ -1,0 +1,12 @@
+.btnColor{
+    background-color: #3472F7 !important;
+    color: white !important; 
+    font-weight: bold !important;
+}
+.btnSlaeBtn{
+    background-color: #46b8da !important;
+    border-color: #46b8da !important;
+    color: white !important;
+    font-weight: bold !important;
+    margin-left: 6px !important;
+}

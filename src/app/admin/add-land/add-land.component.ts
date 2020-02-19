@@ -9,16 +9,22 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class AddLandComponent implements OnInit {
   public payload = {
-    name: null,
-    total_land: null,
-    measuring_unit: null,
-    acquired_date: new Date(),
-    landlordId: null,
-    landMeasuringUnitId: null,
-    townId: null
+       name :  null ,
+       total_land : 0,
+       measuring_unit :  null ,
+       acquired_date :  new Date(),
+       totalPayment : null,
+       downPayment : null,
+       discount : null,
+       isOnInstallment : false,
+       landlordId :  null ,
+       landMeasuringUnitId :  null ,
+       townId :  null ,
+       plotPaymentPlanId :  null
   };
+  public paymentPlan = [];
   public measurementsList = [];
-  public landLordList = []
+  public landLordList = [];
   public townList = [];
   public isLoading = false;
   constructor(public relatedModal: NgbActiveModal, private adminService: AdminService) { }
@@ -27,6 +33,7 @@ export class AddLandComponent implements OnInit {
     this.getTowns();
     this.getMeasurements();
     this.getLandLord();
+    this.getPaymentPlan();
   }
   onSubmit() {
     this.isLoading = true;
@@ -73,5 +80,16 @@ export class AddLandComponent implements OnInit {
     }).catch(err => {
       console.log(err);
     })
+  }
+  getPaymentPlan() {
+    this.adminService.getAllPaymentPlans().then(res => {
+      this.paymentPlan = res as any[];
+      if (this.paymentPlan.length) {
+        this.payload.landMeasuringUnitId = this.paymentPlan[0].id;
+      }
+
+    }).catch(err => {
+      console.log(err);
+    });
   }
 }

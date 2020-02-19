@@ -27,6 +27,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AddPaymentPlanComponent } from './add-payment-plan/add-payment-plan.component';
 import { ViewPlotsComponent } from './view-plots/view-plots.component';
 import { AddPlotsComponent } from './add-plots/add-plots.component';
+import { PlotCategoriesComponent } from './plot-categories/plot-categories.component';
+import { InstallmentComponent } from './installment/installment.component';
 @NgModule({
   entryComponents: [
     AddManagerComponent,
@@ -37,9 +39,11 @@ import { AddPlotsComponent } from './add-plots/add-plots.component';
     AddAuthorizedDealerComponent,
     AddCustomerComponent,
     AddPaymentPlanComponent,
-    AddPlotsComponent
+    AddPlotsComponent,
+    PlotCategoriesComponent,
+    InstallmentComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, AddManagerComponent, AddLandMeasuringComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, AddManagerComponent, AddLandMeasuringComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent],
   imports: [
     CommonModule,
     FormsModule,

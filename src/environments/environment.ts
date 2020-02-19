@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_URL:'https://housing-society-backend.herokuapp.com/api'
+  API_URL:'https://housing-society-backend.herokuapp.com/api',
+  // API_URL:'http://192.168.100.135:3000/api',
 };
 
 /*
