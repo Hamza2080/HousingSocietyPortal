@@ -139,7 +139,17 @@ export class AdminService {
   getLandLord() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/landlords').subscribe(res => {
-        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getLandLordById(landlordId) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/landlords/' + landlordId).subscribe(res => {
         resolve(res.data);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
@@ -152,6 +162,18 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/landlords', payload).subscribe(res => {
         console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  updateLandLord(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/landlords', payload).subscribe(res => {
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
       }, err => {

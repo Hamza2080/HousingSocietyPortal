@@ -25,6 +25,7 @@
                                       <th>Phone</th>
                                       <th>CNIC Number</th>
                                       <th>Address</th>
+                                      <th>Actions</th>
                                     </tr>
                               </thead>
                               <tbody *ngIf = "landLordList?.length > 0">
@@ -33,6 +34,10 @@
                                 <td>{{item?.phone}}</td>
                                 <td>{{item?.cnic}}</td>
                                 <td>{{item?.address}}</td>
+                                <td>
+                                  <i class="fa fa-pencil mr-2 action-icon" aria-hidden="true" (click)="openEditModel(item.id)"></i> 
+                                  <i class="fa fa-trash action-icon" aria-hidden="true"></i>
+                                </td>
                               </tr>
                             </tbody>
                               

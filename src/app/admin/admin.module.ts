@@ -29,6 +29,8 @@ import { ViewPlotsComponent } from './view-plots/view-plots.component';
 import { AddPlotsComponent } from './add-plots/add-plots.component';
 import { PlotCategoriesComponent } from './plot-categories/plot-categories.component';
 import { InstallmentComponent } from './installment/installment.component';
+import { EditLandLordComponent } from './edit-land-lord/edit-land-lord.component';
+
 @NgModule({
   entryComponents: [
     AddManagerComponent,
@@ -41,9 +43,10 @@ import { InstallmentComponent } from './installment/installment.component';
     AddPaymentPlanComponent,
     AddPlotsComponent,
     PlotCategoriesComponent,
-    InstallmentComponent
+    InstallmentComponent,
+    EditLandLordComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, AddManagerComponent, AddLandMeasuringComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, AddManagerComponent, AddLandMeasuringComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
   imports: [
     CommonModule,
     FormsModule,
