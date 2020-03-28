@@ -1,6 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
+import { ToastrService } from 'ngx-toastr';
+
+class Installment {
+    public srNo : number;
+    public installmentName : string;//"downPayment | installmentNumber, (notrequired)"
+    public installmentAmount : number;
+    public dueDate = new Date();
+    public status : string;
+    public receivedByName : string;
+    public receivedByNumber : string;
+    public receiveDate = new Date();
+    public paidBy : string;
+    public receiptNumber : string;
+    public attachment : Array<string>;
+}
 
 @Component({
   selector: 'app-add-land',
@@ -8,37 +23,72 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./add-land.component.css']
 })
 export class AddLandComponent implements OnInit {
+  private installmentsCreated = false;
   public payload = {
-       name :  null ,
-       total_land : 0,
-       measuring_unit :  null ,
-       acquired_date :  new Date(),
-       totalPayment : null,
-       downPayment : null,
-       discount : null,
-       isOnInstallment : false,
-       landlordId :  null ,
-       landMeasuringUnitId :  null ,
-       townId :  null ,
-       plotPaymentPlanId :  null
+      description:  null ,
+      totalLand: 0,
+      measuringUnit: null ,
+      acquired_date: new Date(),
+      installmentStartDate: null,
+      installmentGap: null,
+      totalPayment: null,
+      downPayment: null,
+      noOfInstallment: null,
+      installmentAmount: null,
+      isOnInstallment: true,
+      additionalNotes: null,
+      landlordId: null ,
+      townId: null,
+      installments: []
   };
-  public paymentPlan = [];
-  public measurementsList = [];
-  public landLordList = [];
-  public townList = [];
+  townList: any[];
+  measurementsList: any[];
+  landLordList: any[];
+
+  // public paymentPlan = [];
+  // public measurementsList = [];
+  // public landLordList = [];
+  // public townList = [];
   public isLoading = false;
-  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService) { }
+  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {}
 
   ngOnInit() {
+    // this.initializeLandPayload();
+
     this.getTowns();
     this.getMeasurements();
     this.getLandLord();
-    this.getPaymentPlan();
+    // this.getPaymentPlan();
   }
+
+  createInstallment() {
+    if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
+
+      for (let i = 0; i < this.payload.noOfInstallment; i++) {
+        let startDate = new Date(this.payload.installmentStartDate);
+        let installment = new Installment();
+        installment.srNo = i+1;
+        installment.installmentName = "installment_" + i+1;
+        installment.installmentAmount = this.payload.installmentAmount;
+        installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * i))),
+        installment.status = 'Due'; // Due / Paid
+
+        this.payload.installments.push(installment);
+        this.installmentsCreated = true;
+      }
+    } else this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
+  }
+
+
   onSubmit() {
     this.isLoading = true;
-    this.payload.total_land = Number(this.payload.total_land);
-    // this.payload.phone = Number(this.payload.phone);
+    this.payload.totalLand = Number(this.payload.totalLand);
+    this.payload.installmentGap = Number(this.payload.installmentGap);
+    this.payload.totalPayment = Number(this.payload.totalPayment);
+    this.payload.downPayment = Number(this.payload.downPayment);
+    this.payload.noOfInstallment = Number(this.payload.noOfInstallment);
+    this.payload.installmentAmount = Number(this.payload.installmentAmount);
+
     this.adminService.addLand(this.payload).then(res => {
       console.log(res);
       this.isLoading = false;
@@ -48,6 +98,8 @@ export class AddLandComponent implements OnInit {
       this.isLoading = false;
     })
   }
+
+
   getTowns() {
     this.adminService.getAllTowns().then(res => {
       this.townList = res as any[];
@@ -63,7 +115,7 @@ export class AddLandComponent implements OnInit {
     this.adminService.getAllMeasurement().then(res => {
       this.measurementsList = res as any[];
       if (this.measurementsList.length) {
-        this.payload.landMeasuringUnitId = this.measurementsList[0].id;
+        this.payload.measuringUnit = this.measurementsList[0].measuring_unit;
       }
 
     }).catch(err => {
@@ -80,16 +132,5 @@ export class AddLandComponent implements OnInit {
     }).catch(err => {
       console.log(err);
     })
-  }
-  getPaymentPlan() {
-    this.adminService.getAllPaymentPlans().then(res => {
-      this.paymentPlan = res as any[];
-      if (this.paymentPlan.length) {
-        this.payload.landMeasuringUnitId = this.paymentPlan[0].id;
-      }
-
-    }).catch(err => {
-      console.log(err);
-    });
   }
 }

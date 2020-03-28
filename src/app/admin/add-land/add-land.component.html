@@ -7,90 +7,92 @@
 <div class="modal-body">
   <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
     <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label class="marginLeft">Name</label>
-                <input type="text" class="form-control" placeholder="Land Lord Name..." name="name"
-                    #name="ngModel" [(ngModel)]="payload.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
-                    <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" >
-                      <div *ngIf="name.errors.required">Name is required</div>
-                  </div>
-            </div>
-        </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
+      <div class="col-md-12">
         <div class="form-group">
-            <label class="marginLeft">Total Land</label>
-            <input type="text" class="form-control" placeholder="Total Land..." name="phone" pattern="[0-9]*"
-                #phone="ngModel" [(ngModel)]="payload.total_land" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required >
-                <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
-                  <div *ngIf="phone.errors.required">Phone  is required</div>
-                  <div *ngIf="phone.errors.pattern">Phone is Only Number</div>
-              </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-          <label class="marginLeft">Land Measuring Unit</label>
-          <select class="form-control" name="landMeasuring" #landMeasuring="ngModel" [(ngModel)]="payload.landMeasuringUnitId" [ngClass]="{ 'is-invalid': f.submitted && landMeasuring.invalid }" required>
-            <option [value]= 'null' disabled>Land Measuring Unit</option>
-            <option *ngFor="let item of measurementsList" [value]="item?.id"> {{item?.measuring_unit}}</option>
-          </select>
-              <div *ngIf="f.submitted && landMeasuring.invalid" class="invalid-feedback">
-                <div *ngIf="landMeasuring.errors.required">Land Measuring Unit is required</div>
-                <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
-            </div>
-      </div>
-  </div>
-</div>
-<div class="row">
-<div class="col-md-12">
-    <div class="form-group">
-        <label class="marginLeft">Land Lord</label>
-        <select class="form-control" name="land" #land="ngModel" [(ngModel)]="payload.landlordId" [ngClass]="{ 'is-invalid': f.submitted && land.invalid }" required>
-          <option [value]= 'null' disabled>Select land lord</option>
-          <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option>
-        </select>
-            <div *ngIf="f.submitted && land.invalid" class="invalid-feedback">
-              <div *ngIf="land.errors.required">Land lord is required</div>
-              <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+          <label class="marginLeft">Description</label>
+          <input type="text" class="form-control" placeholder="Description of land..." name="description"
+            #description="ngModel" [(ngModel)]="payload.description"
+            [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required>
+          <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+            <div *ngIf="description.errors.required">Description is required</div>
           </div>
+        </div>
+      </div>
     </div>
-</div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-      <div class="form-group">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Total Land</label>
+          <input type="text" class="form-control" placeholder="Total Land..." name="totalLand" pattern="[0-9]*"
+            #totalLand="ngModel" [(ngModel)]="payload.totalLand"
+            [ngClass]="{ 'is-invalid': f.submitted && totalLand.invalid }" required>
+          <div *ngIf="f.submitted && totalLand.invalid" class="invalid-feedback">
+            <div *ngIf="totalLand.errors.required">Total land detail is required</div>
+            <div *ngIf="totalLand.errors.pattern">Total land is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Land Measuring Unit</label>
+          <select class="form-control" name="measuringUnit" #measuringUnit="ngModel" [(ngModel)]="payload.measuringUnit"
+            [ngClass]="{ 'is-invalid': f.submitted && measuringUnit.invalid }" required>
+            <option [value]='null' disabled>Land Measuring Unit</option>
+            <option *ngFor="let item of measurementsList" [value]="item?.measuring_unit"> {{item?.measuring_unit}}
+            </option>
+          </select>
+          <div *ngIf="f.submitted && measuringUnit.invalid" class="invalid-feedback">
+            <div *ngIf="measuringUnit.errors.required">Land Measuring Unit is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Land Lord</label>
+          <select class="form-control" name="landlordId" #landlordId="ngModel" [(ngModel)]="payload.landlordId"
+            [ngClass]="{ 'is-invalid': f.submitted && landlordId.invalid }" required>
+            <option [value]='null' disabled>Select land-lord</option>
+            <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option>
+          </select>
+          <div *ngIf="f.submitted && landlordId.invalid" class="invalid-feedback">
+            <div *ngIf="landlordId.errors.required">Land-lord is required</div>
+            <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
           <label class="marginLeft">Town</label>
-          <select class="form-control" name="SubCategoryId" #SubCategoryId="ngModel" [(ngModel)]="payload.townId" [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
-            <option [value]= 'null' disabled>Select Town</option>
+          <select class="form-control" name="townId" #townId="ngModel" [(ngModel)]="payload.townId"
+            [ngClass]="{ 'is-invalid': f.submitted && townId.invalid }" required>
+            <option [value]='null' disabled>Select Town</option>
             <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
           </select>
-              <div *ngIf="f.submitted && SubCategoryId.invalid" class="invalid-feedback">
-                <div *ngIf="SubCategoryId.errors.required">Town is required</div>
-                <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
-            </div>
+          <div *ngIf="f.submitted && townId.invalid" class="invalid-feedback">
+            <div *ngIf="townId.errors.required">Town is required</div>
+          </div>
+        </div>
       </div>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
+    </div>
+    <div class="row">
+      <!-- <div class="col-md-6">
         <div class="form-group">
             <label class="marginLeft">Payment Type</label>
             <select class="form-control" name="isOnInstallment" #isOnInstallment="ngModel" [(ngModel)]="payload.isOnInstallment" [ngClass]="{ 'is-invalid': f.submitted && isOnInstallment.invalid }" required>
               <option [value]= 'null' disabled>Select Payment Type</option>
-              <!-- <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>-->
+              <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
               <option value= true>Installment</option>
               <option value=false>Cash</option>
             </select>
                 <div *ngIf="f.submitted && isOnInstallment.invalid" class="invalid-feedback">
                   <div *ngIf="isOnInstallment.errors.required">Payment Type is required</div>
-                  <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+                  <div *ngIf="Address.errors.pattern">CNIC is Only Number</div>
               </div>
         </div>
-    </div>
-    <div *ngIf="payload.isOnInstallment" class="col-md-6">
+    </div> -->
+      <!-- <div *ngIf="payload.isOnInstallment" class="col-md-6">
       <div class="form-group">
           <label class="marginLeft">Payment Plan</label>
           <select class="form-control" name="plotPaymentPlanId" #plotPaymentPlanId="ngModel" [(ngModel)]="payload.plotPaymentPlanId" [ngClass]="{ 'is-invalid': f.submitted && plotPaymentPlanId.invalid }" required>
@@ -101,25 +103,129 @@
                 <div *ngIf="plotPaymentPlanId.errors.required">Payment Plan is required</div>
             </div>
       </div>
-  </div>
-  <div *ngIf="!payload.isOnInstallment" class="col-md-6">
-    <div class="form-group">
-        <label class="marginLeft">Total Payment</label>
-        <input type="text" class="form-control" placeholder="Total Payment" name="totalPayment" pattern="[0-9]*"
-            #totalPayment="ngModel" [(ngModel)]="payload.totalPayment" [ngClass]="{ 'is-invalid': f.submitted && totalPayment.invalid }" required >
-            <div *ngIf="f.submitted && totalPayment.invalid" class="invalid-feedback">
-              <div *ngIf="totalPayment.errors.required">Total Payment  is required</div>
-              <div *ngIf="totalPayment.errors.pattern">Total Payment is Only Number</div>
+  </div> -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Total Payment</label>
+          <input type="text" class="form-control" placeholder="Total payment in rupees..." name="totalPayment"
+            pattern="[0-9]*" #totalPayment="ngModel" [(ngModel)]="payload.totalPayment"
+            [ngClass]="{ 'is-invalid': f.submitted && totalPayment.invalid }" required>
+          <div *ngIf="f.submitted && totalPayment.invalid" class="invalid-feedback">
+            <div *ngIf="totalPayment.errors.required">Total Payment is required</div>
+            <div *ngIf="totalPayment.errors.pattern">Total Payment is Only Number</div>
           </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Down Payment</label>
+          <input type="text" class="form-control" placeholder="Down payment in rupees..." name="downPayment"
+            pattern="[0-9]*" #downPayment="ngModel" [(ngModel)]="payload.downPayment"
+            [ngClass]="{ 'is-invalid': f.submitted && downPayment.invalid }" required>
+          <div *ngIf="f.submitted && downPayment.invalid" class="invalid-feedback">
+            <div *ngIf="downPayment.errors.required">Down Payment is required</div>
+            <div *ngIf="downPayment.errors.pattern">Down Payment is Only Number</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">No. of Installments</label>
+          <input type="text" class="form-control" placeholder="No. of Installment..." name="noOfInstallment"
+            pattern="[0-9]*" #noOfInstallment="ngModel" [(ngModel)]="payload.noOfInstallment"
+            [ngClass]="{ 'is-invalid': f.submitted && noOfInstallment.invalid }" required>
+          <div *ngIf="f.submitted && noOfInstallment.invalid" class="invalid-feedback">
+            <div *ngIf="noOfInstallment.errors.required">No Of Installment is required</div>
+            <div *ngIf="noOfInstallment.errors.pattern">No Of Installment is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Installment Amount</label>
+          <input type="text" class="form-control" placeholder="Installment Amount" name="installmentAmount"
+            pattern="[0-9]*" #installmentAmount="ngModel" [(ngModel)]="payload.installmentAmount"
+            [ngClass]="{ 'is-invalid': f.submitted && installmentAmount.invalid }" required>
+          <div *ngIf="f.submitted && installmentAmount.invalid" class="invalid-feedback">
+            <div *ngIf="installmentAmount.errors.required">Installment Amount is required</div>
+            <div *ngIf="installmentAmount.errors.pattern">Installment Amount is Only Number</div>
+          </div>
+        </div>
+      </div>
     </div>
-<div class="row">
-<div class="col-md-12">
-  <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save<span *ngIf="isLoading"
-    class="btn-spinnerr"></span></button>
-</div>
-</div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Installment Gap</label>
+          <input type="text" class="form-control" placeholder="Installment Gap" name="installmentGap"
+            pattern="[0-9]*" #installmentGap="ngModel" [(ngModel)]="payload.installmentGap"
+            [ngClass]="{ 'is-invalid': f.submitted && installmentGap.invalid }" required>
+          <div *ngIf="f.submitted && installmentGap.invalid" class="invalid-feedback">
+            <div *ngIf="installmentGap.errors.required">Installment Gap is required</div>
+            <div *ngIf="installmentGap.errors.pattern">Installment Gap is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Installment Start From</label>
+          <input type="text" name="installmentStartDate" placeholder="Installments Start From" #installmentStartDate="ngModel" [(ngModel)]="payload.installmentStartDate" class="form-control" 
+          [ngClass]="{ 'is-invalid': f.submitted && installmentStartDate.invalid }" required bsDatepicker>
+          <div *ngIf="f.submitted && installmentStartDate.invalid" class="invalid-feedback">
+            <div *ngIf="installmentStartDate.errors.required">Installment start date is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Additional Notes</label>
+          <textarea name="additionalNotes" class="form-control" placeholder="Additional Notes About Land..."
+            name="additionalNotes" #additionalNotes="ngModel" [(ngModel)]="payload.additionalNotes"
+            [ngClass]="{ 'is-invalid': f.submitted && additionalNotes.invalid }"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Installments</label>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Due</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let installment of payload.installments">
+                    <th scope="row">{{installment?.srNo}}</th>
+                    <td>{{installment?.installmentAmount}}</td>
+                    <td>{{installment?.dueDate}}</td>
+                    <td class="badge badge-info">{{installment?.status}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" *ngIf="!installmentsCreated" (click)="createInstallment()" class="btn btn-info btn-fill pull-right" [disabled]="isLoading">Create Installments<span
+            *ngIf="isLoading" class="btn-spinnerr"></span></button>
+        <button type="submit" class="btn btn-info btn-fill pull-right" *ngIf="installmentsCreated" [disabled]="isLoading">Save<span
+            *ngIf="isLoading" class="btn-spinnerr"></span></button>
+      </div>
+    </div>
   </form>
-  </div>
-  <!-- </div> -->
+</div>
+<!-- </div> -->

@@ -55,7 +55,6 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/lands').subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
         resolve(res.data);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
