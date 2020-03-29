@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
          <div class="logo">
              <a router-link="/Town" class="simple-text">
-                Housing Society Portal
+                Housing Society
              </a>
          </div>
  
@@ -17,21 +17,21 @@
              <li routerLinkActive='active'>
                 <a [routerLink]="['/admin/Town']" >
                     <i class="fa fa-home" aria-hidden="true"></i>
-                    <p>Town</p>
+                    <p>Town Detail</p>
                 </a>
             </li>
             <li routerLinkActive='active'>
                 <a [routerLink]="['/admin/landlord']" >
                     <!-- <i class="fa fa-home" aria-hidden="true"></i> -->
                     <i class="fa fa-users" aria-hidden="true"></i>
-                    <p>Land Lord</p>
+                    <p>Land-Lord</p>
                 </a>
             </li>
              <li routerLinkActive='active'>
               <a [routerLink]="['/admin/land']" >
                   <!-- <i class="pe-7s-graph"></i> -->
                   <i class="fa fa-map-marker"></i>
-                  <p>Land</p>
+                  <p>Land Information</p>
               </a>
           </li>
 
@@ -47,7 +47,7 @@
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/customers']" >
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <p>Customers</p>
+                <p>Customer Detail</p>
             </a>
         </li>
         <li routerLinkActive='active'>
@@ -59,7 +59,13 @@
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/plots']" >
                 <i class="fa fa-area-chart" aria-hidden="true"></i>
-                <p>plots</p>
+                <p>Plots Details</p>
+            </a>
+        </li>
+        <li (click)="logout()">
+            <a>
+                <i class="fa fa-area-chart" aria-hidden="true"></i>
+                <p>Logout</p>
             </a>
         </li>
          </ul>
