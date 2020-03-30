@@ -61,6 +61,7 @@ export class AdminService {
         // localStorage.setItem('userId', res.data.userId);
         // this.router.navigateByUrl('/admin/manager')
       }, err => {
+        console.log(err);
         this.toastr.error('Error!', err.error.error.message);
         reject(err);
 

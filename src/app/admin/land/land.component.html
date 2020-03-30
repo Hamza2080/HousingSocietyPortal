@@ -28,20 +28,22 @@
                   <th>Total Land</th>
                   <th>Acquired Date</th>
                   <th>Land Lord</th>
-                  <th>Land Lord Phone</th>
                   <th>Status</th>
-                  <th>Payment Plan</th>
+                  <th>Total</th>
+                  <th>Down Payment</th>
+                  <th>Installments</th>
                 </tr>
               </thead>
               <tbody *ngIf="landList?.length > 0">
                 <tr *ngFor="let item of landList| paginate: { itemsPerPage: 10, currentPage: p }">
-                  <td>{{item?.name}}</td>
-                  <td>{{item?.total_land}} {{item?.measuring_unit}}</td>
+                  <td>{{item?.description}}</td>
+                  <td>{{item?.totalLand}} {{item?.measuringUni}}</td>
                   <td>{{item?.acquired_date |date:'mediumDate'}}</td>
-                  <td>{{item?.landlordData?.name}}</td>
-                  <td>{{item?.landlordData?.phone}}</td>
-                <td>{{item?.landPaymentStatus}}</td>
-                <td>{{item?.paymentPlanData?.payment_plan_name}}</td>
+                  <td>{{item?.landlordData?.name}} - {{item?.landlordData?.phone}}</td>
+                  <td>{{item?.landPaymentStatus}}</td>
+                  <td>{{item?.totalPayment}}</td>
+                  <td>{{item?.downPayment}}</td>
+                  <td>{{item?.noOfInstallment}}</td>
                 <td>
                   <button type="button" *ngIf="!item?.installments?.length" [disabled]="!item?.installments?.length" class="btn btn-primary btn-sm btnColor" title="No Installments Found">Installments</button>
                   <button type="button" *ngIf="item?.installments?.length > 0" (click)="openInstallment(item)" class="btn btn-primary btn-sm btnColor" title="Installments">Installments</button>
