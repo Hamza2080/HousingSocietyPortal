@@ -10,6 +10,7 @@ export class HttpService {
   constructor(public http: HttpClient) { }
   header: HttpHeaders = new HttpHeaders({'authorization': localStorage.getItem('token')});
   public get(endpoint): Observable<any> {
+    console.log(this.header)
     return this.http.get(environment.API_URL + endpoint,{headers: this.header});
   }
   public post(endpoint,payLoad): Observable<any> {

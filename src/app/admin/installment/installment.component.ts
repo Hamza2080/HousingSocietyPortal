@@ -64,4 +64,9 @@ export class InstallmentComponent implements OnInit {
       this.isLoading = false;
     })
   }
+
+  isDueDatePassed(item) {
+    if (new Date(item.dueDate) > new Date()) return false;
+    else return false;
+  }
 }

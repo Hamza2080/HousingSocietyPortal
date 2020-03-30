@@ -12,6 +12,7 @@
         <thead *ngIf="installment?.length === 0">No Record Found</thead>
         <thead *ngIf="installment?.length > 0">
           <tr>
+            <th>SrNo.</th>
             <th>Amount</th>
             <th>Submission Date</th>
             <th>Status</th>
@@ -19,13 +20,14 @@
         </thead>
         <tbody *ngIf="installment?.length > 0">
           <tr *ngFor="let item of installment">
+            <td>{{item?.srNo}}</td>
             <td>{{item?.installmentAmount}}</td>
-            <td>{{item?.submissionDate|date:'mediumDate'}}</td>
+            <td>{{item?.dueDate | date:'mediumDate'}}</td>
             <td>{{item?.status}}</td>
-            <td *ngIf="item?.status === 'done'" class="text-success">Submited</td>
-            <td *ngIf="item?.status !== 'done'">
-              
-              <button type="button"  class="btn btn-info btn-sm btnSlaeBtn" (click)="onSubmitPlotInstallment(item)" >Submit</button>
+            <td *ngIf="item?.status === 'Paid'" class="text-success">Paid</td>
+            <td *ngIf="item?.status !== 'Paid'">
+              <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="onSubmitPlotInstallment(item)"
+                [disabled]="isDueDatePassed(item)">Due</button>
             </td>
           </tr>
         </tbody>
@@ -38,66 +40,89 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label class="marginLeft">Submitted By</label>
-            <input type="text" class="form-control" placeholder="Submitted By" name="measuringunit"
-              #measuringunit="ngModel" [(ngModel)]="landPayload.submittedBy"
-              [ngClass]="{ 'is-invalid': f.submitted && measuringunit.invalid }" required>
-            <div *ngIf="f.submitted && measuringunit.invalid" class="invalid-feedback">
-              <div *ngIf="measuringunit.errors.required">Measuring Unit is required</div>
+            <!-- landId, receivedByName, receivedByNumber, receiveDate, paidBy, receiptNumber, attachment -->
+            <label class="marginLeft">Received By</label>
+            <input type="text" class="form-control" placeholder="Payment submitted to whom..." name="receivedByName"
+              #receivedByName="ngModel" [(ngModel)]="landPayload.receivedByName"
+              [ngClass]="{ 'is-invalid': f.submitted && receivedByName.invalid }" required>
+            <div *ngIf="f.submitted && receivedByName.invalid" class="invalid-feedback">
+              <div *ngIf="receivedByName.errors.required">ReceivedByName is required</div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="marginLeft">Submitted To</label>
-              <input type="text" class="form-control" placeholder="Submitted To" name="submittedTo"
-                #submittedTo="ngModel" [(ngModel)]="landPayload.submittedTo"
-                [ngClass]="{ 'is-invalid': f.submitted && submittedTo.invalid }" required>
-              <div *ngIf="f.submitted && submittedTo.invalid" class="invalid-feedback">
-                <div *ngIf="submittedTo.errors.required">Submitted To is required</div>
-              </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="marginLeft">Paid By</label>
+            <input type="text" class="form-control" placeholder="Paid by whom..." name="paidBy" #paidBy="ngModel"
+              [(ngModel)]="landPayload.paidBy" [ngClass]="{ 'is-invalid': f.submitted && paidBy.invalid }" required>
+            <div *ngIf="f.submitted && paidBy.invalid" class="invalid-feedback">
+              <div *ngIf="paidBy.errors.required">Required field</div>
             </div>
           </div>
-      </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label class="marginLeft">Contact</label>
-            <input type="text" class="form-control" placeholder="Contact" name="contact"
-              #contact="ngModel" [(ngModel)]="landPayload.contact"
-              [ngClass]="{ 'is-invalid': f.submitted && contact.invalid }" required>
-            <div *ngIf="f.submitted && contact.invalid" class="invalid-feedback">
-              <div *ngIf="contact.errors.required">contact is required</div>
+            <input type="text" class="form-control" placeholder="Contact..." name="receivedByNumber"
+              #receivedByNumber="ngModel" [(ngModel)]="landPayload.receivedByNumber"
+              [ngClass]="{ 'is-invalid': f.submitted && receivedByNumber.invalid }" required>
+            <div *ngIf="f.submitted && receivedByNumber.invalid" class="invalid-feedback">
+              <div *ngIf="receivedByNumber.errors.required">contact is required</div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="marginLeft">Land Id</label>
-              <input type="text" class="form-control" placeholder="Plot Id" name="plotId"
-                #plotId="ngModel" [(ngModel)]="landPayload.landId"
-                [ngClass]="{ 'is-invalid': f.submitted && submittedTo.invalid }" disabled>
-              <!-- <div *ngIf="f.submitted && submittedTo.invalid" class="invalid-feedback">
-                <div *ngIf="submittedTo.errors.required">Submitted To is required</div>
-              </div> -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="marginLeft">Date</label>
+            <input type="text" class="form-control" placeholder="Date..." name="receiveDate" #receiveDate="ngModel"
+              [(ngModel)]="payload.receiveDate" bsDatepicker [bsConfig]="bsConfig"
+              [ngClass]="{ 'is-invalid': f.submitted && receiveDate.invalid }" required>
+            <div *ngIf="f.submitted && receiveDate.invalid" class="invalid-feedback">
+              <div *ngIf="receiveDate.errors.required">Date is required</div>
             </div>
           </div>
+        </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="marginLeft">Receipt Number</label>
+            <input type="text" class="form-control" placeholder="Receipt Number..." name="receiptNumber"
+              #receiptNumber="ngModel" [(ngModel)]="landPayload.receiptNumber"
+              [ngClass]="{ 'is-invalid': f.submitted && receiptNumber.invalid }">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="marginLeft">Land Id</label>
+            <input type="text" class="form-control" placeholder="Plot Id" name="plotId" #plotId="ngModel"
+              [(ngModel)]="landPayload.landId" [ngClass]="{ 'is-invalid': f.submitted && submittedTo.invalid }"
+              disabled>
+          </div>
+        </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          
+        </div>
+      </div>
+
+
       <div class="row">
         <div class="col-md-6">
           <button type="button" class="btn btn-danager btn-fill" (click)="isAdded = false">Back</button>
         </div>
         <div class="col-md-6">
-          <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save<span *ngIf="isLoading"
-            class="btn-spinnerr"></span></button>
+          <button type="submit" class="btn btn-info btn-fill pull-right" [disabled]="isLoading">Save<span
+              *ngIf="isLoading" class="btn-spinnerr"></span></button>
         </div>
       </div>
     </form>
-</div>
+  </div>
 </div>
 <div *ngIf="isplotSide" class="modal-body">
 
@@ -128,8 +153,9 @@
             <td>{{item?.contact}}</td>
             <td *ngIf="item?.status === 'done'" class="text-success">Submited</td>
             <td *ngIf="item?.status !== 'done'">
-              
-              <button type="button"  class="btn btn-info btn-sm btnSlaeBtn" (click)="onSubmitPlotInstallment(item)" title="Sale Plot" >Submit</button>
+
+              <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="onSubmitPlotInstallment(item)"
+                title="Sale Plot">Submit</button>
             </td>
           </tr>
         </tbody>
@@ -163,15 +189,14 @@
               </div>
             </div>
           </div>
-      </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label class="marginLeft">Contact</label>
-            <input type="text" class="form-control" placeholder="Contact" name="contact"
-              #contact="ngModel" [(ngModel)]="payload.contact"
-              [ngClass]="{ 'is-invalid': f.submitted && contact.invalid }" required>
+            <input type="text" class="form-control" placeholder="Contact" name="contact" #contact="ngModel"
+              [(ngModel)]="payload.contact" [ngClass]="{ 'is-invalid': f.submitted && contact.invalid }" required>
             <div *ngIf="f.submitted && contact.invalid" class="invalid-feedback">
               <div *ngIf="contact.errors.required">contact is required</div>
             </div>
@@ -181,25 +206,24 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="marginLeft">Plot Id</label>
-              <input type="text" class="form-control" placeholder="Plot Id" name="plotId"
-                #plotId="ngModel" [(ngModel)]="payload.plotId"
-                [ngClass]="{ 'is-invalid': f.submitted && submittedTo.invalid }" disabled>
+              <input type="text" class="form-control" placeholder="Plot Id" name="plotId" #plotId="ngModel"
+                [(ngModel)]="payload.plotId" [ngClass]="{ 'is-invalid': f.submitted && submittedTo.invalid }" disabled>
               <!-- <div *ngIf="f.submitted && submittedTo.invalid" class="invalid-feedback">
                 <div *ngIf="submittedTo.errors.required">Submitted To is required</div>
               </div> -->
             </div>
           </div>
-      </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <button type="button" class="btn btn-danager btn-fill" (click)="isAdded = false">Back</button>
         </div>
         <div class="col-md-6">
-          <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save<span *ngIf="isLoading"
-            class="btn-spinnerr"></span></button>
+          <button type="submit" class="btn btn-info btn-fill pull-right" [disabled]="isLoading">Save<span
+              *ngIf="isLoading" class="btn-spinnerr"></span></button>
         </div>
       </div>
     </form>
-</div>
+  </div>
 </div>
