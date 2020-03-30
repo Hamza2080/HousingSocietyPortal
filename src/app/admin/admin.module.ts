@@ -30,6 +30,7 @@ import { AddPlotsComponent } from './add-plots/add-plots.component';
 import { PlotCategoriesComponent } from './plot-categories/plot-categories.component';
 import { InstallmentComponent } from './installment/installment.component';
 import { EditLandLordComponent } from './edit-land-lord/edit-land-lord.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   entryComponents: [
@@ -54,7 +55,8 @@ import { EditLandLordComponent } from './edit-land-lord/edit-land-lord.component
     Ng2SearchPipeModule,
     BsDatepickerModule,
     NgbModule,
-    RouterModule.forChild(AdminRoutes)
+    RouterModule.forChild(AdminRoutes),
+    FileUploadModule
   ]
 })
 export class AdminModule { }

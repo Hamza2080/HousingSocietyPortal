@@ -3,3 +3,10 @@
     padding-right: 30px !important;
     padding-bottom: 20px !important;
 }
+
+
+.my-drop-zone { border: dotted 3px lightgray; }
+    .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+    .another-file-over-class { border: dotted 3px green; }
+ 
+    html, body { height: 100%; }
