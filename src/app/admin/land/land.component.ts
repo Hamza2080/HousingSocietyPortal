@@ -36,7 +36,6 @@ public landList = []
       if(data){
         this.getLand();
       }
-  
     })
   }
   openInstallment(item){

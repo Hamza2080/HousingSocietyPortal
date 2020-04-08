@@ -31,6 +31,8 @@ import { PlotCategoriesComponent } from './plot-categories/plot-categories.compo
 import { InstallmentComponent } from './installment/installment.component';
 import { EditLandLordComponent } from './edit-land-lord/edit-land-lord.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ExpenseComponent } from './expense/expense.component';
+import { AddExpenseComponent } from './add-expense/add-expense.component';
 
 @NgModule({
   entryComponents: [
@@ -38,6 +40,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     AddTownsComponent,
     AddLandMeasuringComponent,
     AddLandLordComponent,
+    AddExpenseComponent,
     AddLandComponent,
     AddAuthorizedDealerComponent,
     AddCustomerComponent,
@@ -45,9 +48,10 @@ import { FileUploadModule } from 'ng2-file-upload';
     AddPlotsComponent,
     PlotCategoriesComponent,
     InstallmentComponent,
-    EditLandLordComponent
+    EditLandLordComponent,
+    ExpenseComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, AddManagerComponent, AddLandMeasuringComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, AddExpenseComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
   imports: [
     CommonModule,
     FormsModule,

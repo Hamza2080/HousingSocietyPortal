@@ -1,0 +1,73 @@
+<div class="content">
+  <div class="container-fluid">
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 style="width: 400px;float: left;" class="title">Expense</h4>
+            <div style="float: right;">
+              <button type="button" (click)="openNewExpenseFormModal()" style="margin-right: 5px;"
+                class="btn btn-info btn-fill">Add new Expense</button>
+              <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
+            </div>
+          </div>
+          <hr>
+          <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;"
+              src="assets/img/loading-bubbles.svg"></div>
+          <div *ngIf="!isLoaded" class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead *ngIf="expenseList?.length === 0">No Record Found</thead>
+              <thead *ngIf="expenseList?.length > 0">
+                <tr>
+                  <th>Expense Detail</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Paid-By</th>
+                  <th>Notes</th>
+                  <th *ngIf="item?.attachment?.length > 0">Attachments</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="expenseList?.length > 0">
+                <tr *ngFor="let item of expenseList| paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td>{{item?.expenseName}}</td>
+                  <td>{{item?.expenseType}}</td>
+                  <td>{{item?.amount}}</td>
+                  <td>{{item?.expenseDate}}</td>
+                  <td>{{item?.status}}</td>
+                  <td>{{item?.paidBy}}</td>
+                  <td>{{item?.additionalNotes}}</td>
+                  <td>
+                    <button type="button" *ngIf="item?.attachment?.length > 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm btnColor" title="Installments">Attachment</button>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+            <pagination-controls *ngIf="landList?.length > 0" (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #attachmentModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Attachments of {{selectExpense.expenseName}} : </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row" *ngFor="let url of attachmentArr;let i=index">
+      <div class="col container">
+        <strong>Attachment {{i+1}} - </strong>
+        <img [src]="url" style="margin:auto;width:100%;margin-bottom:20px;">
+      </div>
+    </div>
+  </div>
+</ng-template>

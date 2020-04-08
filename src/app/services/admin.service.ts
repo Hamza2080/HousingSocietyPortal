@@ -68,9 +68,43 @@ export class AdminService {
       });
     });
   }
+  getAllExpenses () {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/expenses').subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        resolve(res.data);
+        // this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        console.log(err);
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
   addLand(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/lands', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addExpense(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/expenses', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
         console.log(res);
         resolve(res.data);
