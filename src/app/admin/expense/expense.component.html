@@ -39,7 +39,7 @@
                   <td>{{item?.expenseDate}}</td>
                   <td>{{item?.status}}</td>
                   <td>{{item?.paidBy}}</td>
-                  <td>{{item?.additionalNotes}}</td>
+                  <td title="{{item?.additionalNotes}}">View Detail</td>
                   <td>
                     <button type="button" *ngIf="item?.attachment?.length > 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm btnColor" title="Installments">Attachment</button>
                   </td>
