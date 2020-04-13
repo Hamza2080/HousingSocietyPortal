@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { FileUploader } from 'ng2-file-upload';
 
 class Installment {
     public srNo : number;
@@ -23,10 +24,22 @@ class Installment {
   styleUrls: ['./add-land.component.css']
 })
 export class AddLandComponent implements OnInit {
+  
+  // url = ;
+  uploader:FileUploader;
+  hasBaseDropZoneOver:boolean;
+  hasAnotherDropZoneOver:boolean;
+  response:string;
+  
   private installmentsCreated = false;
+  attachments = [];
+
   public payload = {
       description:  null ,
       totalLand: 0,
+      khasraNumber: null,
+      moza: null,
+      khewat: null,
       measuringUnit: null ,
       acquired_date: new Date(),
       installmentStartDate: null,
@@ -39,30 +52,53 @@ export class AddLandComponent implements OnInit {
       additionalNotes: null,
       landlordId: null ,
       townId: null,
-      installments: []
+      installments: [],
+      attachment : []
   };
   townList: any[];
   measurementsList: any[];
   landLordList: any[];
 
-  // public paymentPlan = [];
-  // public measurementsList = [];
-  // public landLordList = [];
-  // public townList = [];
   public isLoading = false;
-  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {}
+  toastserviceConfig: object = {
+    toastClass: 'ngx-toastr',
+    timeOut: 10000,
+    progressBar: true,
+    positionClass: 'toast-top-right',
+    closeButton: true
+  };
+
+  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {
+    this.initializeAttahmentCode();
+  }
 
   ngOnInit() {
-    // this.initializeLandPayload();
-
     this.getTowns();
     this.getMeasurements();
     this.getLandLord();
-    // this.getPaymentPlan();
+  }
+
+  initializeAttahmentCode() {
+    this.uploader  = new FileUploader({url: 'http://localhost:3000/api/attachments/attachment/upload', itemAlias: 'file', removeAfterUpload: true});
+
+    this.uploader.onBeforeUploadItem = (item) => {
+        item.withCredentials = false;
+    }
+
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+        response = JSON.parse(response);
+        this.attachments.push(response.data.result.files.file[0].name);
+        this.toastr.success('Success!', response.data.result.files.file[0].name + " file uploaded", this.toastserviceConfig);
+    };
+ 
+    this.hasBaseDropZoneOver = false;
+    this.hasAnotherDropZoneOver = false;
+ 
+    this.response = '';
   }
 
   createInstallment() {
-    if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
+    // if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
 
       for (let i = 0; i < this.payload.noOfInstallment; i++) {
         let startDate = new Date(this.payload.installmentStartDate);
@@ -76,7 +112,7 @@ export class AddLandComponent implements OnInit {
         this.payload.installments.push(installment);
         this.installmentsCreated = true;
       }
-    } else this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
+    // } else this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
   }
 
 
@@ -88,6 +124,7 @@ export class AddLandComponent implements OnInit {
     this.payload.downPayment = Number(this.payload.downPayment);
     this.payload.noOfInstallment = Number(this.payload.noOfInstallment);
     this.payload.installmentAmount = Number(this.payload.installmentAmount);
+    this.payload.attachment = this.attachments;
 
     this.adminService.addLand(this.payload).then(res => {
       console.log(res);

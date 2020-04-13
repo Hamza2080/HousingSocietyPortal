@@ -41,7 +41,7 @@ export class InstallmentComponent implements OnInit {
 
   toastserviceConfig: object = {
     toastClass: 'ngx-toastr',
-    timeOut: 7000,
+    timeOut: 10000,
     progressBar: true,
     positionClass: 'toast-top-right',
     closeButton: true
@@ -57,7 +57,6 @@ export class InstallmentComponent implements OnInit {
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
         response = JSON.parse(response);
         this.attachments.push(response.data.result.files.file[0].name);
-        console.log(this.attachments)
         this.toastr.success('Success!', response.data.result.files.file[0].name + " file uploaded", this.toastserviceConfig);
     };
  

@@ -35,7 +35,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Land Measuring Unit</label>
-          <select class="form-control" name="measuringUnit" #measuringUnit="ngModel" [(ngModel)]="payload.measuringUnit"
+          <select class="form-control select-box-height" name="measuringUnit" #measuringUnit="ngModel" [(ngModel)]="payload.measuringUnit"
             [ngClass]="{ 'is-invalid': f.submitted && measuringUnit.invalid }" required>
             <option [value]='null' disabled>Land Measuring Unit</option>
             <option *ngFor="let item of measurementsList" [value]="item?.measuring_unit"> {{item?.measuring_unit}}
@@ -50,8 +50,45 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
+          <label class="marginLeft">Khasra Number</label>
+          <input type="text" class="form-control" placeholder="Khasra Number..." name="khasraNumber"
+            #khasraNumber="ngModel" [(ngModel)]="payload.khasraNumber"
+            [ngClass]="{ 'is-invalid': f.submitted && khasraNumber.invalid }" required>
+          <div *ngIf="f.submitted && khasraNumber.invalid" class="invalid-feedback">
+            <div *ngIf="khasraNumber.errors.required">Khasra Number is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Moza</label>
+          <input type="text" class="form-control" placeholder="Total Land..." name="moza"
+            #moza="ngModel" [(ngModel)]="payload.moza"
+            [ngClass]="{ 'is-invalid': f.submitted && moza.invalid }" required>
+          <div *ngIf="f.submitted && moza.invalid" class="invalid-feedback">
+            <div *ngIf="moza.errors.required">Moza is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Khewat</label>
+          <input type="text" class="form-control" placeholder="Khewat..." name="khewat"
+            #khewat="ngModel" [(ngModel)]="payload.khewat"
+            [ngClass]="{ 'is-invalid': f.submitted && khewat.invalid }" required>
+          <div *ngIf="f.submitted && khewat.invalid" class="invalid-feedback">
+            <div *ngIf="khewat.errors.required">Khewat is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
           <label class="marginLeft">Land Lord</label>
-          <select class="form-control" name="landlordId" #landlordId="ngModel" [(ngModel)]="payload.landlordId"
+          <select class="form-control select-box-height" name="landlordId" #landlordId="ngModel" [(ngModel)]="payload.landlordId"
             [ngClass]="{ 'is-invalid': f.submitted && landlordId.invalid }" required>
             <option [value]='null' disabled>Select land-lord</option>
             <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option>
@@ -65,7 +102,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Town</label>
-          <select class="form-control" name="townId" #townId="ngModel" [(ngModel)]="payload.townId"
+          <select class="form-control select-box-height" name="townId" #townId="ngModel" [(ngModel)]="payload.townId"
             [ngClass]="{ 'is-invalid': f.submitted && townId.invalid }" required>
             <option [value]='null' disabled>Select Town</option>
             <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
@@ -189,6 +226,91 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div ng2FileDrop
+               [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+               (fileOver)="fileOverBase($event)"
+               [uploader]="uploader"
+               class="well my-drop-zone">
+              Base drop zone
+          </div>
+        <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+          <tr>
+              <th width="50%">Name</th>
+              <th>Size</th>
+              <th>Progress</th>
+              <th>Status</th>
+              <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of uploader.queue;let i=index;">
+              <td><strong>{{ item?.file?.name }}</strong></td>
+              <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+              <td *ngIf="uploader.options.isHTML5">
+                  <div class="progress" style="margin-bottom: 0;">
+                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  </div>
+              </td>
+              <td class="text-center">
+                  <span *ngIf="item.isSuccess"><i class="fa fa-check"></i></span>
+                  <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                  <span *ngIf="item.isError"><i class="fa fa-times"></i></span>
+              </td>
+              <td nowrap>
+                  <button type="button" class="btn btn-success btn-xs"
+                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                      <span class="fa fa-check"></span> Upload
+                  </button>
+                  <button type="button" class="btn btn-warning btn-xs"
+                          (click)="item.cancel()" [disabled]="!item.isUploading">
+                      <span class="fa fa-ban"></span> Cancel
+                  </button>
+                  <button type="button" class="btn btn-danger btn-xs"
+                          (click)="item.remove()">
+                      <span class="fa fa-times"></span> Remove
+                  </button>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:10px">
+      <div class="col-md-12">
+        <div>
+          <div>
+              Queue progress:
+              <div class="progress" style="">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+              </div>
+          </div>
+          <button type="button" class="btn btn-success btn-s"
+                  (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+              <span class="fa fa-check"></span> Upload all
+          </button>
+          <button type="button" class="btn btn-warning btn-s"
+                  (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+              <span class="fa fa-ban"></span> Cancel all
+          </button>
+          <button type="button" class="btn btn-danger btn-s"
+                  (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+              <span class="fa fa-times"></span> Remove all
+          </button>
+      </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
