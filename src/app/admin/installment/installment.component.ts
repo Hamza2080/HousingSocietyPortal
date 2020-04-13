@@ -109,7 +109,7 @@ export class InstallmentComponent implements OnInit {
   }
 
   isDueDatePassed(item) {
-    if (new Date(item.dueDate) > new Date()) return false;
+    if (new Date() > new Date(item.dueDate)) return true;
     else return false;
   }
 

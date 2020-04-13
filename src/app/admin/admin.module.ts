@@ -33,6 +33,7 @@ import { EditLandLordComponent } from './edit-land-lord/edit-land-lord.component
 import { FileUploadModule } from 'ng2-file-upload';
 import { ExpenseComponent } from './expense/expense.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   entryComponents: [
@@ -60,7 +61,8 @@ import { AddExpenseComponent } from './add-expense/add-expense.component';
     BsDatepickerModule,
     NgbModule,
     RouterModule.forChild(AdminRoutes),
-    FileUploadModule
+    FileUploadModule,
+    DataTablesModule
   ]
 })
 export class AdminModule { }

@@ -27,7 +27,7 @@
             <td *ngIf="item?.status === 'Paid'" class="text-success">Paid</td>
             <td *ngIf="item?.status !== 'Paid'">
               <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="onSubmitPlotInstallment(item)"
-                [disabled]="isDueDatePassed(item)">Due</button>
+                [disabled]="!isDueDatePassed(item)">Not Paid</button>
             </td>
           </tr>
         </tbody>

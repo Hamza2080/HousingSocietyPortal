@@ -35,8 +35,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Land Measuring Unit</label>
-          <select class="form-control select-box-height" name="measuringUnit" #measuringUnit="ngModel" [(ngModel)]="payload.measuringUnit"
-            [ngClass]="{ 'is-invalid': f.submitted && measuringUnit.invalid }" required>
+          <select class="form-control select-box-height" name="measuringUnit" #measuringUnit="ngModel"
+            [(ngModel)]="payload.measuringUnit" [ngClass]="{ 'is-invalid': f.submitted && measuringUnit.invalid }"
+            required>
             <option [value]='null' disabled>Land Measuring Unit</option>
             <option *ngFor="let item of measurementsList" [value]="item?.measuring_unit"> {{item?.measuring_unit}}
             </option>
@@ -62,9 +63,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Moza</label>
-          <input type="text" class="form-control" placeholder="Total Land..." name="moza"
-            #moza="ngModel" [(ngModel)]="payload.moza"
-            [ngClass]="{ 'is-invalid': f.submitted && moza.invalid }" required>
+          <input type="text" class="form-control" placeholder="Total Land..." name="moza" #moza="ngModel"
+            [(ngModel)]="payload.moza" [ngClass]="{ 'is-invalid': f.submitted && moza.invalid }" required>
           <div *ngIf="f.submitted && moza.invalid" class="invalid-feedback">
             <div *ngIf="moza.errors.required">Moza is required</div>
           </div>
@@ -75,9 +75,8 @@
       <div class="col-md-12">
         <div class="form-group">
           <label class="marginLeft">Khewat</label>
-          <input type="text" class="form-control" placeholder="Khewat..." name="khewat"
-            #khewat="ngModel" [(ngModel)]="payload.khewat"
-            [ngClass]="{ 'is-invalid': f.submitted && khewat.invalid }" required>
+          <input type="text" class="form-control" placeholder="Khewat..." name="khewat" #khewat="ngModel"
+            [(ngModel)]="payload.khewat" [ngClass]="{ 'is-invalid': f.submitted && khewat.invalid }" required>
           <div *ngIf="f.submitted && khewat.invalid" class="invalid-feedback">
             <div *ngIf="khewat.errors.required">Khewat is required</div>
           </div>
@@ -88,8 +87,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Land Lord</label>
-          <select class="form-control select-box-height" name="landlordId" #landlordId="ngModel" [(ngModel)]="payload.landlordId"
-            [ngClass]="{ 'is-invalid': f.submitted && landlordId.invalid }" required>
+          <select class="form-control select-box-height" name="landlordId" #landlordId="ngModel"
+            [(ngModel)]="payload.landlordId" [ngClass]="{ 'is-invalid': f.submitted && landlordId.invalid }" required>
             <option [value]='null' disabled>Select land-lord</option>
             <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option>
           </select>
@@ -196,8 +195,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Installment Gap</label>
-          <input type="text" class="form-control" placeholder="Installment Gap" name="installmentGap"
-            pattern="[0-9]*" #installmentGap="ngModel" [(ngModel)]="payload.installmentGap"
+          <input type="text" class="form-control" placeholder="Installment Gap" name="installmentGap" pattern="[0-9]*"
+            #installmentGap="ngModel" [(ngModel)]="payload.installmentGap"
             [ngClass]="{ 'is-invalid': f.submitted && installmentGap.invalid }" required>
           <div *ngIf="f.submitted && installmentGap.invalid" class="invalid-feedback">
             <div *ngIf="installmentGap.errors.required">Installment Gap is required</div>
@@ -208,8 +207,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Installment Start From</label>
-          <input type="text" name="installmentStartDate" placeholder="Installments Start From" #installmentStartDate="ngModel" [(ngModel)]="payload.installmentStartDate" class="form-control" 
-          [ngClass]="{ 'is-invalid': f.submitted && installmentStartDate.invalid }" required bsDatepicker>
+          <input type="text" name="installmentStartDate" placeholder="Installments Start From"
+            #installmentStartDate="ngModel" [(ngModel)]="payload.installmentStartDate" class="form-control"
+            [ngClass]="{ 'is-invalid': f.submitted && installmentStartDate.invalid }" required bsDatepicker>
           <div *ngIf="f.submitted && installmentStartDate.invalid" class="invalid-feedback">
             <div *ngIf="installmentStartDate.errors.required">Installment start date is required</div>
           </div>
@@ -229,14 +229,11 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div ng2FileDrop
-               [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-               (fileOver)="fileOverBase($event)"
-               [uploader]="uploader"
-               class="well my-drop-zone">
-              Base drop zone
-          </div>
-        <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+        <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
+          [uploader]="uploader" class="well my-drop-zone">
+          Base drop zone
+        </div>
+        <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
       </div>
     </div>
 
@@ -244,45 +241,44 @@
       <div class="col-md-12">
         <table class="table">
           <thead>
-          <tr>
+            <tr>
               <th width="50%">Name</th>
               <th>Size</th>
               <th>Progress</th>
               <th>Status</th>
               <th>Actions</th>
-          </tr>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of uploader.queue;let i=index;">
+            <tr *ngFor="let item of uploader.queue;let i=index;">
               <td><strong>{{ item?.file?.name }}</strong></td>
               <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
               <td *ngIf="uploader.options.isHTML5">
-                  <div class="progress" style="margin-bottom: 0;">
-                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-                  </div>
+                <div class="progress" style="margin-bottom: 0;">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                </div>
               </td>
               <td class="text-center">
-                  <span *ngIf="item.isSuccess"><i class="fa fa-check"></i></span>
-                  <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
-                  <span *ngIf="item.isError"><i class="fa fa-times"></i></span>
+                <span *ngIf="item.isSuccess"><i class="fa fa-check"></i></span>
+                <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                <span *ngIf="item.isError"><i class="fa fa-times"></i></span>
               </td>
               <td nowrap>
-                  <button type="button" class="btn btn-success btn-xs"
-                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                      <span class="fa fa-check"></span> Upload
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs"
-                          (click)="item.cancel()" [disabled]="!item.isUploading">
-                      <span class="fa fa-ban"></span> Cancel
-                  </button>
-                  <button type="button" class="btn btn-danger btn-xs"
-                          (click)="item.remove()">
-                      <span class="fa fa-times"></span> Remove
-                  </button>
+                <button type="button" class="btn btn-success btn-xs" (click)="item.upload()"
+                  [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                  <span class="fa fa-check"></span> Upload
+                </button>
+                <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()"
+                  [disabled]="!item.isUploading">
+                  <span class="fa fa-ban"></span> Cancel
+                </button>
+                <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                  <span class="fa fa-times"></span> Remove
+                </button>
               </td>
-          </tr>
+            </tr>
           </tbody>
-      </table>
+        </table>
       </div>
     </div>
 
@@ -290,24 +286,24 @@
       <div class="col-md-12">
         <div>
           <div>
-              Queue progress:
-              <div class="progress" style="">
-                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-              </div>
+            Queue progress:
+            <div class="progress" style="">
+              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+            </div>
           </div>
-          <button type="button" class="btn btn-success btn-s"
-                  (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-              <span class="fa fa-check"></span> Upload all
+          <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+            [disabled]="!uploader.getNotUploadedItems().length">
+            <span class="fa fa-check"></span> Upload all
           </button>
-          <button type="button" class="btn btn-warning btn-s"
-                  (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-              <span class="fa fa-ban"></span> Cancel all
+          <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()"
+            [disabled]="!uploader.isUploading">
+            <span class="fa fa-ban"></span> Cancel all
           </button>
-          <button type="button" class="btn btn-danger btn-s"
-                  (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-              <span class="fa fa-times"></span> Remove all
+          <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
+            [disabled]="!uploader.queue.length">
+            <span class="fa fa-times"></span> Remove all
           </button>
-      </div>
+        </div>
       </div>
     </div>
 
@@ -327,11 +323,24 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let installment of payload.installments">
+                  <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
+                  <tr *ngFor="let installment of payload.installments;let i = index;">
                     <th scope="row">{{installment?.srNo}}</th>
-                    <td>{{installment?.installmentAmount}}</td>
-                    <td>{{installment?.dueDate}}</td>
-                    <td class="badge badge-info">{{installment?.status}}</td>
+                    <td><input type="text" name="installmentAmont" class="form-control"
+                        (keyup)="changeValue(i, 'installmentAmount', $event)"
+                        (blur)="updateList(i, 'installmentAmount', $event)"
+                        value="{{installment?.installmentAmount}}" />
+                    </td>
+                    <td>
+                      <input type="text" name="dueDate" class="form-control" (keyup)="changeValue(i, 'dueDate', $event)"
+                        (blur)="updateList(i, 'dueDate', $event)" value="{{installment?.dueDate}}" bsDatepicker />
+                    </td>
+                    <td>
+                      <select name="status" (change)="updateList(i, 'status', $event)" class="form-control select-box-height">
+                        <option value="Due" [selected]="installment?.status == 'Due'">Not Paid</option>
+                        <option value="Paid" [selected]="installment?.status != 'Due'">Paid</option>
+                      </select>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -342,10 +351,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button type="button" *ngIf="!installmentsCreated" (click)="createInstallment()" class="btn btn-info btn-fill pull-right" [disabled]="isLoading">Create Installments<span
-            *ngIf="isLoading" class="btn-spinnerr"></span></button>
-        <button type="submit" class="btn btn-info btn-fill pull-right" *ngIf="installmentsCreated" [disabled]="isLoading">Save<span
-            *ngIf="isLoading" class="btn-spinnerr"></span></button>
+        <button type="submit" class="btn btn-info btn-fill pull-right"
+          *ngIf="installmentsCreated && !errorInInstallmetnValues" [disabled]="isLoading">Save<span *ngIf="isLoading"
+            class="btn-spinnerr"></span></button>
+        <button type="button" (click)="createInstallment()"
+          class="btn btn-info btn-fill pull-right" style="margin-right: 10px;margin-left: 10px;" [disabled]="isLoading">Create Installments<span *ngIf="isLoading"
+            class="btn-spinnerr"></span></button>
       </div>
     </div>
   </form>
