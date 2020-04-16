@@ -136,6 +136,40 @@ export class AdminService {
       });
     });
   }
+  updateExpense(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/expenses', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addExpenseType(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/expense_types', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
   addLandMeasurement(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/land_measuring_units', payload).subscribe(res => {
@@ -153,11 +187,28 @@ export class AdminService {
       });
     });
   }
+  getAllExpenseTypes() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/expense_types').subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        // console.log(res);
+        resolve(res.data);
+        // this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
   getAllMeasurement() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/land_measuring_units').subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
+        // console.log(res);
         resolve(res.data);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);

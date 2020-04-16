@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "HousingSocietyPortal": {
-      "root": "",
+      "root": ".",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
@@ -20,16 +20,13 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+              "src/assets"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

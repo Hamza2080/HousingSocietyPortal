@@ -27,7 +27,7 @@
             [(ngModel)]="payload.expenseType" [ngClass]="{ 'is-invalid': f.submitted && expenseType.invalid }"
             required>
             <option [value]='null' disabled>Expense Type</option>
-            <option *ngFor="let item of expenseTypesList" [value]="item?.type"> {{item?.type}}
+            <option *ngFor="let item of expenseTypesList" [value]="item?.type" [selected]="expenseDetail?.expenseType == item?.type"> {{item?.type}}
             </option>
           </select>
           <div *ngIf="f.submitted && expenseType.invalid" class="invalid-feedback">
@@ -66,8 +66,8 @@
           <select class="form-control select-box-height" name="status" #status="ngModel"
             [(ngModel)]="payload.status" [ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
             required>
-            <option [value]="'Paid'" selected> Paid</option>
-            <option [value]="'Due'"> Due</option>
+            <option [value]="'Paid'" [selected]="expenseDetail?.status == 'Paid'"> Paid</option>
+            <option [value]="'Due'" [selected]="expenseDetail?.expenseType == 'Due'"> Due</option>
           </select>
           <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
             <div *ngIf="status.errors.required">Status is required</div>

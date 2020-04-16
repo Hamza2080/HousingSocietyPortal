@@ -1,7 +1,5 @@
 <div class="content">
   <div class="container-fluid">
-
-
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -13,8 +11,6 @@
               <button type="button" (click)="openModel()" class="btn btn-info btn-fill">Add Land</button>
               <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
             </div>
-
-
           </div>
           <hr>
           <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;"
@@ -32,6 +28,7 @@
                   <th>Total</th>
                   <th>Down Payment</th>
                   <th>Installments</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody *ngIf="landList?.length > 0">
@@ -47,6 +44,7 @@
                 <td>
                   <button type="button" *ngIf="!item?.installments?.length" [disabled]="!item?.installments?.length" class="btn btn-primary btn-sm btnColor" title="No Installments Found">Installments</button>
                   <button type="button" *ngIf="item?.installments?.length > 0" (click)="openInstallment(item)" class="btn btn-primary btn-sm btnColor" title="Installments">Installments</button>
+                  <button type="button" (click)="openLandDetail(item)" class="btn btn-primary btn-sm btnColor mx-1" title="Land Detail View">View Land Detail</button>
                 </td>
                 </tr>
               </tbody>
@@ -57,8 +55,5 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 </div>

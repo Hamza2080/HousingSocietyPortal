@@ -8,6 +8,8 @@
           <div class="header">
             <h4 style="width: 400px;float: left;" class="title">Expense</h4>
             <div style="float: right;">
+              <button type="button" (click)="openModelExpenseType()" style="margin-right: 5px;"
+                class="btn btn-info btn-fill">Add Expense Type</button>
               <button type="button" (click)="openNewExpenseFormModal()" style="margin-right: 5px;"
                 class="btn btn-info btn-fill">Add new Expense</button>
               <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
@@ -28,7 +30,8 @@
                   <th>Status</th>
                   <th>Paid-By</th>
                   <th>Notes</th>
-                  <th *ngIf="item?.attachment?.length > 0">Attachments</th>
+                  <th>Attachments</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody *ngIf="expenseList?.length > 0">
@@ -41,7 +44,11 @@
                   <td>{{item?.paidBy}}</td>
                   <td title="{{item?.additionalNotes}}">View Detail</td>
                   <td>
-                    <button type="button" *ngIf="item?.attachment?.length > 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm btnColor" title="Installments">Attachment</button>
+                    <button type="button" [disabled]="item?.attachment?.length == 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm btnColor" title="Installments">Attachment</button>
+                  </td>
+                  <td>
+                    <i class="fa fa-pencil mr-2 action-icon" style="cursor:pointer" aria-hidden="true" (click)="openModelUpdateExpense(item)"></i> 
+                    <i class="fa fa-trash action-icon" style="cursor:pointer" aria-hidden="true"></i>
                   </td>
                 </tr>
               </tbody>

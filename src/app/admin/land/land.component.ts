@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measuring.component';
 import { AddLandComponent } from '../add-land/add-land.component';
 import { InstallmentComponent } from '../installment/installment.component';
+import { LandDetailViewComponent } from '../land-detail-view/land-detail-view.component';
 
 @Component({
   selector: 'app-land',
@@ -38,6 +39,7 @@ public landList = []
       }
     })
   }
+
   openInstallment(item){
     const modelRef = this.modelService.open(InstallmentComponent, { size: 'lg' });
     modelRef.componentInstance.installment = item.installments;
@@ -49,6 +51,12 @@ public landList = []
       }
     });
   }
+
+  openLandDetail(item){
+    const modelRef = this.modelService.open(LandDetailViewComponent, { size: 'lg' });
+    modelRef.componentInstance.landInstance = item;
+  }
+
   openModelMeasurement(){
     const modelRef = this.modelService.open(AddLandMeasuringComponent, { size: 'sm' });
   }

@@ -126,3 +126,8 @@ input{
   background-color: #77c72f !important;
   color: #fff !important;
 }
+
+
+.modal-sm {
+  min-width: 400px !important;
+}

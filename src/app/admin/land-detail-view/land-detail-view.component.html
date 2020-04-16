@@ -1,0 +1,281 @@
+<div class="modal-header">
+  <h5 class="modal-title" style="width: 70%; float: left;">Land Detail</h5>
+  <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form name="form" #f="ngForm">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Description</label>
+          <input type="text" class="form-control" name="description" disabled [value]="landInstance?.description" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Total Land</label>
+          <input type="text" class="form-control" name="totalLand" disabled [value]="landInstance?.totalLand" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Land Measuring Unit</label>
+          <input type="text" class="form-control" name="measuringUnit" disabled [value]="landInstance?.measuringUnit" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Khasra Number</label>
+          <input type="text" class="form-control" name="khasraNumber" disabled [value]="landInstance?.khasraNumber" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Moza</label>
+          <input type="text" class="form-control" name="moza" disabled [value]="landInstance?.moza" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Khewat</label>
+          <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Land Lord</label>
+          <!-- <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" /> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Town</label>
+          <!-- <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" /> -->
+
+          <!-- <select class="form-control select-box-height" name="townId" #townId="ngModel" [(ngModel)]="payload.townId"
+            [ngClass]="{ 'is-invalid': f.submitted && townId.invalid }" required>
+            <option [value]='null' disabled>Select Town</option>
+            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+          </select>
+          <div *ngIf="f.submitted && townId.invalid" class="invalid-feedback">
+            <div *ngIf="townId.errors.required">Town is required</div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Total Payment</label>
+          <input type="text" class="form-control" name="totalPayment" disabled [value]="landInstance?.totalPayment" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Down Payment</label>
+          <input type="text" class="form-control" name="downPayment" disabled [value]="landInstance?.downPayment" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">No. of Installments</label>
+          <input type="text" class="form-control" name="noOfInstallment" disabled
+            [value]="landInstance?.noOfInstallment" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Installment Amount</label>
+          <input type="text" class="form-control" name="installmentAmount" disabled
+            [value]="landInstance?.installmentAmount" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Installment Gap</label>
+          <input type="text" class="form-control" name="installmentGap" disabled
+            [value]="landInstance?.installmentGap" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Installment Start From</label>
+          <input type="text" class="form-control" name="installmentStartDate" disabled
+            [value]="landInstance?.installmentStartDate" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Additional Notes</label>
+          <textarea name="additionalNotes" class="form-control" name="additionalNotes" disabled
+            [value]="landInstance?.additionalNotes"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- attachment section -->
+    <div class="row container" *ngFor="let fileName of landInstance?.attachment;let i = index;">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12" style="font-weight:bold">Attachment {{i+1}}:</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <a href="http://localhost:3000/attachment/downloadFile/{{fileName}}" target="_blank">
+              <img style="width:100%px;height:250px;"
+                src="http://localhost:3000/attachment/downloadFile/{{fileName}}" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- attachment section -->
+
+    <!-- installment section -->
+    <div class="row" *ngFor="let installment of landInstance?.installments;let counter=index;">
+      <div class="col-md-12" *ngIf="installment?.status == 'Paid'">
+        <hr />
+        <div class="row">
+          <form class="col-md-12" name="form" #f="ngForm">
+            <div class="row">
+              <div class="col">
+                <h4 class="marginLeft" style="font-weight:bold">Installment Number :- {{ counter+1 }}</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="marginLeft">Received By</label>
+                  <input type="text" class="form-control" name="receivedByName" disabled
+                    [value]="installment?.receivedByName" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="marginLeft">Paid By</label>
+                  <input type="text" class="form-control" name="paidBy" disabled [value]="installment?.paidBy" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="marginLeft">Contact</label>
+                  <input type="text" class="form-control" name="receivedByNumber" disabled
+                    [value]="installment?.receivedByNumber" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="marginLeft">Date</label>
+                  <input type="text" class="form-control" name="receiveDate" disabled
+                    [value]="installment?.receiveDate" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="marginLeft">Receipt Number</label>
+                  <input type="text" class="form-control" name="receiptNumber" disabled
+                    [value]="installment?.receiptNumber" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="marginLeft">Amount</label>
+                  <input type="text" class="form-control" name="installmentAmount" disabled
+                    [value]="installment?.installmentAmount" />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row" *ngIf="installment?.attachment?.length > 0">
+          <div class="col-md-12">
+            <!-- installment attachment section -->
+            <div class="row container" *ngFor="let fileName of installment?.attachment;let i = index;">
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-12" style="font-weight:bold">Attachment {{i+1}}:</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <a href="http://localhost:3000/attachment/downloadFile/{{fileName}}" target="_blank">
+                      <img style="width:100%px;height:250px;"
+                        src="http://localhost:3000/attachment/downloadFile/{{fileName}}" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- installment attachment section -->
+          </div>
+        </div>
+        <hr class="row col-md-12" />
+      </div>
+    </div>
+    <!-- installment section ends -->
+
+    <!-- paid installment section -->
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Due Date</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let installment of landInstance?.installments;let counter=index;" >  
+            <tr *ngIf="installment?.status == 'Due'">
+              <td>
+                {{installment?.srNo}}
+              </td>
+              <td>
+                {{installment?.installmentAmount}}
+              </td>
+              <td>
+                {{installment?.dueDate}}
+              </td>
+              <td>
+                {{installment?.status}}
+              </td>
+            </tr>
+          </ng-container>  
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- paid installment section ends -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" (click)="relatedModal.close()" class="btn btn-info btn-fill pull-right"
+          style="margin-right: 10px;margin-left: 10px;">Close<span *ngIf="isLoading"
+            class="btn-spinnerr"></span></button>
+      </div>
+    </div>
+  </form>
+</div>

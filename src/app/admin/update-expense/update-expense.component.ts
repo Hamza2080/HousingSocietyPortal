@@ -6,11 +6,11 @@ import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-add-expense',
-  templateUrl: './add-expense.component.html',
-  styleUrls: ['./add-expense.component.css']
+  templateUrl: './update-expense.component.html',
+  styleUrls: ['./update-expense.component.css']
 })
-export class AddExpenseComponent implements OnInit {
-  // @Input() name;
+export class UpdateExpenseComponent implements OnInit {
+  @Input() expenseDetail;
 
   // url = ;
   uploader:FileUploader;
@@ -62,6 +62,16 @@ export class AddExpenseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.payload = {
+      expenseName:  this.expenseDetail.expenseName ,
+      expenseType: this.expenseDetail.expenseType ,
+      amount: this.expenseDetail.amount,
+      expenseDate: new Date(this.expenseDetail.expenseDate),
+      status: this.expenseDetail.status,
+      paidBy: this.expenseDetail.paidBy,
+      attachment: this.expenseDetail.attachment,
+      additionalNotes: this.expenseDetail.additionalNotes,
+  };
     this.getExpenseTypes();
   }
   getExpenseTypes() {
@@ -87,8 +97,8 @@ export class AddExpenseComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.payload.amount = Number(this.payload.amount);
-    this.payload.attachment = this.attachments;
-    this.adminService.addExpense(this.payload).then(res => {
+    this.payload.attachment = this.attachments.concat(this.expenseDetail.attachment);
+    this.adminService.updateExpense(this.payload).then(res => {
       console.log(res);
       this.isLoading = false;
       this.relatedModal.close(true);

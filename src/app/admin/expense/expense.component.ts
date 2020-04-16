@@ -3,6 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AddExpenseComponent } from '../add-expense/add-expense.component';
+import { AddExpenseTypeComponent } from '../add-expense-type/add-expense-type.component';
+import { UpdateExpenseComponent } from '../update-expense/update-expense.component';
 
 @Component({
   selector: 'app-expense',
@@ -53,6 +55,15 @@ export class ExpenseComponent implements OnInit {
         this.getExpense();
       }
     });
+  }
+
+  openModelExpenseType(){
+    const modelRef = this.modelService.open(AddExpenseTypeComponent, { size: 'sm' });
+  }
+
+  openModelUpdateExpense(expense){
+    const modelRef = this.modelService.open(UpdateExpenseComponent, { size: 'lg' });
+    modelRef.componentInstance.expenseDetail = expense;
   }
   
 }
