@@ -119,6 +119,23 @@ export class AdminService {
       });
     });
   }
+  updatePhaseInTown(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/towns', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
   updateLand(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.put('/lands', payload).subscribe(res => {
@@ -370,7 +387,7 @@ export class AdminService {
   }
   getAllPlotCategories() {
     return new Promise((resolve, reject) => {
-      this.httpSecure.get('/plotcategories').subscribe(res => {
+      this.httpSecure.get('/plot_categories').subscribe(res => {
         console.log(res);
         resolve(res.data);
       }, err => {
@@ -381,7 +398,7 @@ export class AdminService {
   }
   addPlotCategories(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.post('/plotcategories',payload).subscribe(res => {
+      this.httpSecure.post('/plot_categories',payload).subscribe(res => {
         console.log(res);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         resolve(res.data);
@@ -389,6 +406,18 @@ export class AdminService {
         this.toastr.error('Error!', err.error.error.message);
         reject(err);
       });
+    });
+  }
+  deletePlotCategory(plotId) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.delete('/plot_categories/' + plotId).subscribe(res =>  {
+        console.log(res);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      })
     });
   }
   addPlots(payload) {

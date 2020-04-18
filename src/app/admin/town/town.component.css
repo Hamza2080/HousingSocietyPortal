@@ -1,0 +1,5 @@
+.remove-trash:hover {
+    cursor: pointer;
+    background : #4EA3B8;
+    color : white;
+}

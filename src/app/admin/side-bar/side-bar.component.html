@@ -17,14 +17,14 @@
              <li routerLinkActive='active'>
                 <a [routerLink]="['/admin/Town']" >
                     <i class="fa fa-home" aria-hidden="true"></i>
-                    <p>Town Detail</p>
+                    <p>Town</p>
                 </a>
             </li>
             <li routerLinkActive='active'>
                 <a [routerLink]="['/admin/expense']" >
                     <!-- <i class="pe-7s-graph"></i> -->
                     <i class="fa fa-money" aria-hidden="true"></i>
-                    <p>Expense Detail</p>
+                    <p>Expense</p>
                 </a>
             </li>
             <li routerLinkActive='active'>
@@ -38,7 +38,7 @@
               <a [routerLink]="['/admin/land']" >
                   <!-- <i class="pe-7s-graph"></i> -->
                   <i class="fa fa-map-marker"></i>
-                  <p>Land Information</p>
+                  <p>Land</p>
               </a>
           </li>
 
@@ -54,9 +54,33 @@
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/customers']" >
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <p>Customer Detail</p>
+                <p>Customer</p>
             </a>
         </li>
+
+        <li routerLinkActive='active'>
+            <a data-toggle="collapse" data-target="">
+                <i class="fa fa-random" aria-hidden="true"></i>
+                <p>Town Planning</p>
+            </a>
+        </li>
+        <li routerLinkActive='active'>
+            <a data-toggle="collapse" data-target="#demo">
+                <i class="fa fa-random" aria-hidden="true"></i>
+                <p>Street Planning</p>
+            </a>
+        </li>
+
+        <li routerLinkActive='active'>
+            <a data-toggle="collapse" data-target="#demo">
+                <i class="fa fa-random" aria-hidden="true"></i>
+                <p>Park Planning</p>
+            </a>
+        </li>
+
+       
+
+
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/authorized-dealer']" >
                 <i class="fa fa-industry" aria-hidden="true"></i>
@@ -66,7 +90,7 @@
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/plots']" >
                 <i class="fa fa-area-chart" aria-hidden="true"></i>
-                <p>Plots Details</p>
+                <p>Plots</p>
             </a>
         </li>
         <li (click)="logout()">

@@ -10,7 +10,7 @@ export class HttpService {
   constructor(public http: HttpClient) { }
   header: HttpHeaders = new HttpHeaders({'authorization': localStorage.getItem('token')});
   public get(endpoint): Observable<any> {
-    console.log(this.header)
+    console.log(localStorage.getItem('token'))
     return this.http.get(environment.API_URL + endpoint,{headers: this.header});
   }
   public post(endpoint,payLoad): Observable<any> {
@@ -18,5 +18,8 @@ export class HttpService {
   }
   public put(endpoint,payLoad): Observable<any> {
     return this.http.put(environment.API_URL + endpoint, payLoad,{headers: this.header});
+  }
+  public delete(endpoint): Observable<any> {
+    return this.http.delete(environment.API_URL + endpoint,{headers: this.header});
   }
 }
