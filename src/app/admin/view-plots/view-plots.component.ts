@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPlotsComponent } from '../add-plots/add-plots.component';
 import { PlotCategoriesComponent } from '../plot-categories/plot-categories.component';
 import { InstallmentComponent } from '../installment/installment.component';
+import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measuring.component';
 
 @Component({
   selector: 'app-view-plots',
@@ -69,5 +70,9 @@ export class ViewPlotsComponent implements OnInit {
       console.log(err);
       this.isLoaded = false;
     })
+  }
+
+  openModelMeasurement(){
+    const modelRef = this.modalService.open(AddLandMeasuringComponent, { size: 'sm' });
   }
 }

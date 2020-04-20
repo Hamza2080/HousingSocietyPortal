@@ -200,6 +200,7 @@ export class AddLandComponent implements OnInit {
       this.payload.installments[index].status = $event.target.value;
     }
   }
+
   changeValue(index, name, $event) {
   }
 
