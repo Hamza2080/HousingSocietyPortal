@@ -82,7 +82,7 @@
           <select class="form-control select-box-height" name="townPhase" #townPhase="ngModel"
             [(ngModel)]="payload.townPhase" [ngClass]="{ 'is-invalid': f.submitted && townPhase.invalid }" required>
             <option [value]='null' disabled selected>Select town Phase</option>
-            <option *ngFor="let item of selectTown?.phases" [value]="item?.id"> {{item}}</option>
+            <option *ngFor="let item of selectTown?.phases" [value]="item"> {{item}}</option>
           </select>
           <div *ngIf="f.submitted && townPhase.invalid" class="invalid-feedback">
             <div *ngIf="townPhase.errors.required">Town phase is required</div>

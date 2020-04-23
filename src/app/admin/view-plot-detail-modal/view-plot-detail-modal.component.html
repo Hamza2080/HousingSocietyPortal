@@ -1,0 +1,135 @@
+<div class="modal-header">
+  <h5 class="modal-title" style="width: 70%; float: left;">Plot Detail</h5>
+  <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Plot Number</label>
+        <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="payload.plotNumber" disabled>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Plot Category</label>
+        <select class="form-control select-box-height" name="land" #land="ngModel"
+          [(ngModel)]="payload.plotcategoriesId">
+          <option *ngFor="let item of plotcategories" disabled [selected]="payload?.plotcategoriesId == item?.id"
+            [value]="item?.id"> {{item?.categoryName}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Plot Size</label>
+        <input type="text" class="form-control" name="size" #size="ngModel" disabled [(ngModel)]="payload.size">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Land Measuring Unit</label>
+        <select class="form-control select-box-height" name="measuringUnit" #measuringUnit="ngModel"
+          [(ngModel)]="payload.measuringUnit">
+          <option *ngFor="let item of measurementsList" disabled [selected]="item?.measuring_unit == payload.measuringUnit">
+            {{item?.measuring_unit}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Town</label>
+        <select class="form-control select-box-height" name="SubCategoryId" #SubCategoryId="ngModel"
+          [(ngModel)]="payload.townId">
+          <option *ngFor="let item of townList" disabled [selected]="item?.id == payload.townId"> {{item?.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Town Phase</label>
+        <input type="text" class="form-control" name="street" #townPhase="ngModel" disabled [(ngModel)]="payload.townPhase">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Street Number</label>
+        <input type="text" class="form-control" name="street" #street="ngModel" disabled [(ngModel)]="payload.street">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Reference Number</label>
+        <input type="text" class="form-control" disabled name="reference" #reference="ngModel"
+          [(ngModel)]="payload.reference">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Total Payment</label>
+        <input type="text" class="form-control" name="totalPayment" #totalPayment="ngModel"
+          [(ngModel)]="payload.totalPayment" disabled>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Down Payment</label>
+        <input type="text" class="form-control" name="downPayment" #downPayment="ngModel"
+          [(ngModel)]="payload.downPayment" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">No. of Installments</label>
+        <input type="text" class="form-control" name="noOfInstallment" #noOfInstallment="ngModel"
+          [(ngModel)]="payload.noOfInstallment" disabled>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Installment Amount</label>
+        <input type="text" class="form-control" name="installmentAmount" #installmentAmount="ngModel"
+          [(ngModel)]="payload.installmentAmount" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Installment Gap</label>
+        <input type="text" class="form-control" name="installmentGap" #installmentGap="ngModel"
+          [(ngModel)]="payload.installmentGap" disabled>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="marginLeft">Installment Start From</label>
+        <input type="text" name="installmentStartDate" #installmentStartDate="ngModel"
+          [(ngModel)]="payload.installmentStartDate" class="form-control" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="marginLeft">Additional Notes</label>
+        <textarea name="additionalNotes" class="form-control" name="additionalNotes" #additionalNotes="ngModel"
+          [(ngModel)]="payload.additionalNotes" disabled></textarea>
+      </div>
+    </div>
+  </div>
+</div>

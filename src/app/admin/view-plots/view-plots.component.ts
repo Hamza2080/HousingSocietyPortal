@@ -5,6 +5,9 @@ import { AddPlotsComponent } from '../add-plots/add-plots.component';
 import { PlotCategoriesComponent } from '../plot-categories/plot-categories.component';
 import { InstallmentComponent } from '../installment/installment.component';
 import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measuring.component';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { ViewPlotDetailModalComponent } from '../view-plot-detail-modal/view-plot-detail-modal.component';
 
 @Component({
   selector: 'app-view-plots',
@@ -13,9 +16,27 @@ import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measur
 })
 export class ViewPlotsComponent implements OnInit {
   public plotsList = [];
+  public customerList = [];
   public isLoaded = false;
   public date = new Date();
-  constructor(private adminService: AdminService, private modalService: NgbModal) { }
+
+  public salePlotItem = null;
+  private salePayload = {
+    customerId : null,
+    date : new Date(),
+    plotId : null
+  }
+
+  toastserviceConfig: object = {
+    toastClass: 'ngx-toastr',
+    timeOut: 10000,
+    progressBar: true,
+    positionClass: 'toast-top-right',
+    closeButton: true
+  };
+  modalRef: BsModalRef;
+
+  constructor(private adminService: AdminService, private modelService: BsModalService, private modalService: NgbModal, private toastr: ToastrService) { }
 
   ngOnInit() {
     // this.getLandLord();
@@ -25,6 +46,7 @@ export class ViewPlotsComponent implements OnInit {
     this.isLoaded = true;
     this.adminService.getAllPlots().then(res => {
       this.plotsList = res as any[];
+      console.log(JSON.stringify(this.plotsList));
       this.isLoaded = false;
     }).catch(err => {
       console.log(err);
@@ -53,18 +75,14 @@ export class ViewPlotsComponent implements OnInit {
       }
     });
   }
-  openSalePlot(item){
-    console.log(item)
-    const payload = {
-      plotId:item.id,
-      customerId:item.customerData.id
-    };
-
-    // payload.append("plotId", item.id);
-    // payload.append('customerId', item.customerData.id);
-    this.adminService.salePlot(payload).then(res => {
-      // this.plotsList = res as any[];
-      // this.isLoaded = false;
+  openSalePlot(){
+    this.isLoaded = true;
+    this.salePlotItem.customerId = this.salePayload.customerId;
+    this.salePlotItem.saleDate = this.salePayload.date;
+    this.salePlotItem.plotStatus = "Sold";
+    this.adminService.salePlot(this.salePlotItem).then(res => {
+      this.plotsList = res as any[];
+      this.isLoaded = false;
       this.getPlots();
     }).catch(err => {
       console.log(err);
@@ -74,5 +92,28 @@ export class ViewPlotsComponent implements OnInit {
 
   openModelMeasurement(){
     const modelRef = this.modalService.open(AddLandMeasuringComponent, { size: 'sm' });
+  }
+
+  viewPlotDetailModal(item){
+    const modelRef = this.modalService.open(ViewPlotDetailModalComponent, { size: 'lg'});
+    modelRef.componentInstance.payload = item;
+  }
+  
+  getCustomerList() {
+    this.isLoaded = true;
+    this.adminService.getAllCustomers().then(res => {
+      this.customerList = res as any[];
+      this.isLoaded = false;
+    }).catch(err => {
+      console.log(err);
+      this.isLoaded = false;
+    })
+  }
+
+  openSalePlotModel(item, model) {
+    this.getCustomerList();
+    this.salePlotItem = item;
+    this.salePayload.plotId = item.id;
+    this.modalRef = this.modelService.show(model);
   }
 }

@@ -37,6 +37,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { LandDetailViewComponent } from './land-detail-view/land-detail-view.component';
 import { AddExpenseTypeComponent } from './add-expense-type/add-expense-type.component';
 import { UpdateExpenseComponent } from './update-expense/update-expense.component';
+import { ViewPlotDetailModalComponent } from './view-plot-detail-modal/view-plot-detail-modal.component';
 
 @NgModule({
   entryComponents: [
@@ -45,6 +46,7 @@ import { UpdateExpenseComponent } from './update-expense/update-expense.componen
     AddLandMeasuringComponent,
     AddExpenseTypeComponent,
     UpdateExpenseComponent,
+    ViewPlotDetailModalComponent,
     AddLandLordComponent,
     AddExpenseComponent,
     AddLandComponent,
@@ -58,7 +60,7 @@ import { UpdateExpenseComponent } from './update-expense/update-expense.componen
     EditLandLordComponent,
     ExpenseComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, UpdateExpenseComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
   imports: [
     CommonModule,
     FormsModule,

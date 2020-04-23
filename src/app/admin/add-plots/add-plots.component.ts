@@ -30,6 +30,7 @@ export class AddPlotsComponent implements OnInit {
   hasBaseDropZoneOver: boolean;
   hasAnotherDropZoneOver: boolean;
   response: string;
+  errorInInstallmetnValues = false;
 
   public payload = {
     plotNumber: null,
@@ -40,7 +41,6 @@ export class AddPlotsComponent implements OnInit {
     reference: null,
     townId: null,
     townPhase: null,
-    description: null,
     additionalNotes: null,
     planningDate: new Date(),
     installmentStartDate: null,
@@ -101,17 +101,14 @@ export class AddPlotsComponent implements OnInit {
   }
   onSubmit() {
     this.isLoading = true;
-    console.log(this.payload)
-    // this.payload.total_land = Number(this.payload.total_land);
-    // this.payload.phone = Number(this.payload.phone);
-    // this.adminService.addPlots(this.payload).then(res => {
-    //   console.log(res);
-    //   this.isLoading = false;
-    //   this.relatedModal.close(true);
-    // }).catch(err => {
-    //   console.log(err);
-    //   this.isLoading = false;
-    // });
+    this.payload.attachment = this.attachments;
+    this.adminService.addPlots(this.payload).then(res => {
+      this.isLoading = false;
+      this.relatedModal.close(true);
+    }).catch(err => {
+      console.log(err);
+      this.isLoading = false;
+    });
   }
   createInstallment() {
     // if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
@@ -172,5 +169,32 @@ export class AddPlotsComponent implements OnInit {
       if (this.townList[i].id == event)
       this.selectTown = this.townList[i];
     }
+  }
+
+  updateList(index, name, $event) {
+    this.errorInInstallmetnValues = false;
+    if ($event.target.value == '' || $event.target.value == null || $event.target.value == undefined) {
+      this.errorInInstallmetnValues = true;
+      this.isLoading = false;
+      this.toastr.error('Error!', `Error in installment value, some values are missing`);
+    }
+    else if (name == 'installmentAmount') {
+      this.payload.installments[index].installmentAmount = $event.target.value;
+    } else if (name == 'dueDate') {
+      this.payload.installments[index].dueDate = $event.target.value;
+    } else if (name == 'status') {
+      this.payload.installments[index].status = $event.target.value;
+    }
+  }
+
+  changeValue(index, name, $event) {
+  }
+
+  
+  updateInstallment(installment, index) {
+    console.log(installment, index);
+    this.payload.installments[index] = installment;
+
+    console.log(this.payload)
   }
 }
