@@ -23,9 +23,12 @@ export class InstallmentComponent implements OnInit {
   plotId = null;
   landId = null;
   payload = {
-    submittedBy: '',
-    submittedTo: '',
-    contact: '',
+    receivedByName: '',
+    receivedByNumber: '',
+    receiveDate: new Date(),
+    paidBy : '',
+    receiptNumber : '-',
+    attachment : [],
     plotId: '',
   }
   landPayload = {
@@ -76,17 +79,23 @@ export class InstallmentComponent implements OnInit {
   }
   onSubmit(){
     this.isLoading = true;
-    this.adminService.submitPlotInstallment(this.payload).then(res =>{
-      console.log(res);
+    this.payload.attachment = this.attachments;
+
+    if (this.uploader.queue.length > 0) {
+      this.toastr.error('Error!', "Please upload all attachments before saving record.");
       this.isLoading = false;
-      this.isAdded = false;
-      this.relatedModal.close(true);
-      // this.getMeasurmentsUnit()
-      // this.relatedModal.close(true);
-    }) .catch(err =>{
-      console.log(err);
-      this.isLoading = false;
-    })
+    } else {
+      this.adminService.submitPlotInstallment({data : this.payload}).then(res =>{
+        this.isLoading = false;
+        this.isAdded = false;
+        this.relatedModal.close(true);
+        // this.getMeasurmentsUnit()
+        // this.relatedModal.close(true);
+      }) .catch(err =>{
+        console.log(err);
+        this.isLoading = false;
+      })
+    }
   }
   onSubmitLand(){
     this.isLoading = true;

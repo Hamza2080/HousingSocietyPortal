@@ -42,8 +42,9 @@
                   <td>{{item?.plotStatus}}</td>
                   <td>{{item?.townPhase}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary" [disabled]="item?.customerId" (click)="openSalePlotModel(item, salePlotModel)">Sale Plot</button>
-                    <button type="button" class="btn btn-primary mx-1" (click)="viewPlotDetailModal(item)">View Detail</button>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="!item?.customerId" (click)="openSalePlotModel(item, salePlotModel)">Sale Plot</button>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="item?.customerId" (click)="openInstallment(item)">Installment</button>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" (click)="viewPlotDetailModal(item)">View Plot Detail</button>
                   </td>
                   <!--
                   <td>

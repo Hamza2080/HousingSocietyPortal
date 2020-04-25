@@ -18,6 +18,23 @@
         </div>
       </div>
       <div class="col-md-6">
+
+        <div class="form-group">
+          <label class="marginLeft">Plot Type</label>
+          <select class="form-control select-box-height" name="plotType" #plotType="ngModel"
+            [(ngModel)]="payload.plotType" [ngClass]="{ 'is-invalid': f.submitted && land.invalid }" required>
+            <option [value]='null' selected disabled>Select Plot Type</option>
+            <option [value]="0">Residential</option>
+            <option [value]="1">Commercial</option>
+          </select>
+          <div *ngIf="f.submitted && plotType.invalid" class="invalid-feedback">
+            <div *ngIf="plotType.errors.required">Plot Type is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <div class="form-group">
           <label class="marginLeft">Plot Category</label>
           <select class="form-control select-box-height" name="land" #land="ngModel"
@@ -46,7 +63,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Land Measuring Unit</label>
+          <label class="marginLeft">Measuring Unit</label>
           <select class="form-control select-box-height" name="measuringUnit" #measuringUnit="ngModel"
             [(ngModel)]="payload.measuringUnit" [ngClass]="{ 'is-invalid': f.submitted && measuringUnit.invalid }"
             required>
@@ -297,6 +314,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Title</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Due Date</th>
                     <th scope="col">Status</th>
@@ -311,6 +329,7 @@
                         (blur)="updateList(i, 'installmentAmount', $event)"
                         value="{{installment?.installmentAmount}}" />
                     </td>
+                    <td>{{installment?.installmentName}}</td>
                     <td>
                       <input type="text" name="dueDate" class="form-control" (keyup)="changeValue(i, 'dueDate', $event)"
                         (blur)="updateList(i, 'dueDate', $event)" value="{{installment?.dueDate}}" bsDatepicker />

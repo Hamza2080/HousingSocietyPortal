@@ -21,7 +21,6 @@ export class ViewPlotDetailModalComponent implements OnInit {
     this.getTowns();
     this.getMeasurements();
     this.getPlotCategories();
-    console.log(this.payload)
   }
 
   getTowns() {

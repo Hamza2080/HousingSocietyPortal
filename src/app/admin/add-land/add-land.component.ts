@@ -12,7 +12,7 @@ class Installment {
   public status: string;
   public receivedByName: string;
   public receivedByNumber: string;
-  public receiveDate = new Date();
+  public receiveDate = null;
   public paidBy: string;
   public receiptNumber: string;
   public attachment: Array<string>;

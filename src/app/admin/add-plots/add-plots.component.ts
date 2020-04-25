@@ -12,7 +12,7 @@ class Installment {
   public status: string;
   public receivedByName: string;
   public receivedByNumber: string;
-  public receiveDate = new Date();
+  public receiveDate = null;
   public paidBy: string;
   public receiptNumber: string;
   public attachment: Array<string>;
@@ -34,10 +34,11 @@ export class AddPlotsComponent implements OnInit {
 
   public payload = {
     plotNumber: null,
+    plotType: null,
     size: null,
     plotcategoriesId: null,
     measuringUnit: null,
-    street : null,
+    street: null,
     reference: null,
     townId: null,
     townPhase: null,
@@ -50,11 +51,12 @@ export class AddPlotsComponent implements OnInit {
     noOfInstallment: null,
     installmentAmount: null,
     isOnInstallment: true,
-    isSold : false,
+    isSold: false,
     installments: [],
     attachment: []
   };
   private installmentsCreated = false;
+  private plotCategoryExtraCharge = 0;
   attachments = [];
   public selectTown = null;
   // public cutomerList = [];
@@ -64,6 +66,7 @@ export class AddPlotsComponent implements OnInit {
   public plotcategories = [];
   public townList = [];
   public isLoading = false;
+
   toastserviceConfig: object = {
     toastClass: 'ngx-toastr',
     timeOut: 10000,
@@ -101,16 +104,42 @@ export class AddPlotsComponent implements OnInit {
   }
   onSubmit() {
     this.isLoading = true;
-    this.payload.attachment = this.attachments;
-    this.adminService.addPlots(this.payload).then(res => {
+    if (this.checkTotalAmount()) {
+
+      this.payload.size = Number(this.payload.size);
+      this.payload.installmentGap = Number(this.payload.installmentGap);
+      this.payload.totalPayment = Number(this.payload.totalPayment);
+      this.payload.downPayment = Number(this.payload.downPayment);
+      this.payload.noOfInstallment = Number(this.payload.noOfInstallment);
+      this.payload.installmentAmount = Number(this.payload.installmentAmount);
+      this.payload.attachment = this.attachments;
+
+      this.adminService.addPlots(this.payload).then(res => {
+        this.isLoading = false;
+        this.relatedModal.close(true);
+      }).catch(err => {
+        console.log(err);
+        this.isLoading = false;
+      });
+    } else {
+      this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
       this.isLoading = false;
-      this.relatedModal.close(true);
-    }).catch(err => {
-      console.log(err);
-      this.isLoading = false;
-    });
+    }
   }
+
+  checkTotalAmount() {
+    let totalPayment = this.payload.totalPayment;
+    let calculatedPayment = Number(this.payload.downPayment);
+    for (let i = 0; i < this.payload.installments.length; i++) {
+      calculatedPayment += Number(this.payload.installments[i].installmentAmount);
+    }
+
+    if ( calculatedPayment == Number(totalPayment) + this.plotCategoryExtraCharge ) return true;
+    else return false;
+  }
+
   createInstallment() {
+    let categoryObject = this.plotcategories.find(element => element.id == this.payload.plotcategoriesId);
     // if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
     this.payload.installments = [];
     for (let i = 0; i < this.payload.noOfInstallment; i++) {
@@ -119,12 +148,25 @@ export class AddPlotsComponent implements OnInit {
       installment.srNo = i + 1;
       installment.installmentName = "installment_" + i + 1;
       installment.installmentAmount = this.payload.installmentAmount;
-      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * i))),
-        installment.status = 'Due'; // Due / Paid
-
+      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * i)));
+      installment.status = 'Due'; // Due / Paid
       this.payload.installments.push(installment);
-      this.installmentsCreated = true;
     }
+
+    let percentageVal = this.payload.plotType == '0' ? categoryObject.residentialPercentage : categoryObject.commercialPercentage;
+    let calculateExtraCharge = (percentageVal / 100 ) * this.payload.totalPayment;
+    let installment = new Installment();
+    installment.srNo = this.payload.installments.length + 1;
+    installment.installmentName = "Category_Extras";
+    installment.installmentAmount = calculateExtraCharge;
+    let startDate = new Date(this.payload.installmentStartDate);
+    installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * this.payload.installments.length)));
+    installment.status = 'Due'; // Due / Paid
+    this.plotCategoryExtraCharge = calculateExtraCharge;
+
+    this.payload.installments.push(installment);
+
+    this.installmentsCreated = true;
     // } else this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
   }
   getTowns() {
@@ -150,7 +192,7 @@ export class AddPlotsComponent implements OnInit {
       console.log(err);
     })
   }
-  
+
   getPlotCategories() {
     this.isLoading = true;
     this.adminService.getAllPlotCategories().then(res => {
@@ -165,9 +207,9 @@ export class AddPlotsComponent implements OnInit {
     });
   }
   townSelectionUpdated(event) {
-    for (let i =0 ; i< this.townList.length; i++) {
+    for (let i = 0; i < this.townList.length; i++) {
       if (this.townList[i].id == event)
-      this.selectTown = this.townList[i];
+        this.selectTown = this.townList[i];
     }
   }
 
@@ -190,11 +232,7 @@ export class AddPlotsComponent implements OnInit {
   changeValue(index, name, $event) {
   }
 
-  
   updateInstallment(installment, index) {
-    console.log(installment, index);
     this.payload.installments[index] = installment;
-
-    console.log(this.payload)
   }
 }

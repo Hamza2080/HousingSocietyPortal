@@ -3,11 +3,11 @@ import { AdminService } from 'src/app/services/admin.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPlotsComponent } from '../add-plots/add-plots.component';
 import { PlotCategoriesComponent } from '../plot-categories/plot-categories.component';
-import { InstallmentComponent } from '../installment/installment.component';
 import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measuring.component';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { ViewPlotDetailModalComponent } from '../view-plot-detail-modal/view-plot-detail-modal.component';
+import { InstallmentComponent } from '../installment/installment.component';
 
 @Component({
   selector: 'app-view-plots',
@@ -46,7 +46,6 @@ export class ViewPlotsComponent implements OnInit {
     this.isLoaded = true;
     this.adminService.getAllPlots().then(res => {
       this.plotsList = res as any[];
-      console.log(JSON.stringify(this.plotsList));
       this.isLoaded = false;
     }).catch(err => {
       console.log(err);
