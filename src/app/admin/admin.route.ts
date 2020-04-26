@@ -10,6 +10,7 @@ import { AuthorizedDealerComponent } from './authorized-dealer/authorized-dealer
 import { ViewCustomerComponent } from './view-customer/view-customer.component';
 import { ViewPlotsComponent } from './view-plots/view-plots.component';
 import { ExpenseComponent } from './expense/expense.component';
+import { StreetComponent } from './street/street.component';
 
 export const AdminRoutes: Routes = [
     {
@@ -46,6 +47,10 @@ export const AdminRoutes: Routes = [
         {
             path: 'plots',
             component: ViewPlotsComponent
+        },
+        {
+            path: 'street',
+            component: StreetComponent
         },
         {
             path: 'expense',

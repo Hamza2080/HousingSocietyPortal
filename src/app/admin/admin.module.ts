@@ -38,6 +38,9 @@ import { LandDetailViewComponent } from './land-detail-view/land-detail-view.com
 import { AddExpenseTypeComponent } from './add-expense-type/add-expense-type.component';
 import { UpdateExpenseComponent } from './update-expense/update-expense.component';
 import { ViewPlotDetailModalComponent } from './view-plot-detail-modal/view-plot-detail-modal.component';
+import { StreetComponent } from './street/street.component';
+import { AddStreetComponent } from './add-street/add-street.component';
+import { UpdateStreetComponent } from './update-street/update-street.component';
 
 @NgModule({
   entryComponents: [
@@ -50,6 +53,9 @@ import { ViewPlotDetailModalComponent } from './view-plot-detail-modal/view-plot
     AddLandLordComponent,
     AddExpenseComponent,
     AddLandComponent,
+    StreetComponent,
+    AddStreetComponent,
+    UpdateStreetComponent,
     AddAuthorizedDealerComponent,
     AddCustomerComponent,
     AddPaymentPlanComponent,
@@ -60,7 +66,7 @@ import { ViewPlotDetailModalComponent } from './view-plot-detail-modal/view-plot
     EditLandLordComponent,
     ExpenseComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, StreetComponent, AddStreetComponent, UpdateStreetComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
   imports: [
     CommonModule,
     FormsModule,
