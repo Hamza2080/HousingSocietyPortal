@@ -11,6 +11,7 @@ import { ViewCustomerComponent } from './view-customer/view-customer.component';
 import { ViewPlotsComponent } from './view-plots/view-plots.component';
 import { ExpenseComponent } from './expense/expense.component';
 import { StreetComponent } from './street/street.component';
+import { ParkComponent } from './park/park.component';
 
 export const AdminRoutes: Routes = [
     {
@@ -51,6 +52,10 @@ export const AdminRoutes: Routes = [
         {
             path: 'street',
             component: StreetComponent
+        },
+        {
+            path: 'park',
+            component: ParkComponent
         },
         {
             path: 'expense',

@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title" style="width: 70%; float: left;">Update Street</h5>
+  <h5 class="modal-title" style="width: 70%; float: left;">Add Park</h5>
   <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -9,48 +9,36 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Name</label>
-          <input type="text" class="form-control" placeholder="Street name..." name="name" #name="ngModel"
+          <label class="marginLeft">Park Name</label>
+          <input type="text" class="form-control" placeholder="Park name..." name="name" #name="ngModel"
             [(ngModel)]="payload.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
           <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-            <div *ngIf="name.errors.required">Street name is required</div>
+            <div *ngIf="name.errors.required">Park name is required</div>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Width</label>
-          <input type="text" class="form-control" placeholder="Total Land..." name="width" pattern="[0-9]*"
-            #width="ngModel" [(ngModel)]="payload.width" [ngClass]="{ 'is-invalid': f.submitted && width.invalid }"
+          <label class="marginLeft">Covered Area</label>
+          <input type="text" class="form-control" placeholder="Area..." name="area_covered" pattern="[0-9]*"
+            #area_covered="ngModel" [(ngModel)]="payload.area_covered" [ngClass]="{ 'is-invalid': f.submitted && area_covered.invalid }"
             required>
-          <div *ngIf="f.submitted && width.invalid" class="invalid-feedback">
-            <div *ngIf="width.errors.required">Width is required</div>
-            <div *ngIf="width.errors.pattern">Width is Only Number</div>
+          <div *ngIf="f.submitted && area_covered.invalid" class="invalid-feedback">
+            <div *ngIf="area_covered.errors.required">Area is required</div>
+            <div *ngIf="area_covered.errors.pattern">Area is Only Number</div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label class="marginLeft">Total Land</label>
-          <input type="text" class="form-control" placeholder="Total Land..." name="totalArea" pattern="[0-9]*"
-            #totalArea="ngModel" [(ngModel)]="payload.totalArea"
-            [ngClass]="{ 'is-invalid': f.submitted && totalArea.invalid }" required>
-          <div *ngIf="f.submitted && totalArea.invalid" class="invalid-feedback">
-            <div *ngIf="totalArea.errors.required">Total area is required</div>
-            <div *ngIf="totalArea.errors.pattern">Total area is Only Number</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="form-group">
           <label class="marginLeft">Measuring Unit</label>
           <select class="form-control select-box-height" name="measuringUnit" #measuringUnit="ngModel"
             [(ngModel)]="payload.measuringUnit" [ngClass]="{ 'is-invalid': f.submitted && measuringUnit.invalid }"
             required>
             <option [value]='null' disabled>Measuring Unit</option>
-            <option *ngFor="let item of measurementsList" [value]="item?.measuring_unit" [selected]="payload.measuringUnit == item?.measuring_unit"> {{item?.measuring_unit}}
+            <option *ngFor="let item of measurementsList" [value]="item?.measuring_unit"> {{item?.measuring_unit}}
             </option>
           </select>
           <div *ngIf="f.submitted && measuringUnit.invalid" class="invalid-feedback">

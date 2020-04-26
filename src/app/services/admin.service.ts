@@ -102,6 +102,23 @@ export class AdminService {
       });
     });
   }
+  getAllParks () {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/parks').subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        resolve(res.data);
+        // this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        console.log(err);
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
   addLand(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/lands', payload).subscribe(res => {
@@ -314,6 +331,19 @@ export class AdminService {
       });
     });
   }
+  addPark (payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/parks', payload).subscribe(res => {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
   addStreet (payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/streets', payload).subscribe(res => {
@@ -476,6 +506,22 @@ export class AdminService {
   salePlot(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.put('/plots', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        console.log(res);
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  updatePark (payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/parks', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
         console.log(res);
         resolve(res.data);
