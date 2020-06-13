@@ -57,7 +57,7 @@ export class StreetComponent implements OnInit {
   }
 
   openNewStreetFormModal () {
-    const modelRef = this.modelService.open(AddStreetComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(AddStreetComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     // modelRef.componentInstance.name = "data goind inside";
     modelRef.result.then((data) => {
       if (data) {
@@ -74,7 +74,7 @@ export class StreetComponent implements OnInit {
   }
 
   openModelUpdateStreet(street){
-    const modelRef = this.modelService.open(UpdateStreetComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(UpdateStreetComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.componentInstance.streetDetail = street;
   }
   

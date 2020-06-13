@@ -10,7 +10,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label class="marginLeft">Name</label>
-                <input type="text" class="form-control" placeholder="Land Lord Name..." name="name"
+                <input type="text" class="form-control" placeholder="Add dealer Name..." name="name"
                     #name="ngModel" [(ngModel)]="payload.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
                     <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" >
                       <div *ngIf="name.errors.required">Name is required</div>
@@ -74,7 +74,7 @@
   <div class="col-md-12">
       <div class="form-group">
           <label class="marginLeft">Commision Percentage</label>
-          <input type="text" class="form-control" placeholder="Commision Percentage" name="phone" pattern="[0-9]*"
+          <input type="number" class="form-control" placeholder="Commision Percentage" name="phone" min="1" max="20"
               #percentage="ngModel" [(ngModel)]="payload.commision_percentage" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required >
               <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
                 <div *ngIf="phone.errors.required">percentage  is required</div>

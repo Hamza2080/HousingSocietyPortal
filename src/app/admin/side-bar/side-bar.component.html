@@ -58,7 +58,7 @@
             </a>
         </li>
 
-        <li routerLinkActive='active'>
+        <!-- <li routerLinkActive='active'>
             <a data-toggle="collapse" data-target="">
                 <i class="fa fa-random" aria-hidden="true"></i>
                 <p>Town Planning</p>
@@ -76,17 +76,9 @@
                 <i class="fa fa-random" aria-hidden="true"></i>
                 <p>Park Planning</p>
             </a>
-        </li>
+        </li> -->
 
        
-
-
-        <li routerLinkActive='active'>
-            <a [routerLink]="['/admin/authorized-dealer']" >
-                <i class="fa fa-industry" aria-hidden="true"></i>
-                <p>Authorized Dealer</p>
-            </a>
-        </li>
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/plots']" >
                 <i class="fa fa-area-chart" aria-hidden="true"></i>
@@ -103,6 +95,19 @@
             <a [routerLink]="['/admin/park']" >
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <p>Park</p>
+            </a>
+        </li>
+        <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/public-building']" >
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <p>Public-building</p>
+            </a>
+        </li>
+
+        <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/authorized-dealer']" >
+                <i class="fa fa-industry" aria-hidden="true"></i>
+                <p>Authorized Dealer</p>
             </a>
         </li>
 

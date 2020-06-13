@@ -29,7 +29,7 @@ export class ViewManagerComponent implements OnInit {
     });
   }
   openModel() {
-    const modelRef = this.modelService.open(AddManagerComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(AddManagerComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     // modelRef.componentInstance.providerId = providerId;
   }
 }

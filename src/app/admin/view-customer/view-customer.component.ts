@@ -28,7 +28,7 @@ export class ViewCustomerComponent implements OnInit {
     });
   }
   openModel() {
-    const modelRef = this.modelService.open(AddCustomerComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(AddCustomerComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.result.then((data) => {
       // console.log('modal is closed', data);
       if (data) {

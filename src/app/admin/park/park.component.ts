@@ -57,7 +57,7 @@ export class ParkComponent implements OnInit {
   }
 
   openNewParkFormModal () {
-    const modelRef = this.modelService.open(AddParkComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(AddParkComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     // modelRef.componentInstance.name = "data goind inside";
     modelRef.result.then((data) => {
       if (data) {
@@ -74,7 +74,7 @@ export class ParkComponent implements OnInit {
   }
 
   openModelUpdatePark(park){
-    const modelRef = this.modelService.open(UpdateParkComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(UpdateParkComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.componentInstance.parkDetail = park;
   }
   

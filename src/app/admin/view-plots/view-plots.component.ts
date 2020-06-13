@@ -53,7 +53,7 @@ export class ViewPlotsComponent implements OnInit {
     })
   }
   openModel() {
-    const modelRef = this.modalService.open(AddPlotsComponent, { size: 'lg' });
+    const modelRef = this.modalService.open(AddPlotsComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.result.then((data) => {
       if (data) {
         this.getPlots();
@@ -61,10 +61,10 @@ export class ViewPlotsComponent implements OnInit {
     });
   }
   openModelPlotCategories(){
-    const modelRef = this.modalService.open(PlotCategoriesComponent, { size: 'sm' });
+    const modelRef = this.modalService.open(PlotCategoriesComponent, { size: 'lg', backdrop : 'static', keyboard : false });
   }
   openInstallment(item){
-    const modelRef = this.modalService.open(InstallmentComponent, { size: 'lg' });
+    const modelRef = this.modalService.open(InstallmentComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.componentInstance.installment = item.installments;
     modelRef.componentInstance.plotId = item.id;
     modelRef.componentInstance.isplotSide = true;
@@ -90,7 +90,7 @@ export class ViewPlotsComponent implements OnInit {
   }
 
   openModelMeasurement(){
-    const modelRef = this.modalService.open(AddLandMeasuringComponent, { size: 'sm' });
+    const modelRef = this.modalService.open(AddLandMeasuringComponent, { size: 'lg', backdrop : 'static', keyboard : false });
   }
 
   viewPlotDetailModal(item){

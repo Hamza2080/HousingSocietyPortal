@@ -43,7 +43,7 @@ export class TownComponent implements OnInit {
     })
   }
   openModel(){
-      const modelRef = this.modalService.open(AddTownsComponent, { size: 'lg' });
+      const modelRef = this.modalService.open(AddTownsComponent, { size: 'lg', backdrop : 'static', keyboard : false });
       // modelRef.componentInstance.providerId = providerId
       modelRef.result.then((data) => {
         // console.log('modal is closed', data);

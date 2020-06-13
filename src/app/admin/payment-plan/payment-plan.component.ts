@@ -28,7 +28,7 @@ export class PaymentPlanComponent implements OnInit {
       });
     }
     openModel() {
-      const modelRef = this.modelService.open(AddPaymentPlanComponent, { size: 'lg' });
+      const modelRef = this.modelService.open(AddPaymentPlanComponent, { size: 'lg', backdrop : 'static', keyboard : false });
       modelRef.result.then((data) => {
         // console.log('modal is closed', data);
         if(data){

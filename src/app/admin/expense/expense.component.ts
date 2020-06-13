@@ -48,7 +48,7 @@ export class ExpenseComponent implements OnInit {
   }
 
   openNewExpenseFormModal () {
-    const modelRef = this.modelService.open(AddExpenseComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(AddExpenseComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     // modelRef.componentInstance.name = "data goind inside";
     modelRef.result.then((data) => {
       if (data) {
@@ -58,11 +58,11 @@ export class ExpenseComponent implements OnInit {
   }
 
   openModelExpenseType(){
-    const modelRef = this.modelService.open(AddExpenseTypeComponent, { size: 'sm' });
+    const modelRef = this.modelService.open(AddExpenseTypeComponent, { size: 'lg', backdrop : 'static', keyboard : false });
   }
 
   openModelUpdateExpense(expense){
-    const modelRef = this.modelService.open(UpdateExpenseComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(UpdateExpenseComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.componentInstance.expenseDetail = expense;
   }
   

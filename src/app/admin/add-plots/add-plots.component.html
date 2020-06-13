@@ -324,12 +324,12 @@
                   <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
                   <tr *ngFor="let installment of payload.installments;let i = index;">
                     <th scope="row">{{installment?.srNo}}</th>
+                    <td>{{installment?.installmentName}}</td>
                     <td><input type="text" name="installmentAmont" class="form-control"
                         (keyup)="changeValue(i, 'installmentAmount', $event)"
                         (blur)="updateList(i, 'installmentAmount', $event)"
                         value="{{installment?.installmentAmount}}" />
                     </td>
-                    <td>{{installment?.installmentName}}</td>
                     <td>
                       <input type="text" name="dueDate" class="form-control" (keyup)="changeValue(i, 'dueDate', $event)"
                         (blur)="updateList(i, 'dueDate', $event)" value="{{installment?.dueDate}}" bsDatepicker />

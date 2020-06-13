@@ -29,7 +29,7 @@ export class ViewLandLordComponent implements OnInit {
     })
   }
   openModel() {
-    const modelRef = this.modalService.open(AddLandLordComponent, { size: 'lg' });
+    const modelRef = this.modalService.open(AddLandLordComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.result.then((data) => {
       if (data) {
         this.getLandLord();
@@ -38,7 +38,7 @@ export class ViewLandLordComponent implements OnInit {
   }
   openEditModel(landLordId) {
     this.dataService.saveLandLordId(landLordId);
-    const modelRef = this.modalService.open(EditLandLordComponent, { size: 'lg' });
+    const modelRef = this.modalService.open(EditLandLordComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.result.then((data) => {
       if (data) {
         this.getLandLord();

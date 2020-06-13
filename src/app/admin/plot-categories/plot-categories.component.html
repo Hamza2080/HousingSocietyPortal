@@ -24,7 +24,7 @@
         <tbody *ngIf="categoryList?.length > 0">
           <tr *ngFor="let item of categoryList;let i = index">
             <td>{{i+1}}</td>
-            <td>{{item?.catgeoryName}}</td>
+            <td>{{item?.categoryName}}</td>
             <td>{{item?.residentialPercentage}}</td>
             <td>{{item?.commercialPercentage}}</td>
             <td><i (click)="deletePlotCategory(item.id)" style="cursor: pointer;" class="fa fa-trash action-icon" aria-hidden="true"></i></td>

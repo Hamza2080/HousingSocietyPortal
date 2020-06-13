@@ -33,7 +33,6 @@ import { EditLandLordComponent } from './edit-land-lord/edit-land-lord.component
 import { FileUploadModule } from 'ng2-file-upload';
 import { ExpenseComponent } from './expense/expense.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
-import { DataTablesModule } from 'angular-datatables';
 import { LandDetailViewComponent } from './land-detail-view/land-detail-view.component';
 import { AddExpenseTypeComponent } from './add-expense-type/add-expense-type.component';
 import { UpdateExpenseComponent } from './update-expense/update-expense.component';
@@ -44,6 +43,9 @@ import { UpdateStreetComponent } from './update-street/update-street.component';
 import { ParkComponent } from './park/park.component';
 import { AddParkComponent } from './add-park/add-park.component';
 import { UpdateParkComponent } from './update-park/update-park.component';
+import { PublicBuildingComponent } from './public-building/public-building.component';
+import { AddPublicBuildingComponent } from './add-public-building/add-public-building.component';
+import { UpdatePublicBuildingComponent } from './update-public-building/update-public-building.component';
 
 @NgModule({
   entryComponents: [
@@ -70,9 +72,12 @@ import { UpdateParkComponent } from './update-park/update-park.component';
     LandDetailViewComponent,
     InstallmentComponent,
     EditLandLordComponent,
-    ExpenseComponent
+    ExpenseComponent,
+    PublicBuildingComponent,
+    AddPublicBuildingComponent,
+    UpdatePublicBuildingComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, ParkComponent, UpdateParkComponent, AddParkComponent, StreetComponent, AddStreetComponent, UpdateStreetComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, PublicBuildingComponent, UpdatePublicBuildingComponent, AddPublicBuildingComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, ParkComponent, UpdateParkComponent, AddParkComponent, StreetComponent, AddStreetComponent, UpdateStreetComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -81,8 +86,7 @@ import { UpdateParkComponent } from './update-park/update-park.component';
     BsDatepickerModule,
     NgbModule,
     RouterModule.forChild(AdminRoutes),
-    FileUploadModule,
-    DataTablesModule
+    FileUploadModule
   ]
 })
 export class AdminModule { }
