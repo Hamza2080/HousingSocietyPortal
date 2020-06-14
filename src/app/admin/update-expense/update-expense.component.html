@@ -1,0 +1,195 @@
+<div class="modal-header">
+  <h5 class="modal-title" style="width: 70%; float: left;">Add New Expense</h5>
+  <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Name</label>
+          <input type="text" class="form-control" placeholder="Expense Name..." name="expenseName"
+            #expenseName="ngModel" [(ngModel)]="payload.expenseName"
+            [ngClass]="{ 'is-invalid': f.submitted && expenseName.invalid }" required>
+          <div *ngIf="f.submitted && expenseName.invalid" class="invalid-feedback">
+            <div *ngIf="expenseName.errors.required">Expense name is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Expense Type</label>
+          <select class="form-control select-box-height" name="expenseType" #expenseType="ngModel"
+            [(ngModel)]="payload.expenseType" [ngClass]="{ 'is-invalid': f.submitted && expenseType.invalid }"
+            required>
+            <option [value]='null' disabled>Expense Type</option>
+            <option *ngFor="let item of expenseTypesList" [value]="item?.type" [selected]="expenseDetail?.expenseType == item?.type"> {{item?.type}}
+            </option>
+          </select>
+          <div *ngIf="f.submitted && expenseType.invalid" class="invalid-feedback">
+            <div *ngIf="expenseType.errors.required">Expense type is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Date</label>
+          <input type="text" name="expenseDate" placeholder="Installments Start From" #expenseDate="ngModel"
+            [(ngModel)]="payload.expenseDate" class="form-control"
+            [ngClass]="{ 'is-invalid': f.submitted && expenseDate.invalid }" required bsDatepicker>
+          <div *ngIf="f.submitted && expenseDate.invalid" class="invalid-feedback">
+            <div *ngIf="expenseDate.errors.required">Date is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Expense Amount</label>
+          <input type="text" class="form-control" placeholder="Expense amount ..." name="amount" pattern="[0-9]*"
+            #amount="ngModel" [(ngModel)]="payload.amount" [ngClass]="{ 'is-invalid': f.submitted && amount.invalid }"
+            required>
+          <div *ngIf="f.submitted && amount.invalid" class="invalid-feedback">
+            <div *ngIf="amount.errors.required">Expense amount is required</div>
+            <div *ngIf="amount.errors.pattern">Expense amount is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Status</label>
+          <select class="form-control select-box-height" name="status" #status="ngModel"
+            [(ngModel)]="payload.status" [ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+            required>
+            <option [value]="'Paid'" [selected]="expenseDetail?.status == 'Paid'"> Paid</option>
+            <option [value]="'Due'" [selected]="expenseDetail?.expenseType == 'Due'"> Due</option>
+          </select>
+          <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+            <div *ngIf="status.errors.required">Status is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Paid By (CNIC)</label>
+          <input type="text" class="form-control" placeholder="Who paid expense amount..." name="paidBy"
+            pattern="^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$" #paidBy="ngModel" [(ngModel)]="payload.paidBy"
+            [ngClass]="{ 'is-invalid': f.submitted && paidBy.invalid }" required>
+          <div *ngIf="f.submitted && paidBy.invalid" class="invalid-feedback">
+            <div *ngIf="paidBy.errors.required">No Of Installment is required</div>
+            <div *ngIf="paidBy.errors.pattern">Please provide valid CNIC.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Additional Notes</label>
+          <textarea name="additionalNotes" class="form-control" placeholder="Additional Notes About Land..."
+            name="additionalNotes" #additionalNotes="ngModel" [(ngModel)]="payload.additionalNotes"
+            [ngClass]="{ 'is-invalid': f.submitted && additionalNotes.invalid }"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div ng2FileDrop
+               [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+               (fileOver)="fileOverBase($event)"
+               [uploader]="uploader"
+               class="well my-drop-zone">
+              Base drop zone
+          </div>
+        <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+          <tr>
+              <th width="50%">Name</th>
+              <th>Size</th>
+              <th>Progress</th>
+              <th>Status</th>
+              <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of uploader.queue">
+              <td><strong>{{ item?.file?.name }}</strong></td>
+              <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+              <td *ngIf="uploader.options.isHTML5">
+                  <div class="progress" style="margin-bottom: 0;">
+                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  </div>
+              </td>
+              <td class="text-center">
+                  <span *ngIf="item.isSuccess"><i class="fa fa-check"></i></span>
+                  <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                  <span *ngIf="item.isError"><i class="fa fa-times"></i></span>
+              </td>
+              <td nowrap>
+                  <button type="button" class="btn btn-success btn-xs"
+                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                      <span class="fa fa-check"></span> Upload
+                  </button>
+                  <button type="button" class="btn btn-warning btn-xs"
+                          (click)="item.cancel()" [disabled]="!item.isUploading">
+                      <span class="fa fa-ban"></span> Cancel
+                  </button>
+                  <button type="button" class="btn btn-danger btn-xs"
+                          (click)="item.remove()">
+                      <span class="fa fa-times"></span> Remove
+                  </button>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:10px">
+      <div class="col-md-12">
+        <div>
+          <div>
+              Queue progress:
+              <div class="progress" style="">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+              </div>
+          </div>
+          <button type="button" class="btn btn-success btn-s"
+                  (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+              <span class="fa fa-check"></span> Upload all
+          </button>
+          <button type="button" class="btn btn-warning btn-s"
+                  (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+              <span class="fa fa-ban"></span> Cancel all
+          </button>
+          <button type="button" class="btn btn-danger btn-s"
+                  (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+              <span class="fa fa-times"></span> Remove all
+          </button>
+      </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-info btn-fill pull-right"
+          [disabled]="isLoading">Save<span *ngIf="isLoading" class="btn-spinnerr"></span></button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- </div> -->

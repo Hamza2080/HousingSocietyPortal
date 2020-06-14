@@ -21,7 +21,7 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpInsecure.post('/Admins/login', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
+        
         resolve(res);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         localStorage.setItem('token', res.data.id);
@@ -38,7 +38,7 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/Admins/getAllUsers').subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
+        
         resolve(res.data.users);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
@@ -55,13 +55,64 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/lands').subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
         resolve(res.data);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
         // localStorage.setItem('userId', res.data.userId);
         // this.router.navigateByUrl('/admin/manager')
       }, err => {
+        console.log(err);
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllExpenses () {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/expenses').subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        resolve(res.data);
+        // this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        console.log(err);
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllStreet () {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/streets').subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        resolve(res.data);
+        // this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        console.log(err);
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllParks () {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/parks').subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        resolve(res.data);
+        // this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        console.log(err);
         this.toastr.error('Error!', err.error.error.message);
         reject(err);
 
@@ -72,7 +123,41 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/lands', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addExpense(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/expenses', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  updatePhaseInTown(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/towns', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
@@ -89,7 +174,41 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.put('/lands', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  updateExpense(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/expenses', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addExpenseType(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/expense_types', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
@@ -106,9 +225,26 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/land_measuring_units', payload).subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
+        
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllExpenseTypes() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/expense_types').subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        // 
+        resolve(res.data);
+        // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
         // localStorage.setItem('userId', res.data.userId);
         // this.router.navigateByUrl('/admin/manager')
@@ -123,7 +259,7 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/land_measuring_units').subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        console.log(res);
+        // 
         resolve(res.data);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
@@ -139,7 +275,17 @@ export class AdminService {
   getLandLord() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/landlords').subscribe(res => {
-        console.log(res);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getLandLordById(landlordId) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/landlords/' + landlordId).subscribe(res => {
         resolve(res.data);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
@@ -151,7 +297,19 @@ export class AdminService {
   addLandLord(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/landlords', payload).subscribe(res => {
-        console.log(res);
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  updateLandLord(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/landlords', payload).subscribe(res => {
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
       }, err => {
@@ -164,8 +322,57 @@ export class AdminService {
   getAllTowns() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/towns').subscribe(res => {
-        console.log(res);
         resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  getAllPublicBuildings() {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.get('/public_buildings').subscribe(res => {
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addPark (payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/parks', payload).subscribe(res => {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addPublicBuilding (payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/public_buildings', payload).subscribe(res => {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+
+      });
+    });
+  }
+  addStreet (payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.post('/streets', payload).subscribe(res => {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
         reject(err);
@@ -176,7 +383,7 @@ export class AdminService {
   addTown(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/towns', payload).subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
       }, err => {
@@ -189,7 +396,7 @@ export class AdminService {
   getAllCustomers() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/Customers').subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
@@ -201,7 +408,7 @@ export class AdminService {
   addCustomer(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/Customers', payload).subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
       }, err => {
@@ -214,7 +421,7 @@ export class AdminService {
   getAllAuthDealers() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/authorized_dealers').subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
@@ -226,7 +433,7 @@ export class AdminService {
   addAuthDealers(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/authorized_dealers', payload).subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
       }, err => {
@@ -239,7 +446,7 @@ export class AdminService {
   getAllPaymentPlans() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/plot_payment_plans').subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
@@ -251,7 +458,7 @@ export class AdminService {
   addPaymentPlans(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/plot_payment_plans', payload).subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
       }, err => {
@@ -263,8 +470,8 @@ export class AdminService {
   }
   getAllPlotCategories() {
     return new Promise((resolve, reject) => {
-      this.httpSecure.get('/plotcategories').subscribe(res => {
-        console.log(res);
+      this.httpSecure.get('/plot_categories').subscribe(res => {
+        
         resolve(res.data);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
@@ -274,8 +481,8 @@ export class AdminService {
   }
   addPlotCategories(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.post('/plotcategories',payload).subscribe(res => {
-        console.log(res);
+      this.httpSecure.post('/plot_categories',payload).subscribe(res => {
+        
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         resolve(res.data);
       }, err => {
@@ -284,10 +491,22 @@ export class AdminService {
       });
     });
   }
+  deletePlotCategory(plotId) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.delete('/plot_categories/' + plotId).subscribe(res =>  {
+        
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      })
+    });
+  }
   addPlots(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/plots',payload).subscribe(res => {
-        console.log(res);
+        
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         resolve(res.data);
       }, err => {
@@ -299,7 +518,7 @@ export class AdminService {
   getAllPlots() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/plots').subscribe(res => {
-        console.log(res);
+        
         resolve(res.data);
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
@@ -309,10 +528,62 @@ export class AdminService {
   }
   salePlot(payload) {
     return new Promise((resolve, reject) => {
-      this.httpSecure.post('/plots/salePlot',payload).subscribe(res => {
-        console.log(res);
-        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+      this.httpSecure.put('/plots', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
         resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  updatePark (payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/parks', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  updatePublicBuilding (payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/public_buildings', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
+  updateStreet(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/streets', payload).subscribe(res => {
+        // if (res.status.result === 'SUCCESS') {
+        
+        resolve(res.data);
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        // localStorage.setItem('token', res.data.id);
+        // localStorage.setItem('userId', res.data.userId);
+        // this.router.navigateByUrl('/admin/manager')
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
         reject(err);
@@ -322,7 +593,7 @@ export class AdminService {
   submitPlotInstallment(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/plots/submitInstallment',payload).subscribe(res => {
-        console.log(res);
+        
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         resolve(res.data);
       }, err => {
@@ -334,7 +605,7 @@ export class AdminService {
   submitLandInstallment(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/lands/submitInstallment',payload).subscribe(res => {
-        console.log(res);
+        
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         resolve(res.data);
       }, err => {
@@ -346,7 +617,7 @@ export class AdminService {
   submitLand(payload) {
     return new Promise((resolve, reject) => {
       this.httpSecure.post('/plots/salePlot',payload).subscribe(res => {
-        console.log(res);
+        
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         resolve(res.data);
       }, err => {

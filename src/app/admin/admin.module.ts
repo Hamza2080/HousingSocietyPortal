@@ -29,21 +29,55 @@ import { ViewPlotsComponent } from './view-plots/view-plots.component';
 import { AddPlotsComponent } from './add-plots/add-plots.component';
 import { PlotCategoriesComponent } from './plot-categories/plot-categories.component';
 import { InstallmentComponent } from './installment/installment.component';
+import { EditLandLordComponent } from './edit-land-lord/edit-land-lord.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ExpenseComponent } from './expense/expense.component';
+import { AddExpenseComponent } from './add-expense/add-expense.component';
+import { LandDetailViewComponent } from './land-detail-view/land-detail-view.component';
+import { AddExpenseTypeComponent } from './add-expense-type/add-expense-type.component';
+import { UpdateExpenseComponent } from './update-expense/update-expense.component';
+import { ViewPlotDetailModalComponent } from './view-plot-detail-modal/view-plot-detail-modal.component';
+import { StreetComponent } from './street/street.component';
+import { AddStreetComponent } from './add-street/add-street.component';
+import { UpdateStreetComponent } from './update-street/update-street.component';
+import { ParkComponent } from './park/park.component';
+import { AddParkComponent } from './add-park/add-park.component';
+import { UpdateParkComponent } from './update-park/update-park.component';
+import { PublicBuildingComponent } from './public-building/public-building.component';
+import { AddPublicBuildingComponent } from './add-public-building/add-public-building.component';
+import { UpdatePublicBuildingComponent } from './update-public-building/update-public-building.component';
+
 @NgModule({
   entryComponents: [
     AddManagerComponent,
     AddTownsComponent,
     AddLandMeasuringComponent,
+    AddExpenseTypeComponent,
+    UpdateExpenseComponent,
+    ViewPlotDetailModalComponent,
     AddLandLordComponent,
+    AddExpenseComponent,
     AddLandComponent,
+    StreetComponent,
+    AddStreetComponent,
+    UpdateStreetComponent,
+    ParkComponent,
+    AddParkComponent,
+    UpdateParkComponent,
     AddAuthorizedDealerComponent,
     AddCustomerComponent,
     AddPaymentPlanComponent,
     AddPlotsComponent,
     PlotCategoriesComponent,
-    InstallmentComponent
+    LandDetailViewComponent,
+    InstallmentComponent,
+    EditLandLordComponent,
+    ExpenseComponent,
+    PublicBuildingComponent,
+    AddPublicBuildingComponent,
+    UpdatePublicBuildingComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, AddManagerComponent, AddLandMeasuringComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, PublicBuildingComponent, UpdatePublicBuildingComponent, AddPublicBuildingComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, ParkComponent, UpdateParkComponent, AddParkComponent, StreetComponent, AddStreetComponent, UpdateStreetComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -51,7 +85,8 @@ import { InstallmentComponent } from './installment/installment.component';
     Ng2SearchPipeModule,
     BsDatepickerModule,
     NgbModule,
-    RouterModule.forChild(AdminRoutes)
+    RouterModule.forChild(AdminRoutes),
+    FileUploadModule
   ]
 })
 export class AdminModule { }

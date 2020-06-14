@@ -22,7 +22,7 @@
       <div class="col-md-12">
           <div class="form-group">
               <label class="marginLeft">Phone Number</label>
-              <input type="text" class="form-control" placeholder="Phone Number..." name="phone" pattern="[0-9]*"
+              <input type="text" class="form-control" placeholder="Phone Number..." name="phone" pattern="^[0-9]*$"
                   #phone="ngModel" [(ngModel)]="payload.phone" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required >
                   <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
                     <div *ngIf="phone.errors.required">Phone  is required</div>

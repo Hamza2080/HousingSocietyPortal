@@ -1,0 +1,79 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 style="width: 400px;float: left;" class="title">Street</h4>
+            <div style="float: right;">
+              <!-- <button type="button" (click)="openModelExpenseType()" style="margin-right: 5px;"
+                class="btn btn-info btn-fill">Add Expense Type</button> -->
+              <button type="button" (click)="openNewStreetFormModal()" style="margin-right: 5px;"
+                class="btn btn-info btn-fill">Add Street</button>
+              <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
+              <!-- </div> -->
+            </div>
+          </div>
+          <hr>
+          <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;"
+              src="assets/img/loading-bubbles.svg"></div>
+          <div *ngIf="!isLoaded" class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead *ngIf="streetList?.length === 0">No Record Found</thead>
+              <thead *ngIf="streetList?.length > 0">
+                <tr>
+                  <th>Street</th>
+                  <th>Width</th>
+                  <th>Area</th>
+                  <th>Measuring Unit</th>
+                  <th>townPhase</th>
+                  <th>town</th>
+                  <th>Additional Notes</th>
+                  <!-- <th>Attachments</th> -->
+                </tr>
+              </thead>
+              <tbody *ngIf="streetList?.length > 0">
+                <tr *ngFor="let item of streetList| paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td>{{item?.name}}</td>
+                  <td>{{item?.width}}</td>
+                  <td>{{item?.totalArea}}</td>
+                  <td>{{item?.measuringUnit}}</td>
+                  <td>{{item?.townPhase}}</td>
+                  <td *ngIf="item?.townId">{{getTownFromTownId(item?.townId)}}</td>
+                  <td title="{{item?.additionalNotes}}">View Detail</td>
+                  <!-- <td>
+                    <button type="button" [disabled]="item?.attachment?.length == 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm btnColor" title="Installments">Attachment</button>
+                  </td> -->
+                  <td>
+                    <i class="fa fa-pencil mr-2 action-icon" style="cursor:pointer" aria-hidden="true"
+                      (click)="openModelUpdateStreet(item)"></i>
+                    <i class="fa fa-trash action-icon" style="cursor:pointer" aria-hidden="true"></i>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+            <pagination-controls *ngIf="landList?.length > 0" (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #attachmentModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Attachments of {{selectStreet.name}} : </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row" *ngFor="let url of attachmentArr;let i=index">
+      <div class="col container">
+        <strong>Attachment {{i+1}} - </strong>
+        <img [src]="url" style="margin:auto;width:100%;margin-bottom:20px;">
+      </div>
+    </div>
+  </div>
+</ng-template> -->

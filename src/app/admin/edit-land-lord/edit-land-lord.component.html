@@ -1,0 +1,83 @@
+  <div class="modal-header">
+    <h5 class="modal-title" style="width: 70%; float: left;">Edit Land Lord Information</h5>
+    <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                  <label class="marginLeft">Name</label>
+                  <input type="text" class="form-control" placeholder="Land Lord Name..." name="name"
+                      #name="ngModel" [(ngModel)]="payload.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                      <div *ngIf="f.submitted && name.invalid" class="invalid-feedback" >
+                        <div *ngIf="name.errors.required">Name is required</div>
+                    </div>
+              </div>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <div class="form-group">
+              <label class="marginLeft">Phone Number</label>
+              <input type="text" class="form-control" placeholder="Phone Number..." name="phone" pattern="^[0-9]*$"
+                  #phone="ngModel" [(ngModel)]="payload.phone" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required >
+                  <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
+                    <div *ngIf="phone.errors.required">Phone  is required</div>
+                    <div *ngIf="phone.errors.pattern">Phone is Only Number</div>
+                </div>
+          </div>
+      </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="form-group">
+          <label class="marginLeft">CNIC Number</label>
+          <input type="text" class="form-control" placeholder="CNIC..." name="CNIC" pattern="[0-9]*" minlength="13" maxlength="13" 
+              #CNIC="ngModel" [(ngModel)]="payload.cnic" [ngClass]="{ 'is-invalid': f.submitted && CNIC.invalid }" required >
+              <div *ngIf="f.submitted && CNIC.invalid" class="invalid-feedback">
+                <div *ngIf="CNIC.errors.required">CNIC is required</div>
+                <div *ngIf="CNIC.errors.pattern">CNIC is Only Number</div>
+                <div *ngIf="CNIC.errors.minlength">CNIC is Minimum 13 Digits</div>
+            </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="form-group">
+          <label class="marginLeft">Address</label>
+          <input type="text"  class="form-control" placeholder="Address..." name="Address"
+              #Address="ngModel" [(ngModel)]="payload.address" [ngClass]="{ 'is-invalid': f.submitted && Address.invalid }" required >
+              <div *ngIf="f.submitted && Address.invalid" class="invalid-feedback">
+                <div *ngIf="Address.errors.required">Address is required</div>
+            </div>
+      </div>
+  </div>
+</div>
+<!-- <div class="row">
+  <div class="col-md-12">
+      <div class="form-group">
+          <label class="marginLeft">Town</label>
+          <select class="form-control" name="SubCategoryId" #SubCategoryId="ngModel" [(ngModel)]="payload.townId" [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
+            <option [value]= 'null' disabled>Select Town</option>
+            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+          </select>
+              <div *ngIf="f.submitted && SubCategoryId.invalid" class="invalid-feedback">
+                <div *ngIf="SubCategoryId.errors.required">Town is required</div>
+                <div *ngIf="Address.errors.pattern">CNIC is Only Number</div>
+            </div>
+      </div>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-md-12">
+    <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save<span *ngIf="isLoading"
+      class="btn-spinnerr"></span></button>
+  </div>
+</div>
+    </form>
+    </div>
+    <!-- </div> -->

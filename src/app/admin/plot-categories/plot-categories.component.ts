@@ -12,11 +12,11 @@ export class PlotCategoriesComponent implements OnInit {
   public isAdded = false;
   public isLoading = false;
   public isLoaded = false;
-  public measurmentsList = [];
+  public categoryList = [];
   public payload = {
-    name: null,
-    created_by: 'admin',
-    created_at: new Date(),
+    "categoryName": "",
+    "residentialPercentage": null,
+    "commercialPercentage": null 
   }
   constructor(public relatedModal: NgbActiveModal, private adminService: AdminService) { }
 
@@ -26,7 +26,7 @@ export class PlotCategoriesComponent implements OnInit {
   getPlotCategories() {
     this.isLoaded = true;
     this.adminService.getAllPlotCategories().then(res => {
-      this.measurmentsList = res as any[];
+      this.categoryList = res as any[];
       this.isLoaded = false;
     }).catch(err => {
       console.log(err);
@@ -39,6 +39,19 @@ export class PlotCategoriesComponent implements OnInit {
       console.log(res);
       this.isLoading = false;
       this.isAdded = false;
+      this.getPlotCategories();
+      // this.relatedModal.close(true);
+    }).catch(err => {
+      console.log(err);
+      this.isLoading = false;
+    });
+  }
+
+  deletePlotCategory(plotId) {
+    this.isLoading = true;
+    this.adminService.deletePlotCategory(plotId).then(res => {
+      console.log(res);
+      this.isLoading = false;
       this.getPlotCategories();
       // this.relatedModal.close(true);
     }).catch(err => {

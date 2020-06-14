@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddLandLordComponent } from '../add-land-lord/add-land-lord.component';
+import { EditLandLordComponent } from '../edit-land-lord/edit-land-lord.component';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-view-land-lord',
@@ -11,7 +13,7 @@ import { AddLandLordComponent } from '../add-land-lord/add-land-lord.component';
 export class ViewLandLordComponent implements OnInit {
   public landLordList = [];
   public isLoaded = false;
-  constructor(private adminService: AdminService, private modalService: NgbModal) { }
+  constructor(private adminService: AdminService, private dataService: DataService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getLandLord();
@@ -27,7 +29,16 @@ export class ViewLandLordComponent implements OnInit {
     })
   }
   openModel() {
-    const modelRef = this.modalService.open(AddLandLordComponent, { size: 'lg' });
+    const modelRef = this.modalService.open(AddLandLordComponent, { size: 'lg', backdrop : 'static', keyboard : false });
+    modelRef.result.then((data) => {
+      if (data) {
+        this.getLandLord();
+      }
+    });
+  }
+  openEditModel(landLordId) {
+    this.dataService.saveLandLordId(landLordId);
+    const modelRef = this.modalService.open(EditLandLordComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.result.then((data) => {
       if (data) {
         this.getLandLord();

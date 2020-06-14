@@ -8,6 +8,8 @@
           <div class="header">
             <h4 style="width: 400px;float: left;" class="title">All Plots</h4>
             <div style="float: right;">
+              <button type="button" (click)="openModelMeasurement()" style="margin-right: 5px;"
+                class="btn btn-info btn-fill">Add Land Measurement</button>
               <button type="button" (click)="openModelPlotCategories()" style="margin-right: 5px;"
                 class="btn btn-info btn-fill">Add Plot Categories</button>
               <button type="button" (click)="openModel()" class="btn btn-info btn-fill">Add Plots</button>
@@ -24,30 +26,31 @@
               <thead *ngIf="plotsList?.length === 0">No Record Found</thead>
               <thead  *ngIf="plotsList?.length > 0">
                 <tr>
+                  <th>#</th>
                   <th>Plot Number</th>
                   <th>Size</th>
-                  <th>Total Payment</th>
-                  <th>Total</th>
-                  <th>Payment Type</th>
-                  <th>Customer Name</th>
-                  <th>Plane Name</th>
-                  <th class="text-center">Action</th>
+                  <th>Status</th>
+                  <th>Town Phase</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody *ngIf="plotsList?.length > 0">
-                <tr *ngFor="let item of plotsList | paginate: { itemsPerPage: 10, currentPage: p }">
+                <tr *ngFor="let item of plotsList | paginate: { itemsPerPage: 10, currentPage: p }; let i= index">
+                  <td>{{i+1}}</td>
                   <td>{{item?.plotNumber}}</td>
-                  <td>{{item?.size}} {{item?.measuring_unitData?.measuring_unit}}</td>
-                  <td>{{item?.totalPayment}}</td>
+                  <td>{{item?.size}}-{{item?.measuringUnit}}</td>
                   <td>{{item?.plotStatus}}</td>
-                  <td *ngIf="item.isOnInstallment">Installment</td>
-                  <td *ngIf="!item.isOnInstallment">Cash</td>
-                <td>{{item?.customerData?.name}}</td>
-                <td>{{item?.plotPaymentPlanData?.payment_plan_name}}</td>
+                  <td>{{item?.townPhase}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="!item?.customerId" (click)="openSalePlotModel(item, salePlotModel)">Sale Plot</button>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="item?.customerId" (click)="openInstallment(item)">Installment</button>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" (click)="viewPlotDetailModal(item)">View Plot Detail</button>
+                  </td>
+                  <!--
                   <td>
                     <button type="button" *ngIf="item.plotStatus === 'open'" [disabled]="item.plotStatus === 'open'" class="btn btn-primary btn-sm btnColor" title="Plot is not Sale">Installments</button>
                     <button type="button" *ngIf="item.plotStatus !== 'open'" (click)="openInstallment(item)" class="btn btn-primary btn-sm btnColor" title="Installments">Installments</button>
-                    <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="openSalePlot(item)" title="Sale Plot" >Sale Plot</button></td>
+                    <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="openSalePlot(item)" title="Sale Plot" >Sale Plot</button></td> -->
                 </tr>
               </tbody>
 
@@ -57,8 +60,39 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 </div>
+
+
+<ng-template #salePlotModel>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Plot Info...</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form name="form" (ngSubmit)="f.form.valid && openSalePlot()" #f="ngForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label class="marginLeft">Customer</label>
+            <select class="form-control select-box-height" name="customerId" #customerId="ngModel"
+              [(ngModel)]="salePayload.customerId" [ngClass]="{ 'is-invalid': f.submitted && customerId.invalid }" required>
+              <option [value]='null' disabled>Select customer</option>
+              <option *ngFor="let item of customerList" [value]="item?.id"> {{item?.name}} - {{item?.cnic}}</option>
+            </select>
+            <div *ngIf="f.submitted && customerId.invalid" class="invalid-feedback">
+              <div *ngIf="customerId.errors.required">Customer is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-info btn-fill pull-right" [disabled]="isLoaded" (click)="modalRef.hide()">Save<span *ngIf="isLoaded" class="btn-spinnerr"></span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

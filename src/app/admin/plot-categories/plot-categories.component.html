@@ -6,31 +6,39 @@
 </div>
 <div class="modal-body">
 
-  <div >
-    <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;" src="assets/img/loading-bubbles.svg"></div> 
+  <div>
+    <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;" src="assets/img/loading-bubbles.svg">
+    </div>
     <div *ngIf="!isLoaded && !isAdded" class="content table-responsive table-full-width">
-        <table class="table table-hover table-striped">
-            <thead *ngIf = "measurmentsList?.length === 0">No Record Found</thead>
-            <thead *ngIf = "measurmentsList?.length > 0">
-                    <tr>
-                      <th>#</th>
-                        <th>Measuring Unit</th>
-                      </tr>
-                </thead>
-                <tbody *ngIf = "measurmentsList?.length > 0">
-                    <tr *ngFor = "let item of measurmentsList;let i = index">
-                    <td>{{i+1}}</td>
-                  <td>{{item?.name}}</td>
-                </tr>
-              </tbody>
-                
-              </table>
-              <!-- <pagination-controls *ngIf = "townList?.length > 0" (pageChange)="p = $event"></pagination-controls> -->
-              <div class="row">
-                <div class="col-md-12">
-                  <button *ngIf="!isAdded" type="button" class="btn btn-info btn-fill pull-right" (click)="isAdded = true">Add More</button>
-                </div>
-              </div>
+      <table class="table table-hover table-striped">
+        <thead *ngIf="categoryList?.length === 0">No Record Found</thead>
+        <thead *ngIf="categoryList?.length > 0">
+          <tr>
+            <th>#</th>
+            <th>Category</th>
+            <th>Residential %</th>
+            <th>Commercial %</th>
+            <th>Action </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="categoryList?.length > 0">
+          <tr *ngFor="let item of categoryList;let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item?.categoryName}}</td>
+            <td>{{item?.residentialPercentage}}</td>
+            <td>{{item?.commercialPercentage}}</td>
+            <td><i (click)="deletePlotCategory(item.id)" style="cursor: pointer;" class="fa fa-trash action-icon" aria-hidden="true"></i></td>
+          </tr>
+        </tbody>
+
+      </table>
+      <!-- <pagination-controls *ngIf = "townList?.length > 0" (pageChange)="p = $event"></pagination-controls> -->
+      <div class="row">
+        <div class="col-md-12">
+          <button *ngIf="!isAdded" type="button" class="btn btn-info btn-fill pull-right" (click)="isAdded = true">Add
+            More</button>
+        </div>
+      </div>
     </div>
   </div>
   <div *ngIf="isAdded">
@@ -38,12 +46,39 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label class="marginLeft">Plot Category</label>
-            <input type="text" class="form-control" placeholder="Plot Category" name="measuringunit"
-              #measuringunit="ngModel" [(ngModel)]="payload.name"
-              [ngClass]="{ 'is-invalid': f.submitted && measuringunit.invalid }" required>
-            <div *ngIf="f.submitted && measuringunit.invalid" class="invalid-feedback">
-              <div *ngIf="measuringunit.errors.required">Plot Category is required</div>
+            <label class="marginLeft">Category Name</label>
+            <input type="text" class="form-control" placeholder="Plot Category" name="categoryName"
+              #categoryName="ngModel" [(ngModel)]="payload.categoryName"
+              [ngClass]="{ 'is-invalid': f.submitted && categoryName.invalid }" required>
+            <div *ngIf="f.submitted && categoryName.invalid" class="invalid-feedback">
+              <div *ngIf="categoryName.errors.required">Category name is required</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="marginLeft">Residential %</label>
+            <input type="text" class="form-control" placeholder="Residential Percentage" name="residentialPercentage"
+              #residentialPercentage="ngModel"  pattern="[0-9]*" [(ngModel)]="payload.residentialPercentage"
+              [ngClass]="{ 'is-invalid': f.submitted && residentialPercentage.invalid }" required>
+            <div *ngIf="f.submitted && residentialPercentage.invalid" class="invalid-feedback">
+              <div *ngIf="residentialPercentage.errors.required">Residential Percentage is required</div>
+              <div *ngIf="residentialPercentage.errors.pattern">Residential Percentage  is Only Number</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="marginLeft">Commercial %</label>
+            <input type="text" class="form-control" placeholder="commercial Percentage" name="commercialPercentage"
+              #commercialPercentage="ngModel"  pattern="[0-9]*" [(ngModel)]="payload.commercialPercentage"
+              [ngClass]="{ 'is-invalid': f.submitted && commercialPercentage.invalid }" required>
+            <div *ngIf="f.submitted && commercialPercentage.invalid" class="invalid-feedback">
+              <div *ngIf="commercialPercentage.errors.required">Commercial Percentage is required</div>
+              <div *ngIf="commercialPercentage.errors.pattern">Commercial Percentage is Only Number</div>
             </div>
           </div>
         </div>
@@ -54,8 +89,8 @@
           <button type="button" class="btn btn-danager btn-fill" (click)="isAdded = false">Back</button>
         </div>
         <div class="col-md-6">
-          <button type="submit" class="btn btn-info btn-fill pull-right" [disabled] ="isLoading">Save<span *ngIf="isLoading"
-            class="btn-spinnerr"></span></button>
+          <button type="submit" class="btn btn-info btn-fill pull-right" [disabled]="isLoading">Save<span
+              *ngIf="isLoading" class="btn-spinnerr"></span></button>
         </div>
       </div>
     </form>

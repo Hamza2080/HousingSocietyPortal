@@ -105,7 +105,7 @@ input {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   outline: 0;
-  margin-top: 200px !important;
+  margin-top: 0px !important;
 }
 input{
   text-transform: unset !important ;
@@ -125,4 +125,9 @@ input{
 .modal-header{
   background-color: #77c72f !important;
   color: #fff !important;
+}
+
+
+.modal-sm {
+  min-width: 400px !important;
 }

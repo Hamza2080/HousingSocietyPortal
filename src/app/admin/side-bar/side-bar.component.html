@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
          <div class="logo">
              <a router-link="/Town" class="simple-text">
-                Housing Society Portal
+                Housing Society
              </a>
          </div>
  
@@ -21,10 +21,17 @@
                 </a>
             </li>
             <li routerLinkActive='active'>
+                <a [routerLink]="['/admin/expense']" >
+                    <!-- <i class="pe-7s-graph"></i> -->
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                    <p>Expense</p>
+                </a>
+            </li>
+            <li routerLinkActive='active'>
                 <a [routerLink]="['/admin/landlord']" >
                     <!-- <i class="fa fa-home" aria-hidden="true"></i> -->
                     <i class="fa fa-users" aria-hidden="true"></i>
-                    <p>Land Lord</p>
+                    <p>Land-Lord</p>
                 </a>
             </li>
              <li routerLinkActive='active'>
@@ -47,19 +54,67 @@
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/customers']" >
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <p>Customers</p>
+                <p>Customer</p>
             </a>
         </li>
+
+        <!-- <li routerLinkActive='active'>
+            <a data-toggle="collapse" data-target="">
+                <i class="fa fa-random" aria-hidden="true"></i>
+                <p>Town Planning</p>
+            </a>
+        </li>
+        <li routerLinkActive='active'>
+            <a data-toggle="collapse" data-target="#demo">
+                <i class="fa fa-random" aria-hidden="true"></i>
+                <p>Street Planning</p>
+            </a>
+        </li>
+
+        <li routerLinkActive='active'>
+            <a data-toggle="collapse" data-target="#demo">
+                <i class="fa fa-random" aria-hidden="true"></i>
+                <p>Park Planning</p>
+            </a>
+        </li> -->
+
+       
+        <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/plots']" >
+                <i class="fa fa-area-chart" aria-hidden="true"></i>
+                <p>Plots</p>
+            </a>
+        </li>
+        <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/street']" >
+                <i class="fa fa-road" aria-hidden="true"></i>
+                <p>Street</p>
+            </a>
+        </li>
+        <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/park']" >
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <p>Park</p>
+            </a>
+        </li>
+        <li routerLinkActive='active'>
+            <a [routerLink]="['/admin/public-building']" >
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <p>Public-building</p>
+            </a>
+        </li>
+
         <li routerLinkActive='active'>
             <a [routerLink]="['/admin/authorized-dealer']" >
                 <i class="fa fa-industry" aria-hidden="true"></i>
                 <p>Authorized Dealer</p>
             </a>
         </li>
-        <li routerLinkActive='active'>
-            <a [routerLink]="['/admin/plots']" >
+
+        <li (click)="logout()">
+            <a>
                 <i class="fa fa-area-chart" aria-hidden="true"></i>
-                <p>plots</p>
+                <p>Logout</p>
             </a>
         </li>
          </ul>

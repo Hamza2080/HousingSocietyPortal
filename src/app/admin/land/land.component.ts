@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { AddLandMeasuringComponent } from '../add-land-measuring/add-land-measuring.component';
 import { AddLandComponent } from '../add-land/add-land.component';
 import { InstallmentComponent } from '../installment/installment.component';
+import { LandDetailViewComponent } from '../land-detail-view/land-detail-view.component';
 
 @Component({
   selector: 'app-land',
@@ -30,17 +31,17 @@ public landList = []
     });
   }
   openModel() {
-    const modelRef = this.modelService.open(AddLandComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(AddLandComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.result.then((data) => {
       // console.log('modal is closed', data);
       if(data){
         this.getLand();
       }
-  
     })
   }
+
   openInstallment(item){
-    const modelRef = this.modelService.open(InstallmentComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(InstallmentComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.componentInstance.installment = item.installments;
     modelRef.componentInstance.landId = item.id;
     modelRef.componentInstance.isplotSide = false;
@@ -50,7 +51,13 @@ public landList = []
       }
     });
   }
+
+  openLandDetail(item){
+    const modelRef = this.modelService.open(LandDetailViewComponent, { size: 'lg', backdrop : 'static', keyboard : false });
+    modelRef.componentInstance.landInstance = item;
+  }
+
   openModelMeasurement(){
-    const modelRef = this.modelService.open(AddLandMeasuringComponent, { size: 'sm' });
+    const modelRef = this.modelService.open(AddLandMeasuringComponent, { size: 'lg', backdrop : 'static', keyboard : false });
   }
 }

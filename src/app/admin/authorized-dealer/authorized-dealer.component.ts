@@ -28,7 +28,7 @@ export class AuthorizedDealerComponent implements OnInit {
     });
   }
   openModel() {
-    const modelRef = this.modelService.open(AddAuthorizedDealerComponent, { size: 'lg' });
+    const modelRef = this.modelService.open(AddAuthorizedDealerComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.result.then((data) => {
       // console.log('modal is closed', data);
       if (data) {
