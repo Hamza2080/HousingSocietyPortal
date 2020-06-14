@@ -20,9 +20,9 @@
           <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;"
               src="assets/img/loading-bubbles.svg"></div>
           <div *ngIf="!isLoaded" class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
+            <table class="table table-striped table-hover table-active tblBackSpacing">
               <thead *ngIf="plotsList?.length === 0">No Record Found</thead>
-              <thead *ngIf="plotsList?.length > 0">
+              <thead  *ngIf="plotsList?.length > 0">
                 <tr>
                   <th>Plot Number</th>
                   <th>Size</th>
@@ -52,7 +52,7 @@
               </tbody>
 
             </table>
-            <pagination-controls *ngIf="plotsList?.length > 0" (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls class="text-center" *ngIf="plotsList?.length > 0"  (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>
