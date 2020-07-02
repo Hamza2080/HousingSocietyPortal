@@ -78,13 +78,16 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <label class="marginLeft">Paid By (CNIC)</label>
-          <input type="text" class="form-control" placeholder="Who paid expense amount..." name="paidBy"
-            pattern="^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$" #paidBy="ngModel" [(ngModel)]="payload.paidBy"
-            [ngClass]="{ 'is-invalid': f.submitted && paidBy.invalid }" required>
-          <div *ngIf="f.submitted && paidBy.invalid" class="invalid-feedback">
-            <div *ngIf="paidBy.errors.required">No Of Installment is required</div>
-            <div *ngIf="paidBy.errors.pattern">Please provide valid CNIC.</div>
+          <label class="marginLeft">Employees</label>
+          <select class="form-control select-box-height" name="employeeNmae" #employeeNmae="ngModel"
+            [(ngModel)]="payload.employeeId" [ngClass]="{ 'is-invalid': f.submitted && employeeNmae.invalid }"
+            required>
+            <option [value]='null' disabled>Select Employee </option>
+            <option *ngFor="let item of employees" [value]="item?.id"> {{item?.name}}
+            </option>
+          </select>
+          <div *ngIf="f.submitted && employeeNmae.invalid" class="invalid-feedback">
+            <div *ngIf="employeeNmae.errors.required">Employee Nmae  is required</div>
           </div>
         </div>
       </div>

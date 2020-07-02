@@ -11,45 +11,65 @@
         <div class="form-group">
           <label class="marginLeft">Description</label>
           <input type="text" class="form-control" name="description" disabled [value]="landInstance?.description" />
-        </div>
+        </div> 
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group">
-          <label class="marginLeft">Total Land</label>
-          <input type="text" class="form-control" name="totalLand" disabled [value]="landInstance?.totalLand" />
+        <label class="marginLeft">Khasra Number List</label>
+        <div style="border: 1px solid #ced4da;height: 120px;overflow-y: auto;">
+          <div class="chip" *ngFor="let item of khasraNumberList">
+            <!-- <img src="img_avatar.png" alt="Person" width="96" height="96"> -->
+            {{item}}
+            <!-- <span class="closebtn" (click)="removeKhasraNumberItem(item)">&times;</span> -->
+          </div>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-          <label class="marginLeft">Land Measuring Unit</label>
-          <input type="text" class="form-control" name="measuringUnit" disabled [value]="landInstance?.measuringUnit" />
+        <label class="marginLeft">Murabba List</label>
+        <div style="border: 1px solid #ced4da;height: 120px; overflow-y: auto;">
+          <div class="chip" *ngFor="let item of mozaList">
+            <!-- <img src="img_avatar.png" alt="Person" width="96" height="96"> -->
+            {{item}}
+            <!-- <span class="closebtn" (click)="removeMozaItem(item)">&times;</span> -->
+          </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
+        <label class="marginLeft">Khewat List</label>
+        <div style="border: 1px solid #ced4da;height: 120px;overflow-y: auto;">
+          <div class="chip" *ngFor="let item of khewatList">
+            <!-- <img src="img_avatar.png" alt="Person" width="96" height="96"> -->
+            {{item}}
+            <!-- <span class="closebtn" (click)="removekhewatItem(item)">&times;</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Khasra Number</label>
           <input type="text" class="form-control" name="khasraNumber" disabled [value]="landInstance?.khasraNumber" />
         </div>
-      </div>
-      <div class="col-md-6">
+      </div> -->
+      <div class="col-md-12">
         <div class="form-group">
           <label class="marginLeft">Moza</label>
           <input type="text" class="form-control" name="moza" disabled [value]="landInstance?.moza" />
         </div>
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <div class="form-group">
           <label class="marginLeft">Khewat</label>
           <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" />
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">

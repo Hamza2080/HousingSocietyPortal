@@ -1,0 +1,25 @@
+.table th {
+    vertical-align: middle;
+    border: 1px solid #f7f5f5;
+    font-size: 14px;
+    padding: .75rem;
+    vertical-align: top;
+    border-top: none;
+    border-left: none;
+  }
+  .table td {
+    vertical-align: middle;
+    border: 1px solid #f7f5f5;
+    font-size: 14px;
+    padding: .75rem;
+    vertical-align: top;
+    border-top: none;
+    border-left: none;
+  }
+  .table tbody tr {
+      background-color: white;
+  }
+  .table thead {
+    background: #f7f5f5 !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+  }

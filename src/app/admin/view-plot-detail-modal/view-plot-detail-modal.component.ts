@@ -14,7 +14,7 @@ export class ViewPlotDetailModalComponent implements OnInit {
   townList: any[];
   measurementsList: any[];
   plotcategories: any[];
-
+  public isUpdate = false;
   constructor( public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) { }
 
   ngOnInit() {

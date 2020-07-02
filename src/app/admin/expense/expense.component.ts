@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AddExpenseComponent } from '../add-expense/add-expense.component';
 import { AddExpenseTypeComponent } from '../add-expense-type/add-expense-type.component';
 import { UpdateExpenseComponent } from '../update-expense/update-expense.component';
+import { UpdateExpenseStatusComponent } from '../update-expense-status/update-expense-status.component';
 
 @Component({
   selector: 'app-expense',
@@ -65,5 +66,14 @@ export class ExpenseComponent implements OnInit {
     const modelRef = this.modelService.open(UpdateExpenseComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.componentInstance.expenseDetail = expense;
   }
-  
+  openPaidModel(item){
+    const modelRef = this.modelService.open(UpdateExpenseStatusComponent, { size: 'sm', backdrop : 'static', keyboard : false });
+    modelRef.componentInstance.expense = item;
+    modelRef.result.then((data) => {
+      if (data) {
+        this.getExpense();
+      }
+    });
+    // modelRef.componentInstance.expenseDetail = expense; 
+  }
 }

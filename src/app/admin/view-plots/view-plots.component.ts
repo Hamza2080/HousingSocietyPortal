@@ -19,12 +19,26 @@ export class ViewPlotsComponent implements OnInit {
   public customerList = [];
   public isLoaded = false;
   public date = new Date();
-
+  public isResale = false;
+  public isLoading = false;
   public salePlotItem = null;
-  private salePayload = {
-    customerId : null,
-    date : new Date(),
-    plotId : null
+  public transferHistory = []
+  public resalePayload = {
+    customerId: null,
+    purchaseDate: new Date(),
+    modifiedBy: null,
+    plotId: null,
+    modifiedOn: new Date(),
+    purchaseFrom: null
+  }
+  public authDealerList = [];
+  public selectedDealer = null;
+  public salePayload = {
+    customerId: null,
+    percentage: null,
+    dealerId: null,
+    date: new Date(),
+    plotId: null
   }
 
   toastserviceConfig: object = {
@@ -53,18 +67,18 @@ export class ViewPlotsComponent implements OnInit {
     })
   }
   openModel() {
-    const modelRef = this.modalService.open(AddPlotsComponent, { size: 'lg', backdrop : 'static', keyboard : false });
+    const modelRef = this.modalService.open(AddPlotsComponent, { size: 'lg', backdrop: 'static', keyboard: false });
     modelRef.result.then((data) => {
       if (data) {
         this.getPlots();
       }
     });
   }
-  openModelPlotCategories(){
-    const modelRef = this.modalService.open(PlotCategoriesComponent, { size: 'lg', backdrop : 'static', keyboard : false });
+  openModelPlotCategories() {
+    const modelRef = this.modalService.open(PlotCategoriesComponent, { size: 'lg', backdrop: 'static', keyboard: false });
   }
-  openInstallment(item){
-    const modelRef = this.modalService.open(InstallmentComponent, { size: 'lg', backdrop : 'static', keyboard : false });
+  openInstallment(item) {
+    const modelRef = this.modalService.open(InstallmentComponent, { size: 'lg', backdrop: 'static', keyboard: false });
     modelRef.componentInstance.installment = item.installments;
     modelRef.componentInstance.plotId = item.id;
     modelRef.componentInstance.isplotSide = true;
@@ -74,35 +88,86 @@ export class ViewPlotsComponent implements OnInit {
       }
     });
   }
-  openSalePlot(){
-    this.isLoaded = true;
+  openSalePlot() {
+    // this.resalePayload.purchaseData = ''
+    if(!this.isResale){
+    this.resalePayload.customerId = this.salePayload.customerId;
+    this.resalePayload.modifiedBy = localStorage.getItem('userId');
+    this.resalePayload.purchaseFrom = 'Town Management';
+    this.salePlotItem.TransferHistory.push(this.resalePayload);
+    this.isLoading = true;
     this.salePlotItem.customerId = this.salePayload.customerId;
     this.salePlotItem.saleDate = this.salePayload.date;
-    this.salePlotItem.plotStatus = "Sold";
+    this.salePlotItem.plotStatus = 'Sold';
+    this.salePlotItem.isSold = true;
+    this.salePlotItem.percentage = this.salePayload.percentage;
+    this.salePlotItem.dealerId = this.salePayload.dealerId;
     this.adminService.salePlot(this.salePlotItem).then(res => {
       this.plotsList = res as any[];
-      this.isLoaded = false;
+      this.resalePayload.customerId = null;
+      this.resalePayload.purchaseDate = new Date();
+      this.resalePayload.modifiedBy = null;
+      this.resalePayload.plotId = null;
+      this.resalePayload.modifiedOn = new Date();
+      this.resalePayload.purchaseFrom = null;
+      this.isLoading = false;
+      this.modalRef.hide();
       this.getPlots();
     }).catch(err => {
       console.log(err);
-      this.isLoaded = false;
+      this.isLoading = false;
+    });
+  } else {
+    this.reSalePlot();
+  }
+}
+  reSalePlot(){
+    this.isLoading = true;
+    const payload = {
+      data:this.resalePayload
+    }
+    this.resalePayload.purchaseFrom = this.salePlotItem.customerId;
+    this.adminService.resalePlot(payload).then(res => {
+      this.isLoading = false;
+      this.modalRef.hide();
+    }) .catch(err =>{
+      console.log(err)
+      this.isLoading = false;
     })
   }
-
-  openModelMeasurement(){
-    const modelRef = this.modalService.open(AddLandMeasuringComponent, { size: 'lg', backdrop : 'static', keyboard : false });
+  getAuthDealers() {
+    // this.isLoaded = true;
+    this.adminService.getAllAuthDealers().then(res => {
+      this.authDealerList = res as any[];
+      // this.isLoaded = false;
+      console.log(this.authDealerList);
+    }).catch(err => {
+      console.log(err);
+      // this.isLoaded = false;
+    });
+  }
+  openModelMeasurement() {
+    const modelRef = this.modalService.open(AddLandMeasuringComponent, { size: 'lg', backdrop: 'static', keyboard: false });
   }
 
-  viewPlotDetailModal(item){
-    const modelRef = this.modalService.open(ViewPlotDetailModalComponent, { size: 'lg'});
+  viewPlotDetailModal(item) {
+    const modelRef = this.modalService.open(ViewPlotDetailModalComponent, { size: 'lg' });
     modelRef.componentInstance.payload = item;
   }
-  
+  updatePlotDetailModal(item) {
+    const modelRef = this.modalService.open(ViewPlotDetailModalComponent, { size: 'lg' });
+    modelRef.componentInstance.payload = item;
+    modelRef.componentInstance.isUpdate = true;
+  }
+  updateTransferHistoryModal(item,templete) {
+    const modelRef = this.modalService.open(templete, { size: 'lg' });
+    this.transferHistory = item;
+  }
   getCustomerList() {
-    this.isLoaded = true;
+    // this.isLoaded = true;
     this.adminService.getAllCustomers().then(res => {
       this.customerList = res as any[];
-      this.isLoaded = false;
+      // this.isLoaded = false;
     }).catch(err => {
       console.log(err);
       this.isLoaded = false;
@@ -111,8 +176,23 @@ export class ViewPlotsComponent implements OnInit {
 
   openSalePlotModel(item, model) {
     this.getCustomerList();
+    this.getAuthDealers();
     this.salePlotItem = item;
     this.salePayload.plotId = item.id;
     this.modalRef = this.modelService.show(model);
+  }
+  openResalePlotModel(item, model) {
+    this.getCustomerList();
+    // this.getAuthDealers();
+    this.isResale = true;
+    this.resalePayload.modifiedBy = localStorage.getItem('userId');
+    this.resalePayload.plotId = item.id;
+    this.salePlotItem = item;
+    // this.salePayload.plotId = item.id;
+    this.modalRef = this.modelService.show(model);
+  }
+  onchange(item) {
+    this.salePayload.percentage = item.commision_percentage;
+    this.salePayload.dealerId = item.id;
   }
 }

@@ -17,7 +17,7 @@ export class AddExpenseComponent implements OnInit {
   hasBaseDropZoneOver:boolean;
   hasAnotherDropZoneOver:boolean;
   response:string;
-
+  public employees = [];
   attachments = [];
   public expenseTypesList = [];
 
@@ -27,7 +27,7 @@ export class AddExpenseComponent implements OnInit {
       amount: null,
       expenseDate: new Date(),
       status: 'Paid', // Paid | Due
-      paidBy: null,
+      employeeId: null,
       attachment: [],
       additionalNotes: null,
   };
@@ -63,6 +63,7 @@ export class AddExpenseComponent implements OnInit {
 
   ngOnInit() {
     this.getExpenseTypes();
+    this.getAllEmplyees();
   }
   getExpenseTypes() {
     this.isLoading = true;
@@ -95,6 +96,14 @@ export class AddExpenseComponent implements OnInit {
     }).catch(err => {
       console.log(err);
       this.isLoading = false;
+    })
+  }
+  getAllEmplyees(){
+    this.adminService.getAllEmployees().then(res =>{
+      this.employees = res as any[];
+    })
+    .catch(err =>{
+      console.log(err);
     })
   }
 }

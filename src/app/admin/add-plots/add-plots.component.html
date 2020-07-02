@@ -5,13 +5,13 @@
   </button>
 </div>
 <div class="modal-body">
-  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+  <form name="form" (ngSubmit)="f.form.valid && openModel()" #f="ngForm">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Plot Number</label>
           <input type="text" class="form-control" placeholder="Plot Number" name="name" #name="ngModel"
-            [(ngModel)]="payload.plotNumber" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+            [(ngModel)]="payload.plotNumber" (focusout)="checkPlotNumber(name.value)" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
           <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
             <div *ngIf="name.errors.required">Name is required</div>
           </div>
@@ -52,27 +52,47 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Plot Size</label>
-          <input type="text" class="form-control" placeholder="Plot Size" name="size" pattern="[0-9]*" #size="ngModel"
-            [(ngModel)]="payload.size" [ngClass]="{ 'is-invalid': f.submitted && size.invalid }" required>
-          <div *ngIf="f.submitted && size.invalid" class="invalid-feedback">
-            <div *ngIf="size.errors.required">size is required</div>
-            <div *ngIf="size.errors.pattern">size is Only Number</div>
+          <label class="marginLeft">Plot Size In kanal</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeKanal" pattern="[0-9]*" #sizeKanal="ngModel"
+            [(ngModel)]="payload.kanal" [ngClass]="{ 'is-invalid': f.submitted && sizeKanal.invalid }">
+          <div *ngIf="f.submitted && sizeKanal.invalid" class="invalid-feedback">
+            <div *ngIf="sizeKanal.errors.required">size is required</div>
+            <div *ngIf="sizeKanal.errors.pattern">size is Only Number</div>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Measuring Unit</label>
-          <select class="form-control select-box-height" name="measuringUnit" #measuringUnit="ngModel"
-            [(ngModel)]="payload.measuringUnit" [ngClass]="{ 'is-invalid': f.submitted && measuringUnit.invalid }"
-            required>
-            <option [value]='null' disabled>Land Measuring Unit</option>
-            <option *ngFor="let item of measurementsList" [value]="item?.measuring_unit"> {{item?.measuring_unit}}
-            </option>
-          </select>
-          <div *ngIf="f.submitted && measuringUnit.invalid" class="invalid-feedback">
-            <div *ngIf="measuringUnit.errors.required">Land Measuring Unit is required</div>
+          <label class="marginLeft">Plot Size In marla</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizemarla" pattern="[0-9]*" #sizemarla="ngModel"
+            [(ngModel)]="payload.marla" [ngClass]="{ 'is-invalid': f.submitted && sizemarla.invalid }">
+          <div *ngIf="f.submitted && sizemarla.invalid" class="invalid-feedback">
+            <div *ngIf="sizemarla.errors.required">size is required</div>
+            <div *ngIf="sizemarla.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Plot Size In Sarsai</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeSarsai" pattern="[0-9]*" #sizeSarsai="ngModel"
+            [(ngModel)]="payload.sarsai" [ngClass]="{ 'is-invalid': f.submitted && sizeSarsai.invalid }">
+          <div *ngIf="f.submitted && sizeSarsai.invalid" class="invalid-feedback">
+            <div *ngIf="sizeSarsai.errors.required">size is required</div>
+            <div *ngIf="sizeSarsai.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Plot Size In Feet</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeFeet" pattern="[0-9]*" #sizeFeet="ngModel"
+            [(ngModel)]="payload.feet" [ngClass]="{ 'is-invalid': f.submitted && sizeFeet.invalid }">
+          <div *ngIf="f.submitted && sizeFeet.invalid" class="invalid-feedback">
+            <div *ngIf="sizeFeet.errors.required">size is required</div>
+            <div *ngIf="sizeFeet.errors.pattern">size is Only Number</div>
           </div>
         </div>
       </div>
@@ -81,8 +101,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Town</label>
-          <select class="form-control select-box-height" (ngModelChange)="townSelectionUpdated($event)" name="SubCategoryId"
-            #SubCategoryId="ngModel" [(ngModel)]="payload.townId"
+          <select class="form-control select-box-height"  name="SubCategoryId"
+            #SubCategoryId="ngModel" [(ngModel)]="payload.townId" (ngModelChange)="getStreet(SubCategoryId.value)"
             [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
             <option [value]='null' disabled>Select Town</option>
             <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
@@ -111,8 +131,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Street Number</label>
-          <input type="text" class="form-control" placeholder="Street number" name="street" #street="ngModel"
-            [(ngModel)]="payload.street" [ngClass]="{ 'is-invalid': f.submitted && street.invalid }" required>
+          <select class="form-control select-box-height" name="street" #street="ngModel"
+          [(ngModel)]="payload.streetId" [ngClass]="{ 'is-invalid': f.submitted && street.invalid }"required>
+          <option [value]='null' disabled selected>Select Street number</option>
+          <option *ngFor="let item of streetList" [value]="item.id"> {{item.name}}</option>
+        </select>
+          <!-- <input type="text" class="form-control" placeholder="Street number" name="street" #street="ngModel"
+            [(ngModel)]="payload.street" [ngClass]="{ 'is-invalid': f.submitted && street.invalid }" required> -->
           <div *ngIf="f.submitted && street.invalid" class="invalid-feedback">
             <div *ngIf="street.errors.required">Street is required</div>
           </div>
@@ -343,6 +368,27 @@
                   </tr>
                 </tbody>
               </table>
+
+            </div>
+            <div class="col-md-12" *ngIf="installmentsCreated">
+              <table class="table table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col">Extra chages</th>
+                    <th scope="col">Total Payment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
+                  <tr >
+                    <th>{{payload.totalPayment}}</th>
+                    <th>{{plotCategoryExtraCharge}}</th>
+                    <th>{{totalAmount}}</th>
+                  </tr>
+                </tbody>
+              </table>
+              
             </div>
           </div>
         </div>
@@ -351,8 +397,7 @@
     <div class="row">
       <div class="col-md-12">
         <button type="submit" class="btn btn-info btn-fill pull-right"
-          *ngIf="installmentsCreated && !errorInInstallmetnValues" [disabled]="isLoading">Save<span *ngIf="isLoading"
-            class="btn-spinnerr"></span></button>
+          *ngIf="installmentsCreated && !errorInInstallmetnValues" [disabled]="isLoading">Save</button>
         <button type="button" (click)="createInstallment()"
           class="btn btn-info btn-fill pull-right" style="margin-right: 10px;margin-left: 10px;" [disabled]="isLoading">Create Installments<span *ngIf="isLoading"
             class="btn-spinnerr"></span></button>
@@ -361,3 +406,20 @@
   </form>
 </div>
 <!-- </div> -->
+<ng-template #shareableLink let-modal>
+  <div class="bg-info text-white modal-header modal-baskt">
+    <h4 class=" modal-title" id="modal-basic-title">Confirmation</h4>
+    <button class="cursorPointer" id="closebtn" style="color: white;" class="close" aria-label="Close"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modal-inner-baskt" style="height: 120px;">
+    <div class="container text-center" style="margin-top: 20px;">
+      <p>Are you sure, you want to add a plot</p>
+      <button class="btn btn-lg logout-btn b1" (click)="onSubmit()" [disabled]="isLoading" type="button">confirm <span *ngIf="isLoading"
+        class="btn-spinnerr"></span></button>
+      <button class="btn btn-lg cancel-btn b2" (click)="modal.dismiss('Cross click')" type="button">Cancel</button>
+    </div>
+  </div>
+  </ng-template>

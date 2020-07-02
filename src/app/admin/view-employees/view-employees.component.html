@@ -1,0 +1,64 @@
+<div class="content">
+  <div class="container-fluid">
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 style="width: 400px;float: left;" class="title">All Employees</h4>
+            <div style="float: right;">
+              <button type="button" (click)="openAddModel()" class="btn btn-info btn-fill">Add Employees</button>
+              <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
+            </div>
+
+
+          </div>
+          <hr>
+          <div *ngIf="isLoaded" class="loader"><img style="width: 175px;height: 175px;"
+              src="assets/img/loading-bubbles.svg"></div>
+          <div *ngIf="!isLoaded" class="content table-responsive table-full-width">
+            <table class="table table-striped table-hover table-active tblBackSpacing">
+              <thead *ngIf="employeesList?.length === 0">No Record Found</thead>
+              <thead  *ngIf="employeesList?.length > 0">
+                <tr>
+                  <th>#</th>
+                  <th>Employee Name</th>
+                  <th>CNIC</th>
+                  <th>Age</th>
+                  <th>Contact</th>
+                  <th>Register Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="employeesList?.length > 0">
+                <tr *ngFor="let item of employeesList | paginate: { itemsPerPage: 10, currentPage: p }; let i= index">
+                  <td>{{i+1}}</td>
+                  <td>{{item?.name}}</td>
+                  <td>{{item?.cnic}}</td>
+                  <td>{{item?.age}}</td>
+                  <td>{{item?.contact}}</td>
+                  <td>{{item?.registerDate|date:'mediumDate'}}</td>
+                  <td>  <i class="fa fa-pencil mr-2 action-icon" style="cursor:pointer" aria-hidden="true" (click)="openUpdateModel(item)"></i> 
+                    <i class="fa fa-trash action-icon" style="cursor:pointer" aria-hidden="true" (click)="removeEployees(item)"></i></td>
+                  <!-- <td>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="!item?.customerId" (click)="openSalePlotModel(item, salePlotModel)">Sale Plot</button>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="item?.customerId" (click)="openInstallment(item)">Installment</button>
+                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" (click)="viewPlotDetailModal(item)">View Plot Detail</button>
+                  </td> -->
+                  <!--
+                  <td>
+                    <button type="button" *ngIf="item.plotStatus === 'open'" [disabled]="item.plotStatus === 'open'" class="btn btn-primary btn-sm btnColor" title="Plot is not Sale">Installments</button>
+                    <button type="button" *ngIf="item.plotStatus !== 'open'" (click)="openInstallment(item)" class="btn btn-primary btn-sm btnColor" title="Installments">Installments</button>
+                    <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="openSalePlot(item)" title="Sale Plot" >Sale Plot</button></td> -->
+                </tr>
+              </tbody>
+
+            </table>
+            <pagination-controls class="text-center" *ngIf="employeesList?.length > 0"  (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

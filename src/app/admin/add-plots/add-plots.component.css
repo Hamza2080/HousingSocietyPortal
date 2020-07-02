@@ -1,3 +1,38 @@
 .select-box-height {
     height: 37px !important;
 }
+
+/* .logout-btn{
+    background-color: #2196f3;
+    color:white;
+    margin-right: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .cancel-btn{
+    background-color: red;
+    color:white;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  } */
+  .logout-btn.b1{
+    background-color: transparent;
+      color: #01a4b5;
+      margin-right: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #01a4b5;
+      box-shadow: none;
+      float: right;
+  }
+  .cancel-btn.b2{
+    background-color: transparent;
+      color: #01a4b5;
+      margin-right: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #01a4b5;
+      box-shadow: none;
+      float: right;
+  }

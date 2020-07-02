@@ -23,7 +23,9 @@
             <td>{{item?.srNo}}</td>
             <td>{{item?.installmentAmount}}</td>
             <td>{{item?.dueDate | date:'mediumDate'}}</td>
-            <td>{{item?.status}}</td>
+            <td *ngIf="item?.status === 'Upcoming Due'" style="color:orange !important;">{{item?.status}}</td>
+            <td *ngIf="item?.status === 'Due'" style="color:red !important;">{{item?.status}}</td>
+            <td *ngIf="item?.status === 'Paid'" style="color:green !important;">{{item?.status}}</td>
             <td *ngIf="item?.status === 'Paid'" class="text-success">Paid</td>
             <td *ngIf="item?.status !== 'Paid'">
               <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="onSubmitPlotInstallment(item)"
@@ -214,7 +216,9 @@
             <td>{{item?.srNo}}</td>
             <td>{{item?.installmentAmount}}</td>
             <td>{{item?.dueDate | date:'mediumDate'}}</td>
-            <td>{{item?.status}}</td>
+            <td *ngIf="item?.status === 'Upcoming Due'" style="color:orange !important;">{{item?.status}}</td>
+            <td *ngIf="item?.status === 'Due'" style="color:red !important;">{{item?.status}}</td>
+            <td *ngIf="item?.status === 'Paid'" style="color:green !important;">{{item?.status}}</td>
             <td *ngIf="item?.status === 'Paid'" class="text-success">Paid</td>
             <td *ngIf="item?.status !== 'Paid'">
               <button type="button" class="btn btn-info btn-sm btnSlaeBtn" (click)="onSubmitPlotInstallment(item)"

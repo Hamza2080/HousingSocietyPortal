@@ -39,7 +39,17 @@ public landList = []
       }
     })
   }
-
+  openUpdateModel(item) {
+    const modelRef = this.modelService.open(AddLandComponent, { size: 'lg', backdrop : 'static', keyboard : false });
+    modelRef.componentInstance.payload = item;
+    modelRef.componentInstance.isUpdate = true;
+    modelRef.result.then((data) => {
+      // console.log('modal is closed', data);
+      if(data){
+        this.getLand();
+      }
+    })
+  }
   openInstallment(item){
     const modelRef = this.modelService.open(InstallmentComponent, { size: 'lg', backdrop : 'static', keyboard : false });
     modelRef.componentInstance.installment = item.installments;

@@ -19,6 +19,10 @@ export class AddStreetComponent implements OnInit {
     measuringUnit: null,
     townPhase: null,
     townId: null,
+    kanal: null,
+    marla: null,
+    sarsai: null,
+    feet: null,
     additionalNotes: null
   };
 

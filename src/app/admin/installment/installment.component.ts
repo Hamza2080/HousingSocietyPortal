@@ -72,6 +72,11 @@ export class InstallmentComponent implements OnInit {
   ngOnInit() {
     this.payload.plotId = this.plotId;
     this.landPayload.landId = this.landId;
+    this.installment.forEach(element =>{
+      if (new Date(element.dueDate).getTime() <= new Date().getTime() && element.status === 'Due'){
+        element.status = 'Upcoming Due';
+      }
+    })
   }
   onSubmitPlotInstallment(item) {
     // this.payload.plotId = item.plotId;

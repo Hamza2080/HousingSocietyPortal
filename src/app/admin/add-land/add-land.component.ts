@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
@@ -24,6 +24,7 @@ class Installment {
   styleUrls: ['./add-land.component.css']
 })
 export class AddLandComponent implements OnInit {
+  @ViewChild('shareableLink') private myScrollContainer: ElementRef;
 
   // url = ;
   uploader: FileUploader;
@@ -34,13 +35,26 @@ export class AddLandComponent implements OnInit {
   private installmentsCreated = false;
   attachments = [];
   errorInInstallmetnValues = false;
-
+  public khasraNumberList = [];
+  public mozaList = [];
+  public khewatList = [];
+  public khasra = null;
+  public moza = null;
+  public khewat = null;
+  public isUpdate = false;
+  // public area = ['village','city']
   public payload = {
     description: null,
     totalLand: 0,
-    khasraNumber: null,
-    moza: null,
-    khewat: null,
+    khasranNumber: [],
+    murabba: [],
+    khewat: [],
+    kanal: null,
+    marla: null,
+    sarsai: null,
+    feet: null,
+    moza:null,
+    areaName:null,
     measuringUnit: null,
     acquired_date: new Date(),
     installmentStartDate: null,
@@ -69,7 +83,7 @@ export class AddLandComponent implements OnInit {
     closeButton: true
   };
 
-  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {
+  constructor(public relatedModal: NgbActiveModal,private modelService:NgbModal, private adminService: AdminService, private toastr: ToastrService) {
     this.initializeAttahmentCode();
   }
 
@@ -77,6 +91,12 @@ export class AddLandComponent implements OnInit {
     this.getTowns();
     this.getMeasurements();
     this.getLandLord();
+    if(this.isUpdate){
+      this.khasraNumberList = this.payload.khasranNumber;
+      this.mozaList = this.payload.murabba;
+      this.khewatList = this.payload.khewat;
+      this.installmentsCreated = true;
+    }
   }
 
   initializeAttahmentCode() {
@@ -101,7 +121,15 @@ export class AddLandComponent implements OnInit {
   createInstallment() {
     // if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
     this.payload.installments = [];
-    for (let i = 0; i < this.payload.noOfInstallment; i++) {
+    let startdate = new Date(this.payload.installmentStartDate);
+    let iinstallment = new Installment();
+    iinstallment.srNo = 1;
+    iinstallment.installmentName = "DownPayment";
+    iinstallment.installmentAmount = this.payload.installmentAmount;
+    iinstallment.dueDate = new Date(startdate.setMonth(startdate.getMonth() + (this.payload.installmentGap * 1)));
+    iinstallment.status = 'Paid'; // Due / Paid
+    this.payload.installments.push(iinstallment);
+    for (let i = 1; i < this.payload.noOfInstallment; i++) {
       let startDate = new Date(this.payload.installmentStartDate);
       let installment = new Installment();
       installment.srNo = i + 1;
@@ -119,22 +147,46 @@ export class AddLandComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     if (this.checkTotalAmount()) {
-      this.payload.totalLand = Number(this.payload.totalLand);
-      this.payload.installmentGap = Number(this.payload.installmentGap);
-      this.payload.totalPayment = Number(this.payload.totalPayment);
-      this.payload.downPayment = Number(this.payload.downPayment);
-      this.payload.noOfInstallment = Number(this.payload.noOfInstallment);
-      this.payload.installmentAmount = Number(this.payload.installmentAmount);
-      this.payload.attachment = this.attachments;
-
-      this.adminService.addLand(this.payload).then(res => {
-        console.log(res);
-        this.isLoading = false;
-        this.relatedModal.close(true);
-      }).catch(err => {
-        console.log(err);
-        this.isLoading = false;
-      })
+      if(this.khewatList.length && this.khasraNumberList.length && this.mozaList.length) {
+        this.payload.totalLand = Number(this.payload.totalLand);
+        this.payload.installmentGap = Number(this.payload.installmentGap);
+        this.payload.totalPayment = Number(this.payload.totalPayment);
+        this.payload.downPayment = Number(this.payload.downPayment);
+        this.payload.noOfInstallment = Number(this.payload.noOfInstallment);
+        this.payload.installmentAmount = Number(this.payload.installmentAmount);
+        this.payload.attachment = this.attachments;
+        this.payload.kanal = Number(this.payload.kanal);
+        this.payload.feet = Number(this.payload.feet);
+        this.payload.sarsai = Number(this.payload.sarsai);
+        this.payload.marla = Number(this.payload.marla);
+        this.payload.khasranNumber = this.khasraNumberList;
+        this.payload.khewat = this.khewatList;
+        this.payload.murabba = this.mozaList;
+        if(this.isUpdate){
+          this.adminService.updateLand(this.payload).then(res => {
+            console.log(res);
+            this.isLoading = false;
+            document.getElementById('closebtn').click();
+            this.relatedModal.close(true);
+          }).catch(err => {
+            console.log(err);
+            this.isLoading = false;
+          })
+        } else {
+          this.adminService.addLand(this.payload).then(res => {
+            console.log(res);
+            this.isLoading = false;
+            document.getElementById('closebtn').click();
+            this.relatedModal.close(true);
+          }).catch(err => {
+            console.log(err);
+            this.isLoading = false;
+          })
+        }
+      } else {
+      this.toastr.error('Error!', `Atleast one Entry Requried in Khewat,khasra Number and Moza `);
+      }
+   
     } else {
       this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
       this.isLoading = false;
@@ -208,6 +260,50 @@ export class AddLandComponent implements OnInit {
     console.log(installment, index);
     this.payload.installments[index] = installment;
 
-    console.log(this.payload)
+    console.log(this.payload);
+  }
+  addKhasraNumberList() {
+    if (this.khasra !== null && this.khasra !== '') {
+        this.khasraNumberList.push(this.khasra);
+        this.khasra = null;
+    }
+  }
+  addMozaList() {
+    if (this.moza !== null && this.moza !== '') {
+      this.mozaList.push(this.moza);
+      this.moza = null;
+  }
+  }
+  addKhewatList() {
+    if (this.khewat !== null && this.khewat !== '') {
+      this.khewatList.push(this.khewat);
+      this.khewat = null;
+  }
+  }
+  removeMozaItem(item) {
+    console.log(item)
+    const i = this.mozaList.indexOf(item);
+    // if(i > 0){
+      this.mozaList.splice(i,1);
+    // }
+  }
+  removeKhasraNumberItem(item) {
+    console.log(item)
+    const i = this.khasraNumberList.indexOf(item);
+    // if(i > 0){
+      this.khasraNumberList.splice(i,1);
+    // }
+  }
+  removekhewatItem(item) {
+    console.log(item)
+    const i = this.khewatList.indexOf(item);
+    // if(i > 0){
+      this.khewatList.splice(i,1);
+    // }
+  }
+  openModel() {
+    // console.log(item);
+    // this.refundItem = item;
+    this.modelService.open(this.myScrollContainer, { size: 'sm', centered: true, backdrop: 'static' });
   }
 }

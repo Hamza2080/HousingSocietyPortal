@@ -33,6 +33,54 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
+          <label class="marginLeft">Plot Size In kanal</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeKanal" pattern="[0-9]*" #sizeKanal="ngModel"
+            [(ngModel)]="payload.kanal" [ngClass]="{ 'is-invalid': f.submitted && sizeKanal.invalid }">
+          <div *ngIf="f.submitted && sizeKanal.invalid" class="invalid-feedback">
+            <div *ngIf="sizeKanal.errors.required">size is required</div>
+            <div *ngIf="sizeKanal.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Plot Size In marla</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizemarla" pattern="[0-9]*" #sizemarla="ngModel"
+            [(ngModel)]="payload.marla" [ngClass]="{ 'is-invalid': f.submitted && sizemarla.invalid }">
+          <div *ngIf="f.submitted && sizemarla.invalid" class="invalid-feedback">
+            <div *ngIf="sizemarla.errors.required">size is required</div>
+            <div *ngIf="sizemarla.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Plot Size In Sarsai</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeSarsai" pattern="[0-9]*" #sizeSarsai="ngModel"
+            [(ngModel)]="payload.sarsai" [ngClass]="{ 'is-invalid': f.submitted && sizeSarsai.invalid }">
+          <div *ngIf="f.submitted && sizeSarsai.invalid" class="invalid-feedback">
+            <div *ngIf="sizeSarsai.errors.required">size is required</div>
+            <div *ngIf="sizeSarsai.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Plot Size In Feet</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeFeet" pattern="[0-9]*" #sizeFeet="ngModel"
+            [(ngModel)]="payload.feet" [ngClass]="{ 'is-invalid': f.submitted && sizeFeet.invalid }">
+          <div *ngIf="f.submitted && sizeFeet.invalid" class="invalid-feedback">
+            <div *ngIf="sizeFeet.errors.required">size is required</div>
+            <div *ngIf="sizeFeet.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
           <label class="marginLeft">Total Land</label>
           <input type="text" class="form-control" placeholder="Total Land..." name="totalArea" pattern="[0-9]*"
             #totalArea="ngModel" [(ngModel)]="payload.totalArea"
@@ -58,7 +106,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">

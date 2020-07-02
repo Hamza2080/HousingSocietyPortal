@@ -6,8 +6,8 @@
           <div class="header">
             <h4 style="width: 400px;float: left;" class="title">Lands</h4>
             <div style="float: right;">
-              <button type="button" (click)="openModelMeasurement()" style="margin-right: 5px;"
-                class="btn btn-info btn-fill">Add Land Measurement</button>
+              <!-- <button type="button" (click)="openModelMeasurement()" style="margin-right: 5px;"
+                class="btn btn-info btn-fill">Add Land Measurement</button> -->
               <button type="button" (click)="openModel()" class="btn btn-info btn-fill">Add Land</button>
               <!-- <input class="form-control" style="width: 200px;float:right;" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search"> -->
             </div>
@@ -24,7 +24,7 @@
                   <th>Total Land</th>
                   <th>Acquired Date</th>
                   <th>Land Lord</th>
-                  <th>Status</th>
+                  <!-- <th>Status</th> -->
                   <th>Total</th>
                   <th>Down Payment</th>
                   <th>Installments</th>
@@ -37,7 +37,7 @@
                   <td>{{item?.totalLand}} {{item?.measuringUni}}</td>
                   <td>{{item?.acquired_date |date:'mediumDate'}}</td>
                   <td>{{item?.landlordData?.name}} - {{item?.landlordData?.phone}}</td>
-                  <td>{{item?.landPaymentStatus}}</td>
+                  <!-- <td>{{item?.landPaymentStatus}}</td> -->
                   <td>{{item?.totalPayment}}</td>
                   <td>{{item?.downPayment}}</td>
                   <td>{{item?.noOfInstallment}}</td>
@@ -45,6 +45,7 @@
                   <button type="button" *ngIf="!item?.installments?.length" [disabled]="!item?.installments?.length" class="btn btn-primary btn-sm btnColor" title="No Installments Found">Installments</button>
                   <button type="button" *ngIf="item?.installments?.length > 0" (click)="openInstallment(item)" class="btn btn-primary btn-sm btnColor" title="Installments">Installments</button>
                   <button type="button" (click)="openLandDetail(item)" class="btn btn-primary btn-sm btnColor mx-1" title="Land Detail View">View Land Detail</button>
+                  <button type="button" (click)="openUpdateModel(item)" class="btn btn-primary btn-sm btnColor mx-1" title="Land Detail View">Update Land</button>
                 </td>
                 </tr>
               </tbody>

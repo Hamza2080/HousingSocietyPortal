@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HttpService {
   constructor(public http: HttpClient) { }
-  header: HttpHeaders = new HttpHeaders({'authorization': localStorage.getItem('token')});
+  header: HttpHeaders = new HttpHeaders({authorization: localStorage.getItem('token')});
   public get(endpoint): Observable<any> {
     return this.http.get(environment.API_URL + endpoint,{headers: this.header});
   }
@@ -17,6 +17,9 @@ export class HttpService {
   }
   public put(endpoint,payLoad): Observable<any> {
     return this.http.put(environment.API_URL + endpoint, payLoad,{headers: this.header});
+  }
+  public patch(endpoint,payLoad): Observable<any> {
+    return this.http.patch(environment.API_URL + endpoint, payLoad,{headers: this.header});
   }
   public delete(endpoint): Observable<any> {
     return this.http.delete(environment.API_URL + endpoint,{headers: this.header});

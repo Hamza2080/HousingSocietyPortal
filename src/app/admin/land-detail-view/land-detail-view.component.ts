@@ -12,11 +12,16 @@ import { FileUploader } from 'ng2-file-upload';
 export class LandDetailViewComponent implements OnInit {
 
   @Input() private landInstance;
-
+  public khasraNumberList = [];
+  public mozaList = [];
+  public khewatList = [];
   constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
     console.log(this.landInstance)
+    this.khasraNumberList = this.landInstance.khasranNumber;
+    this.mozaList = this.landInstance.murabba;
+    this.khewatList = this.landInstance.khewat;
   }
 }

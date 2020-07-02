@@ -13,6 +13,7 @@ import { ExpenseComponent } from './expense/expense.component';
 import { StreetComponent } from './street/street.component';
 import { ParkComponent } from './park/park.component';
 import { PublicBuildingComponent } from './public-building/public-building.component';
+import { ViewEmployeesComponent } from './view-employees/view-employees.component';
 
 export const AdminRoutes: Routes = [
     {
@@ -65,6 +66,10 @@ export const AdminRoutes: Routes = [
         {
             path: 'expense',
             component: ExpenseComponent
+        },
+        {
+            path: 'employees',
+            component: ViewEmployeesComponent
         }
         ]
     }

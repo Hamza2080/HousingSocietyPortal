@@ -1,13 +1,14 @@
 <div class="modal-header">
-  <h5 class="modal-title" style="width: 70%; float: left;">Add Land</h5>
+  <h5 *ngIf="!isUpdate" class="modal-title" style="width: 70%; float: left;">Add Land</h5>
+  <h5 *ngIf="isUpdate" class="modal-title" style="width: 70%; float: left;">Update Land</h5>
   <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+  <form name="form" (ngSubmit)="f.form.valid && openModel()" #f="ngForm">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Description</label>
           <input type="text" class="form-control" placeholder="Description of land..." name="description"
@@ -18,8 +19,25 @@
           </div>
         </div>
       </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Area</label>
+          <select class="form-control select-box-height" name="areaName" #areaName="ngModel"
+            [(ngModel)]="payload.areaName" [ngClass]="{ 'is-invalid': f.submitted && areaName.invalid }" required>
+            <option [value]=null disabled>Select Area</option>
+            <option value="village">Village</option>
+            <option value="city">City</option>
+            <option value="province">Province</option>
+            <!-- <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option> -->
+          </select>
+          <div *ngIf="f.submitted && areaName.invalid" class="invalid-feedback">
+            <div *ngIf="areaName.errors.required">Area Name is required</div>
+            <!-- <div *ngIf="Address.errors.pattern">CNIC is Only Number</div> -->
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Total Land</label>
@@ -47,26 +65,121 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Khasra Number</label>
-          <input type="text" class="form-control" placeholder="Khasra Number..." name="khasraNumber"
-            #khasraNumber="ngModel" [(ngModel)]="payload.khasraNumber"
-            [ngClass]="{ 'is-invalid': f.submitted && khasraNumber.invalid }" required>
-          <div *ngIf="f.submitted && khasraNumber.invalid" class="invalid-feedback">
-            <div *ngIf="khasraNumber.errors.required">Khasra Number is required</div>
+          <label class="marginLeft">Plot Size In kanal</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeKanal" pattern="[0-9]*" #sizeKanal="ngModel"
+            [(ngModel)]="payload.kanal" [ngClass]="{ 'is-invalid': f.submitted && sizeKanal.invalid }">
+          <div *ngIf="f.submitted && sizeKanal.invalid" class="invalid-feedback">
+            <div *ngIf="sizeKanal.errors.required">size is required</div>
+            <div *ngIf="sizeKanal.errors.pattern">size is Only Number</div>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Moza</label>
-          <input type="text" class="form-control" placeholder="Total Land..." name="moza" #moza="ngModel"
-            [(ngModel)]="payload.moza" [ngClass]="{ 'is-invalid': f.submitted && moza.invalid }" required>
-          <div *ngIf="f.submitted && moza.invalid" class="invalid-feedback">
-            <div *ngIf="moza.errors.required">Moza is required</div>
+          <label class="marginLeft">Plot Size In marla</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizemarla" pattern="[0-9]*" #sizemarla="ngModel"
+            [(ngModel)]="payload.marla" [ngClass]="{ 'is-invalid': f.submitted && sizemarla.invalid }">
+          <div *ngIf="f.submitted && sizemarla.invalid" class="invalid-feedback">
+            <div *ngIf="sizemarla.errors.required">size is required</div>
+            <div *ngIf="sizemarla.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Plot Size In Sarsai</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeSarsai" pattern="[0-9]*" #sizeSarsai="ngModel"
+            [(ngModel)]="payload.sarsai" [ngClass]="{ 'is-invalid': f.submitted && sizeSarsai.invalid }">
+          <div *ngIf="f.submitted && sizeSarsai.invalid" class="invalid-feedback">
+            <div *ngIf="sizeSarsai.errors.required">size is required</div>
+            <div *ngIf="sizeSarsai.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Plot Size In Feet</label>
+          <input type="text" class="form-control" placeholder="Plot Size" name="sizeFeet" pattern="[0-9]*" #sizeFeet="ngModel"
+            [(ngModel)]="payload.feet" [ngClass]="{ 'is-invalid': f.submitted && sizeFeet.invalid }">
+          <div *ngIf="f.submitted && sizeFeet.invalid" class="invalid-feedback">
+            <div *ngIf="sizeFeet.errors.required">size is required</div>
+            <div *ngIf="sizeFeet.errors.pattern">size is Only Number</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Khasra Number</label>
+          <input type="text" class="form-control" placeholder="Khasra Number..." name="khasraNumber" (keydown.enter)="addKhasraNumberList()"
+            #khasraNumber="ngModel" [(ngModel)]="khasra"
+            [ngClass]="{ 'is-invalid': f.submitted && khasraNumber.invalid }">
+          <div *ngIf="f.submitted && khasraNumber.invalid" class="invalid-feedback">
+            <div *ngIf="khasraNumber.errors.required">Khasra Number is required</div>
+          </div>
+        </div>
+      </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="marginLeft">Murabba</label>
+            <input type="text" class="form-control" placeholder="Murabba "  name="Murabba" #Murabba="ngModel" (keydown.enter)="addMozaList()"
+              [(ngModel)]="moza" [ngClass]="{ 'is-invalid': f.submitted && Murabba.invalid }">
+            <div *ngIf="f.submitted && Murabba.invalid" class="invalid-feedback">
+              <div *ngIf="Murabba.errors.required">Moza is required</div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label class="marginLeft">Khasra Number List</label>
+        <div style="border: 1px solid #ced4da;height: 120px;overflow-y: auto;">
+          <div class="chip" *ngFor="let item of khasraNumberList">
+            <!-- <img src="img_avatar.png" alt="Person" width="96" height="96"> -->
+            {{item}}
+            <span class="closebtn" (click)="removeKhasraNumberItem(item)">&times;</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="marginLeft">Murabba List</label>
+        <div style="border: 1px solid #ced4da;height: 120px; overflow-y: auto;">
+          <div class="chip" *ngFor="let item of mozaList">
+            <!-- <img src="img_avatar.png" alt="Person" width="96" height="96"> -->
+            {{item}}
+            <span class="closebtn" (click)="removeMozaItem(item)">&times;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="marginLeft">Khewat</label>
+          <input type="text" class="form-control" placeholder="Khewat..." name="Khewat" #Khewat="ngModel"
+            [(ngModel)]="khewat" [ngClass]="{ 'is-invalid': f.submitted && Khewat.invalid }" (keydown.enter)="addKhewatList()">
+          <div *ngIf="f.submitted && Khewat.invalid" class="invalid-feedback">
+            <div *ngIf="Khewat.errors.required">Khewat is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="marginLeft">Khewat List</label>
+        <div style="border: 1px solid #ced4da;height: 120px;overflow-y: auto;">
+          <div class="chip" *ngFor="let item of khewatList">
+            <!-- <img src="img_avatar.png" alt="Person" width="96" height="96"> -->
+            {{item}}
+            <span class="closebtn" (click)="removekhewatItem(item)">&times;</span>
           </div>
         </div>
       </div>
@@ -74,14 +187,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <label class="marginLeft">Khewat</label>
-          <input type="text" class="form-control" placeholder="Khewat..." name="khewat" #khewat="ngModel"
-            [(ngModel)]="payload.khewat" [ngClass]="{ 'is-invalid': f.submitted && khewat.invalid }" required>
-          <div *ngIf="f.submitted && khewat.invalid" class="invalid-feedback">
-            <div *ngIf="khewat.errors.required">Khewat is required</div>
+          <label class="marginLeft">Moza</label>
+          <input type="text" class="form-control" placeholder="Murabba "  name="Moza" #Moza="ngModel" (keydown.enter)="addMozaList()"
+            [(ngModel)]="payload.moza" [ngClass]="{ 'is-invalid': f.submitted && Moza.invalid }">
+          <div *ngIf="f.submitted && Moza.invalid" class="invalid-feedback">
+            <div *ngIf="Moza.errors.required">Moza is required</div>
           </div>
         </div>
-      </div>
+    </div>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -317,6 +430,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Title</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Due Date</th>
                     <th scope="col">Status</th>
@@ -326,6 +440,7 @@
                   <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
                   <tr *ngFor="let installment of payload.installments;let i = index;">
                     <th scope="row">{{installment?.srNo}}</th>
+                    <td>{{installment?.installmentName}}</td>
                     <td><input type="text" name="installmentAmont" class="form-control"
                         (keyup)="changeValue(i, 'installmentAmount', $event)"
                         (blur)="updateList(i, 'installmentAmount', $event)"
@@ -352,8 +467,9 @@
     <div class="row">
       <div class="col-md-12">
         <button type="submit" class="btn btn-info btn-fill pull-right"
-          *ngIf="installmentsCreated && !errorInInstallmetnValues" [disabled]="isLoading">Save<span *ngIf="isLoading"
-            class="btn-spinnerr"></span></button>
+          *ngIf="installmentsCreated && !errorInInstallmetnValues && !isUpdate" [disabled]="isLoading">Save</button>
+          <button type="submit" class="btn btn-info btn-fill pull-right"
+          *ngIf="installmentsCreated && !errorInInstallmetnValues && isUpdate" [disabled]="isLoading">Update</button>
         <button type="button" (click)="createInstallment()"
           class="btn btn-info btn-fill pull-right" style="margin-right: 10px;margin-left: 10px;" [disabled]="isLoading">Create Installments<span *ngIf="isLoading"
             class="btn-spinnerr"></span></button>
@@ -362,3 +478,20 @@
   </form>
 </div>
 <!-- </div> -->
+<ng-template #shareableLink let-modal>
+  <div class="bg-info text-white modal-header modal-baskt">
+    <h4 class=" modal-title" id="modal-basic-title">Confirmation</h4>
+    <button class="cursorPointer" id="closebtn" style="color: white;" class="close" aria-label="Close"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modal-inner-baskt" style="height: 120px;">
+    <div class="container text-center" style="margin-top: 20px;">
+      <p>Are you sure, you want to add a Land</p>
+      <button class="btn btn-lg logout-btn b1" (click)="onSubmit()" [disabled]="isLoading" type="button">confirm <span *ngIf="isLoading"
+        class="btn-spinnerr"></span></button>
+      <button class="btn btn-lg cancel-btn b2" (click)="modal.dismiss('Cross click')" type="button">Cancel</button>
+    </div>
+  </div>
+  </ng-template>
