@@ -1,5 +1,6 @@
 <div class="modal-header">
-  <h5 class="modal-title" style="width: 70%; float: left;">Add Plot</h5>
+  <h5 *ngIf="!isUpdate" class="modal-title" style="width: 70%; float: left;">Add Plot</h5>
+  <h5 *ngIf="isUpdate" class="modal-title" style="width: 70%; float: left;">Update Plot</h5>
   <button type="button" class="close" aria-label="Close" (click)="relatedModal.close()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -177,7 +178,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Down Payment</label>
-          <input type="text" class="form-control" placeholder="Down payment in rupees..." name="downPayment"
+          <input type="text" class="form-control" [disabled]="isUpdate" placeholder="Down payment in rupees..." name="downPayment"
             pattern="[0-9]*" #downPayment="ngModel" [(ngModel)]="payload.downPayment"
             [ngClass]="{ 'is-invalid': f.submitted && downPayment.invalid }" required>
           <div *ngIf="f.submitted && downPayment.invalid" class="invalid-feedback">
@@ -271,7 +272,7 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="!isUpdate">
             <tr *ngFor="let item of uploader.queue;let i=index;">
               <td><strong>{{ item?.file?.name }}</strong></td>
               <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
@@ -345,11 +346,15 @@
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
-                <tbody>
+
+                <tbody *ngIf="!isUpdate">
                   <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
                   <tr *ngFor="let installment of payload.installments;let i = index;">
                     <th scope="row">{{installment?.srNo}}</th>
-                    <td>{{installment?.installmentName}}</td>
+                    <td><input type="text" name="installmentAmont" class="form-control"
+                      (keyup)="changeValue(i, 'installmentName', $event)"
+                      (blur)="updateList(i, 'installmentName', $event)"
+                      value="{{installment?.installmentName}}" /></td>
                     <td><input type="text" name="installmentAmont" class="form-control"
                         (keyup)="changeValue(i, 'installmentAmount', $event)"
                         (blur)="updateList(i, 'installmentAmount', $event)"
@@ -361,6 +366,34 @@
                     </td>
                     <td>
                       <select name="status" (change)="updateList(i, 'status', $event)" class="form-control select-box-height">
+                        <option value="Due" [selected]="installment?.status == 'Due'">Not Paid</option>
+                        <option value="Paid" [selected]="installment?.status != 'Due'">Paid</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="isUpdate">
+                  <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
+                  <tr *ngFor="let installment of payload.installments;let i = index;">
+                    <th scope="row">{{installment?.srNo}}</th>
+                    <td>
+                      <!-- {{installment?.installmentName}}  -->
+                      <input type="text" [disabled]="installment.status == 'Paid'" name="installmentAmont" class="form-control"
+                        (keyup)="changeValue(i, 'installmentName', $event)"
+                        (blur)="updateList(i, 'installmentName', $event)"
+                        value="{{installment?.installmentName}}" />
+                    </td>
+                    <td><input type="text" [disabled]="installment.status == 'Paid'" name="installmentAmont" class="form-control"
+                        (keyup)="changeValue(i, 'installmentAmount', $event)"
+                        (blur)="updateList(i, 'installmentAmount', $event)"
+                        value="{{installment?.installmentAmount}}" />
+                    </td>
+                    <td>
+                      <input type="text" [disabled]="installment.status == 'Paid'" name="dueDate" class="form-control" (keyup)="changeValue(i, 'dueDate', $event)"
+                        (blur)="updateList(i, 'dueDate', $event)" value="{{installment?.dueDate}}" bsDatepicker />
+                    </td>
+                    <td>
+                      <select name="status" [disabled]="installment.status == 'Paid'" (change)="updateList(i, 'status', $event)" class="form-control select-box-height">
                         <option value="Due" [selected]="installment?.status == 'Due'">Not Paid</option>
                         <option value="Paid" [selected]="installment?.status != 'Due'">Paid</option>
                       </select>
@@ -397,8 +430,10 @@
     <div class="row">
       <div class="col-md-12">
         <button type="submit" class="btn btn-info btn-fill pull-right"
-          *ngIf="installmentsCreated && !errorInInstallmetnValues" [disabled]="isLoading">Save</button>
-        <button type="button" (click)="createInstallment()"
+          *ngIf="installmentsCreated && !errorInInstallmetnValues && !isUpdate"  [disabled]="isLoading">Save</button>
+          <button type="submit" class="btn btn-info btn-fill pull-right"
+          *ngIf="installmentsCreated && !errorInInstallmetnValues && !isUpdate"  [disabled]="isLoading">Update</button>
+        <button type="button" (click)="createInstallment()" *ngIf="isUpdate"
           class="btn btn-info btn-fill pull-right" style="margin-right: 10px;margin-left: 10px;" [disabled]="isLoading">Create Installments<span *ngIf="isLoading"
             class="btn-spinnerr"></span></button>
       </div>
@@ -416,7 +451,8 @@
   </div>
   <div class="modal-body modal-inner-baskt" style="height: 120px;">
     <div class="container text-center" style="margin-top: 20px;">
-      <p>Are you sure, you want to add a plot</p>
+      <p *ngIf="!isUpdate">Are you sure, you want to Add a plot</p>
+      <p *ngIf="isUpdate">Are you sure, you want to Update a plot</p>
       <button class="btn btn-lg logout-btn b1" (click)="onSubmit()" [disabled]="isLoading" type="button">confirm <span *ngIf="isLoading"
         class="btn-spinnerr"></span></button>
       <button class="btn btn-lg cancel-btn b2" (click)="modal.dismiss('Cross click')" type="button">Cancel</button>

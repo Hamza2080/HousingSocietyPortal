@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { FileUploader } from 'ng2-file-upload';
+import { element } from 'protractor';
 
 class Installment {
   public srNo: number;
@@ -53,8 +54,8 @@ export class AddLandComponent implements OnInit {
     marla: null,
     sarsai: null,
     feet: null,
-    moza:null,
-    areaName:null,
+    moza: null,
+    areaName: null,
     measuringUnit: null,
     acquired_date: new Date(),
     installmentStartDate: null,
@@ -83,7 +84,7 @@ export class AddLandComponent implements OnInit {
     closeButton: true
   };
 
-  constructor(public relatedModal: NgbActiveModal,private modelService:NgbModal, private adminService: AdminService, private toastr: ToastrService) {
+  constructor(public relatedModal: NgbActiveModal, private modelService: NgbModal, private adminService: AdminService, private toastr: ToastrService) {
     this.initializeAttahmentCode();
   }
 
@@ -91,11 +92,15 @@ export class AddLandComponent implements OnInit {
     this.getTowns();
     this.getMeasurements();
     this.getLandLord();
-    if(this.isUpdate){
+    if (this.isUpdate) {
       this.khasraNumberList = this.payload.khasranNumber;
       this.mozaList = this.payload.murabba;
       this.khewatList = this.payload.khewat;
       this.installmentsCreated = true;
+      this.payload.installmentStartDate = new Date(this.payload.installmentStartDate);
+      this.payload.installments.forEach(data => {
+        data.dueDate = new Date(data.dueDate);
+      })
     }
   }
 
@@ -129,13 +134,13 @@ export class AddLandComponent implements OnInit {
     iinstallment.dueDate = new Date(startdate.setMonth(startdate.getMonth() + (this.payload.installmentGap * 1)));
     iinstallment.status = 'Paid'; // Due / Paid
     this.payload.installments.push(iinstallment);
-    for (let i = 1; i < this.payload.noOfInstallment; i++) {
+    for (let i = 0; i < this.payload.noOfInstallment; i++) {
       let startDate = new Date(this.payload.installmentStartDate);
       let installment = new Installment();
-      installment.srNo = i + 1;
-      installment.installmentName = "installment_" + i + 1;
+      installment.srNo = i + 2;
+      installment.installmentName = "installment_" + (i + 1);
       installment.installmentAmount = this.payload.installmentAmount;
-      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * i))),
+      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * (i + 1)))),
         installment.status = 'Due'; // Due / Paid
 
       this.payload.installments.push(installment);
@@ -147,7 +152,7 @@ export class AddLandComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     if (this.checkTotalAmount()) {
-      if(this.khewatList.length && this.khasraNumberList.length && this.mozaList.length) {
+      if (this.khewatList.length && this.khasraNumberList.length && this.mozaList.length) {
         this.payload.totalLand = Number(this.payload.totalLand);
         this.payload.installmentGap = Number(this.payload.installmentGap);
         this.payload.totalPayment = Number(this.payload.totalPayment);
@@ -162,7 +167,7 @@ export class AddLandComponent implements OnInit {
         this.payload.khasranNumber = this.khasraNumberList;
         this.payload.khewat = this.khewatList;
         this.payload.murabba = this.mozaList;
-        if(this.isUpdate){
+        if (this.isUpdate) {
           this.adminService.updateLand(this.payload).then(res => {
             console.log(res);
             this.isLoading = false;
@@ -184,9 +189,9 @@ export class AddLandComponent implements OnInit {
           })
         }
       } else {
-      this.toastr.error('Error!', `Atleast one Entry Requried in Khewat,khasra Number and Moza `);
+        this.toastr.error('Error!', `Atleast one Entry Requried in Khewat,khasra Number and Moza `);
       }
-   
+
     } else {
       this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
       this.isLoading = false;
@@ -195,11 +200,11 @@ export class AddLandComponent implements OnInit {
 
   checkTotalAmount() {
     let totalPayment = this.payload.totalPayment;
-    let calculatedPayment = Number(this.payload.downPayment);
+    let calculatedPayment = 0;
     for (let i = 0; i < this.payload.installments.length; i++) {
       calculatedPayment += Number(this.payload.installments[i].installmentAmount);
     }
-
+    console.log(calculatedPayment, 'total')
     if (calculatedPayment == totalPayment) return true;
     else return false;
   }
@@ -250,6 +255,8 @@ export class AddLandComponent implements OnInit {
       this.payload.installments[index].dueDate = $event.target.value;
     } else if (name == 'status') {
       this.payload.installments[index].status = $event.target.value;
+    } else if (name == 'installmentName') {
+      this.payload.installments[index].installmentName = $event.target.value;
     }
   }
 
@@ -264,41 +271,41 @@ export class AddLandComponent implements OnInit {
   }
   addKhasraNumberList() {
     if (this.khasra !== null && this.khasra !== '') {
-        this.khasraNumberList.push(this.khasra);
-        this.khasra = null;
+      this.khasraNumberList.push(this.khasra);
+      this.khasra = null;
     }
   }
   addMozaList() {
     if (this.moza !== null && this.moza !== '') {
       this.mozaList.push(this.moza);
       this.moza = null;
-  }
+    }
   }
   addKhewatList() {
     if (this.khewat !== null && this.khewat !== '') {
       this.khewatList.push(this.khewat);
       this.khewat = null;
-  }
+    }
   }
   removeMozaItem(item) {
     console.log(item)
     const i = this.mozaList.indexOf(item);
     // if(i > 0){
-      this.mozaList.splice(i,1);
+    this.mozaList.splice(i, 1);
     // }
   }
   removeKhasraNumberItem(item) {
     console.log(item)
     const i = this.khasraNumberList.indexOf(item);
     // if(i > 0){
-      this.khasraNumberList.splice(i,1);
+    this.khasraNumberList.splice(i, 1);
     // }
   }
   removekhewatItem(item) {
     console.log(item)
     const i = this.khewatList.indexOf(item);
     // if(i > 0){
-      this.khewatList.splice(i,1);
+    this.khewatList.splice(i, 1);
     // }
   }
   openModel() {

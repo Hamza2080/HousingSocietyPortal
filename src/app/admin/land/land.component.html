@@ -34,7 +34,7 @@
               <tbody *ngIf="landList?.length > 0">
                 <tr *ngFor="let item of landList| paginate: { itemsPerPage: 10, currentPage: p }">
                   <td>{{item?.description}}</td>
-                  <td>{{item?.totalLand}} {{item?.measuringUni}}</td>
+                  <td>{{item?.kanal || 0}} Kanal, {{item?.marla || 0}} Marla, {{item?.sarsai || 0}} Sarsai, {{item?.feet || 0}} Feet</td>
                   <td>{{item?.acquired_date |date:'mediumDate'}}</td>
                   <td>{{item?.landlordData?.name}} - {{item?.landlordData?.phone}}</td>
                   <!-- <td>{{item?.landPaymentStatus}}</td> -->

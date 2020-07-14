@@ -13,6 +13,7 @@
         <thead *ngIf="installment?.length > 0">
           <tr>
             <th>SrNo.</th>
+            <th>Title</th>
             <th>Amount</th>
             <th>Submission Date</th>
             <th>Status</th>
@@ -21,8 +22,9 @@
         <tbody *ngIf="installment?.length > 0">
           <tr *ngFor="let item of installment">
             <td>{{item?.srNo}}</td>
+            <td>{{item?.installmentName}}</td>
             <td>{{item?.installmentAmount}}</td>
-            <td>{{item?.dueDate | date:'mediumDate'}}</td>
+            <td>{{item?.dueDate | date:'medium'}}</td>
             <td *ngIf="item?.status === 'Upcoming Due'" style="color:orange !important;">{{item?.status}}</td>
             <td *ngIf="item?.status === 'Due'" style="color:red !important;">{{item?.status}}</td>
             <td *ngIf="item?.status === 'Paid'" style="color:green !important;">{{item?.status}}</td>
@@ -206,6 +208,7 @@
         <thead *ngIf="installment?.length > 0">
           <tr>
             <th>SrNo.</th>
+            <th>Title</th>
             <th>Amount</th>
             <th>Submission Date</th>
             <th>Status</th>
@@ -214,6 +217,7 @@
         <tbody *ngIf="installment?.length > 0">
           <tr *ngFor="let item of installment">
             <td>{{item?.srNo}}</td>
+            <td>{{item?.installmentName}}</td>
             <td>{{item?.installmentAmount}}</td>
             <td>{{item?.dueDate | date:'mediumDate'}}</td>
             <td *ngIf="item?.status === 'Upcoming Due'" style="color:orange !important;">{{item?.status}}</td>

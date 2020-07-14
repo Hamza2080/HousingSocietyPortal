@@ -26,7 +26,7 @@ class Installment {
 })
 export class AddPlotsComponent implements OnInit {
   @ViewChild('shareableLink') private myScrollContainer: ElementRef;
-
+  public isUpdate = false;
   // url = ;
   uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
@@ -90,6 +90,14 @@ export class AddPlotsComponent implements OnInit {
     this.getTowns();
     this.getMeasurements();
     this.getPlotCategories();
+    if (this.isUpdate) {
+      this.installmentsCreated = true;
+      this.payload.installmentStartDate = new Date(this.payload.installmentStartDate);
+      this.payload.installments.forEach(data => {
+        data.dueDate = new Date(data.dueDate);
+      })
+ 
+    }
     // this.getStreet();
     // this.getCustomers();
     // this.getPaymentPlan();
@@ -127,7 +135,16 @@ export class AddPlotsComponent implements OnInit {
       this.payload.noOfInstallment = Number(this.payload.noOfInstallment);
       this.payload.installmentAmount = Number(this.payload.installmentAmount);
       this.payload.attachment = this.attachments;
-
+      if(this.isUpdate){
+        this.adminService.updatePlots(this.payload).then(res => {
+          this.isLoading = false;
+          document.getElementById('closebtn').click();
+          this.relatedModal.close(true);
+        }).catch(err => {
+          console.log(err);
+          this.isLoading = false;
+        });
+      } else {
       this.adminService.addPlots(this.payload).then(res => {
         this.isLoading = false;
         document.getElementById('closebtn').click();
@@ -136,6 +153,7 @@ export class AddPlotsComponent implements OnInit {
         console.log(err);
         this.isLoading = false;
       });
+    }
     } else {
       this.toastr.error('Error!', `Kindly check payment details, Total payment not equal to downPayment plus installments.`);
       this.isLoading = false;
@@ -153,7 +171,7 @@ export class AddPlotsComponent implements OnInit {
   }
   checkTotalAmount() {
     let totalPayment = this.payload.totalPayment;
-    let calculatedPayment = Number(this.payload.downPayment);
+    let calculatedPayment = 0;
     for (let i = 0; i < this.payload.installments.length; i++) {
       calculatedPayment += Number(this.payload.installments[i].installmentAmount);
     }
@@ -174,13 +192,13 @@ export class AddPlotsComponent implements OnInit {
     iinstallment.dueDate = new Date(startdate.setMonth(startdate.getMonth() + (this.payload.installmentGap * 1)));
     iinstallment.status = 'Paid'; // Due / Paid
     this.payload.installments.push(iinstallment);
-    for (let i = 1; i < this.payload.noOfInstallment; i++) {
+    for (let i = 0; i < this.payload.noOfInstallment; i++) {
       let startDate = new Date(this.payload.installmentStartDate);
       let installment = new Installment();
       installment.srNo = i + 1;
-      installment.installmentName = "installment_" + i + 1;
+      installment.installmentName = "installment_" + (i + 1);
       installment.installmentAmount = this.payload.installmentAmount;
-      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * i)));
+      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * (i + 1))));
       installment.status = 'Due'; // Due / Paid
       this.payload.installments.push(installment);
     }
@@ -236,6 +254,15 @@ export class AddPlotsComponent implements OnInit {
       // this.isLoading = false;
       if (this.plotcategories.length) {
         this.payload.plotcategoriesId = this.plotcategories[0].id;
+        if(this.isUpdate) {
+          let categoryObject = this.plotcategories.find(element => element.id == this.payload.plotcategoriesId);
+          let percentageVal = this.payload.plotType == '0' ? categoryObject.residentialPercentage : categoryObject.commercialPercentage;
+          let calculateExtraCharge = (percentageVal / 100) * this.payload.totalPayment;
+          this.plotCategoryExtraCharge = calculateExtraCharge;
+          this.totalPayment = Number(this.payload.totalPayment) + Number(this.plotCategoryExtraCharge)
+          console.log(this.totalPayment, 'total payments');
+          this.totalAmount = this.totalPayment;
+        }
       }
     }).catch(err => {
       console.log(err);

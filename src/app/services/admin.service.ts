@@ -589,6 +589,18 @@ export class AdminService {
       });
     });
   }
+  updatePlots(payload) {
+    return new Promise((resolve, reject) => {
+      this.httpSecure.put('/plots', payload).subscribe(res => {
+
+        this.toastr.success('Success!', res.message, this.toastserviceConfig);
+        resolve(res.data);
+      }, err => {
+        this.toastr.error('Error!', err.error.error.message);
+        reject(err);
+      });
+    });
+  }
   getAllPlots() {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/plots').subscribe(res => {

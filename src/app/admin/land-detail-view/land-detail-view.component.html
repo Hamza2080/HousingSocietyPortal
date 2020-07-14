@@ -16,6 +16,31 @@
     </div>
     <div class="row">
       <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Land Lord</label>
+          <!-- <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" /> -->
+          <select class="form-control select-box-height" disabled name="landlordId" #landlordId="ngModel"
+          [(ngModel)]="landInstance.landlordId" [ngClass]="{ 'is-invalid': f.submitted && landlordId.invalid }" required>
+          <option [value]='null' disabled>Select land-lord</option>
+          <option *ngFor="let item of landLordList" [value]="item?.id"> {{item?.name}}</option>
+        </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="marginLeft">Town</label>
+          <!-- <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" /> -->
+
+          <select class="form-control select-box-height" name="townId" #townId="ngModel" disabled [(ngModel)]="landInstance.townId"
+            [ngClass]="{ 'is-invalid': f.submitted && townId.invalid }" required>
+            <option [value]='null' disabled>Select Town</option>
+            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
         <label class="marginLeft">Khasra Number List</label>
         <div style="border: 1px solid #ced4da;height: 120px;overflow-y: auto;">
           <div class="chip" *ngFor="let item of khasraNumberList">
@@ -70,29 +95,6 @@
         </div>
       </div>
     </div> -->
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label class="marginLeft">Land Lord</label>
-          <!-- <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" /> -->
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label class="marginLeft">Town</label>
-          <!-- <input type="text" class="form-control" name="khewat" disabled [value]="landInstance?.khewat" /> -->
-
-          <!-- <select class="form-control select-box-height" name="townId" #townId="ngModel" [(ngModel)]="payload.townId"
-            [ngClass]="{ 'is-invalid': f.submitted && townId.invalid }" required>
-            <option [value]='null' disabled>Select Town</option>
-            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
-          </select>
-          <div *ngIf="f.submitted && townId.invalid" class="invalid-feedback">
-            <div *ngIf="townId.errors.required">Town is required</div>
-          </div> -->
-        </div>
-      </div>
-    </div>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -156,9 +158,9 @@
           <div class="col-md-12" style="font-weight:bold">Attachment {{i+1}}:</div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-4">
             <a href="http://localhost:3000/attachment/downloadFile/{{fileName}}" target="_blank">
-              <img style="width:100%px;height:250px;"
+              <img style="width:100%;height:250px;"
                 src="http://localhost:3000/attachment/downloadFile/{{fileName}}" />
             </a>
           </div>
@@ -181,26 +183,26 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="marginLeft">Received By</label>
+                  <label class="marginLeft">Installment Name</label>
                   <input type="text" class="form-control" name="receivedByName" disabled
-                    [value]="installment?.receivedByName" />
+                    [value]="installment?.installmentName" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="marginLeft">Paid By</label>
-                  <input type="text" class="form-control" name="paidBy" disabled [value]="installment?.paidBy" />
+                  <label class="marginLeft">Status</label>
+                  <input type="text" class="form-control" name="paidBy" disabled [value]="installment?.status" />
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <div class="form-group">
                   <label class="marginLeft">Contact</label>
                   <input type="text" class="form-control" name="receivedByNumber" disabled
                     [value]="installment?.receivedByNumber" />
                 </div>
-              </div>
+              </div> -->
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="marginLeft">Date</label>
@@ -208,9 +210,16 @@
                     [value]="installment?.receiveDate" />
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="marginLeft">Amount</label>
+                  <input type="text" class="form-control" name="installmentAmount" disabled
+                    [value]="installment?.installmentAmount" />
+                </div>
+              </div>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="marginLeft">Receipt Number</label>
@@ -225,7 +234,7 @@
                     [value]="installment?.installmentAmount" />
                 </div>
               </div>
-            </div>
+            </div> -->
           </form>
         </div>
         <div class="row" *ngIf="installment?.attachment?.length > 0">

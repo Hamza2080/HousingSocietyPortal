@@ -155,7 +155,7 @@ export class ViewPlotsComponent implements OnInit {
     modelRef.componentInstance.payload = item;
   }
   updatePlotDetailModal(item) {
-    const modelRef = this.modalService.open(ViewPlotDetailModalComponent, { size: 'lg' });
+    const modelRef = this.modalService.open(AddPlotsComponent, { size: 'lg' });
     modelRef.componentInstance.payload = item;
     modelRef.componentInstance.isUpdate = true;
   }

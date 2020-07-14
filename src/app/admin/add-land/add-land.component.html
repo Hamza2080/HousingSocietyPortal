@@ -268,7 +268,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Down Payment</label>
-          <input type="text" class="form-control" placeholder="Down payment in rupees..." name="downPayment"
+          <input [disabled]="isUpdate" type="text" class="form-control" placeholder="Down payment in rupees..." name="downPayment"
             pattern="[0-9]*" #downPayment="ngModel" [(ngModel)]="payload.downPayment"
             [ngClass]="{ 'is-invalid': f.submitted && downPayment.invalid }" required>
           <div *ngIf="f.submitted && downPayment.invalid" class="invalid-feedback">
@@ -436,11 +436,14 @@
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="!isUpdate">
                   <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
                   <tr *ngFor="let installment of payload.installments;let i = index;">
                     <th scope="row">{{installment?.srNo}}</th>
-                    <td>{{installment?.installmentName}}</td>
+                    <td> <input type="text" name="installmentAmont" class="form-control"
+                      (keyup)="changeValue(i, 'installmentName', $event)"
+                      (blur)="updateList(i, 'installmentName', $event)"
+                      value="{{installment?.installmentName}}" /></td>
                     <td><input type="text" name="installmentAmont" class="form-control"
                         (keyup)="changeValue(i, 'installmentAmount', $event)"
                         (blur)="updateList(i, 'installmentAmount', $event)"
@@ -452,6 +455,34 @@
                     </td>
                     <td>
                       <select name="status" (change)="updateList(i, 'status', $event)" class="form-control select-box-height">
+                        <option value="Due" [selected]="installment?.status == 'Due'">Not Paid</option>
+                        <option value="Paid" [selected]="installment?.status != 'Due'">Paid</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="isUpdate">
+                  <!-- (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true" -->
+                  <tr *ngFor="let installment of payload.installments;let i = index;">
+                    <th scope="row">{{installment?.srNo}}</th>
+                    <td>
+                      <!-- {{installment?.installmentName}}  -->
+                      <input type="text" [disabled]="installment.status == 'Paid'" name="installmentAmont" class="form-control"
+                        (keyup)="changeValue(i, 'installmentName', $event)"
+                        (blur)="updateList(i, 'installmentName', $event)"
+                        value="{{installment?.installmentName}}" />
+                    </td>
+                    <td><input type="text" [disabled]="installment.status == 'Paid'" name="installmentAmont" class="form-control"
+                        (keyup)="changeValue(i, 'installmentAmount', $event)"
+                        (blur)="updateList(i, 'installmentAmount', $event)"
+                        value="{{installment?.installmentAmount}}" />
+                    </td>
+                    <td>
+                      <input type="text" [disabled]="installment.status == 'Paid'" name="dueDate" class="form-control" (keyup)="changeValue(i, 'dueDate', $event)"
+                        (blur)="updateList(i, 'dueDate', $event)" value="{{installment?.dueDate}}" bsDatepicker />
+                    </td>
+                    <td>
+                      <select name="status" [disabled]="installment.status == 'Paid'" (change)="updateList(i, 'status', $event)" class="form-control select-box-height">
                         <option value="Due" [selected]="installment?.status == 'Due'">Not Paid</option>
                         <option value="Paid" [selected]="installment?.status != 'Due'">Paid</option>
                       </select>
@@ -470,7 +501,7 @@
           *ngIf="installmentsCreated && !errorInInstallmetnValues && !isUpdate" [disabled]="isLoading">Save</button>
           <button type="submit" class="btn btn-info btn-fill pull-right"
           *ngIf="installmentsCreated && !errorInInstallmetnValues && isUpdate" [disabled]="isLoading">Update</button>
-        <button type="button" (click)="createInstallment()"
+        <button type="button" (click)="createInstallment()" *ngIf="!isUpdate"
           class="btn btn-info btn-fill pull-right" style="margin-right: 10px;margin-left: 10px;" [disabled]="isLoading">Create Installments<span *ngIf="isLoading"
             class="btn-spinnerr"></span></button>
       </div>

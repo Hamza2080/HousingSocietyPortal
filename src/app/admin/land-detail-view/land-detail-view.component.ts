@@ -11,10 +11,12 @@ import { FileUploader } from 'ng2-file-upload';
 })
 export class LandDetailViewComponent implements OnInit {
 
-  @Input() private landInstance;
+  @Input() public landInstance;
   public khasraNumberList = [];
   public mozaList = [];
   public khewatList = [];
+  public townList = [];
+  public landLordList = [];
   constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {
   }
 
@@ -23,5 +25,29 @@ export class LandDetailViewComponent implements OnInit {
     this.khasraNumberList = this.landInstance.khasranNumber;
     this.mozaList = this.landInstance.murabba;
     this.khewatList = this.landInstance.khewat;
+    this.getLandLord();
+    this.getTowns();
+  }
+  getTowns() {
+    this.adminService.getAllTowns().then(res => {
+      this.townList = res as any[];
+      // if (this.townList.length) {
+      //   // this.payload.townId = this.townList[0].id;
+      // }
+
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+  getLandLord() {
+    this.adminService.getLandLord().then(res => {
+      this.landLordList = res as any[];
+      if (this.landLordList.length) {
+        // this.payload.landlordId = this.landLordList[0].id;
+      }
+
+    }).catch(err => {
+      console.log(err);
+    })
   }
 }
