@@ -126,12 +126,12 @@ export class AddLandComponent implements OnInit {
   createInstallment() {
     // if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
     this.payload.installments = [];
-    let startdate = new Date(this.payload.installmentStartDate);
+    let startdate = new Date();
     let iinstallment = new Installment();
     iinstallment.srNo = 1;
     iinstallment.installmentName = "DownPayment";
     iinstallment.installmentAmount = this.payload.installmentAmount;
-    iinstallment.dueDate = new Date(startdate.setMonth(startdate.getMonth() + (this.payload.installmentGap * 1)));
+    iinstallment.dueDate = new Date();
     iinstallment.status = 'Paid'; // Due / Paid
     this.payload.installments.push(iinstallment);
     for (let i = 0; i < this.payload.noOfInstallment; i++) {
@@ -140,7 +140,7 @@ export class AddLandComponent implements OnInit {
       installment.srNo = i + 2;
       installment.installmentName = "installment_" + (i + 1);
       installment.installmentAmount = this.payload.installmentAmount;
-      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * (i + 1)))),
+      installment.dueDate = new Date(startDate.setMonth(startDate.getMonth() + (this.payload.installmentGap * (i)))),
         installment.status = 'Due'; // Due / Paid
 
       this.payload.installments.push(installment);

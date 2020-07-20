@@ -28,6 +28,7 @@
                   <th>townPhase</th>
                   <th>town</th>
                   <th>Additional Notes</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody *ngIf="parkList?.length > 0">
@@ -42,15 +43,17 @@
                     <button type="button" [disabled]="item?.attachment?.length == 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm btnColor" title="Installments">Attachment</button>
                   </td> -->
                   <td>
-                    <i class="fa fa-pencil mr-2 action-icon" style="cursor:pointer" aria-hidden="true"
-                      (click)="openModelUpdatePark(item)"></i>
-                    <i class="fa fa-trash action-icon" style="cursor:pointer" aria-hidden="true"></i>
+                    <!-- <i class="fa fa-pencil mr-2 action-icon" style="cursor:pointer" aria-hidden="true"
+                      (click)="openModelUpdatePark(item)"></i> -->
+                    <button type="button" (click)="openModelUpdatePark(item)" class="btn stock-btn-green btn-sm " title="Installments">Update</button>
+
+                    <!-- <i class="fa fa-trash action-icon" style="cursor:pointer" aria-hidden="true"></i> -->
                   </td>
                 </tr>
               </tbody>
 
             </table>
-            <pagination-controls *ngIf="landList?.length > 0" (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls *ngIf="parkList?.length > 0" (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>

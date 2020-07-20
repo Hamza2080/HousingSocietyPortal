@@ -42,10 +42,10 @@
                   <td>{{item?.downPayment}}</td>
                   <td>{{item?.noOfInstallment}}</td>
                 <td>
-                  <button type="button" *ngIf="!item?.installments?.length" [disabled]="!item?.installments?.length" class="btn btn-primary btn-sm btnColor" title="No Installments Found">Installments</button>
-                  <button type="button" *ngIf="item?.installments?.length > 0" (click)="openInstallment(item)" class="btn btn-primary btn-sm btnColor" title="Installments">Installments</button>
-                  <button type="button" (click)="openLandDetail(item)" class="btn btn-primary btn-sm btnColor mx-1" title="Land Detail View">View Land Detail</button>
-                  <button type="button" (click)="openUpdateModel(item)" class="btn btn-primary btn-sm btnColor mx-1" title="Land Detail View">Update Land</button>
+                  <button type="button" *ngIf="!item?.installments?.length" [disabled]="!item?.installments?.length" class="btn btn-primary btn-sm mx-1" title="No Installments Found">Installments</button>
+                  <button type="button" *ngIf="item?.installments?.length > 0" (click)="openInstallment(item)" class="btn stock-btn-red btn-sm mx-1" title="Installments">Installments</button>
+                  <button type="button" (click)="openLandDetail(item)" class="btn btn-primary btn-sm  mx-1" title="Land Detail View">View Land Detail</button>
+                  <button type="button" (click)="openUpdateModel(item)" class="btn stock-btn-green btn-sm  mx-1" title="Land Detail View">Update Land</button>
                 </td>
                 </tr>
               </tbody>

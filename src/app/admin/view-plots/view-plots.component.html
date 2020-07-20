@@ -42,12 +42,12 @@
                   <td>{{item?.plotStatus}}</td>
                   <td>{{item?.townPhase}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary btn-sm btnColor" *ngIf="!item?.customerId && item?.TransferHistory.length ===0" (click)="openSalePlotModel(item, salePlotModel)">Sale Plot</button>
-                    <button type="button" class="btn btn-primary btn-sm btnColor" *ngIf="item?.TransferHistory.length > 0" (click)="openResalePlotModel(item, salePlotModel)">Resale Plot</button>
-                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="item?.customerId" (click)="openInstallment(item)">Installment</button>
-                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" (click)="viewPlotDetailModal(item)">View Plot Detail</button>
-                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" (click)="updatePlotDetailModal(item)">Update Plot</button>
-                    <button type="button" class="btn btn-primary btn-sm btnColor mx-1" *ngIf="item?.TransferHistory.length > 0" (click)="updateTransferHistoryModal(item.TransferHistory,tranferModel)">Transfer History</button>
+                    <button type="button" class="btn stock-btn-red btn-sm" *ngIf="!item?.customerId && item?.TransferHistory.length ===0" (click)="openSalePlotModel(item, salePlotModel)">Sale Plot</button>
+                    <button type="button" class="btn stock-btn-red btn-sm " *ngIf="item?.TransferHistory.length > 0" (click)="openResalePlotModel(item, salePlotModel)">Resale Plot</button>
+                    <button type="button" class="btn stock-btn-green btn-sm  mx-1" (click)="updatePlotDetailModal(item)">Update Plot</button>
+                    <button type="button" class="btn stock-btn-red btn-sm  mx-1" *ngIf="item?.customerId" (click)="openInstallment(item)">Installment</button>
+                    <button type="button" class="btn btn-primary btn-sm mx-1" (click)="viewPlotDetailModal(item)">View Plot Detail</button>
+                    <button type="button" class="btn btn-primary btn-sm  mx-1" *ngIf="item?.TransferHistory.length > 0" (click)="updateTransferHistoryModal(item.TransferHistory,tranferModel)">Transfer History</button>
                   </td>
                   <!--
                   <td>

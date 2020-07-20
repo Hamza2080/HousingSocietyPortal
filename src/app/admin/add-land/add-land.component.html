@@ -188,7 +188,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label class="marginLeft">Moza</label>
-          <input type="text" class="form-control" placeholder="Murabba "  name="Moza" #Moza="ngModel" (keydown.enter)="addMozaList()"
+          <input type="text" class="form-control" placeholder="Moza"  name="Moza" #Moza="ngModel" (keydown.enter)="addMozaList()"
             [(ngModel)]="payload.moza" [ngClass]="{ 'is-invalid': f.submitted && Moza.invalid }">
           <div *ngIf="f.submitted && Moza.invalid" class="invalid-feedback">
             <div *ngIf="Moza.errors.required">Moza is required</div>

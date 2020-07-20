@@ -30,7 +30,6 @@
                   <th>Status</th>
                   <th>Paid-By</th>
                   <th>Notes</th>
-                  <th>Attachments</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -44,18 +43,18 @@
                   <td>{{item?.employeeId}}</td>
                   <td title="{{item?.additionalNotes}}">View Detail</td>
                   <td>
-                    <button type="button" [disabled]="item?.attachment?.length == 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm btnColor" title="Installments">Attachment</button>
-                  </td>
-                  <td>
-                    <button type="button" *ngIf="item.status !== 'Paid'" (click)="openPaidModel(item)" class="btn btn-primary btn-sm btnColor" title="Installments">Paid</button>
-                    <i class="fa fa-pencil mr-2 action-icon" style="cursor:pointer" aria-hidden="true" (click)="openModelUpdateExpense(item)"></i> 
-                    <i class="fa fa-trash action-icon" style="cursor:pointer" aria-hidden="true"></i>
+                    <button type="button" [disabled]="item?.attachment?.length == 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm" title="Installments">Attachment</button>
+                    <button type="button" *ngIf="item.status !== 'Paid'" (click)="openPaidModel(item)" class="btn  stock-btn-red btn-sm " title="Installments">Paid</button>
+                    <button type="button"  (click)="openModelUpdateExpense(item)" class="btn stock-btn-green btn-sm" title="Installments">Update</button>
+                    <!-- <button type="button"   class="btn btn-primary btn-sm" title="Installments">Paid</button> -->
+                    <!-- <i class="fa fa-pencil mr-2 action-icon" style="cursor:pointer" aria-hidden="true" (click)="openModelUpdateExpense(item)"></i> 
+                    <i class="fa fa-trash action-icon" style="cursor:pointer" aria-hidden="true"></i> -->
                   </td>
                 </tr>
               </tbody>
 
             </table>
-            <pagination-controls *ngIf="landList?.length > 0" (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls *ngIf="expenseList?.length > 0" (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>
