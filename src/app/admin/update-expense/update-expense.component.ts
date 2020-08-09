@@ -42,7 +42,7 @@ export class UpdateExpenseComponent implements OnInit {
 
   public isLoading = false;
   constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {
-    this.uploader  = new FileUploader({url: 'http://localhost:3000/api/attachments/attachment/upload', itemAlias: 'file', removeAfterUpload: true});
+    this.uploader  = new FileUploader({url: 'https://housing-society-backend.herokuapp.com/api/attachments/attachment/upload', itemAlias: 'file', removeAfterUpload: true});
 
     this.uploader.onBeforeUploadItem = (item) => {
         item.withCredentials = false;
@@ -50,6 +50,7 @@ export class UpdateExpenseComponent implements OnInit {
 
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
         response = JSON.parse(response);
+        console.log(response)
         this.attachments.push(response.data.result.files.file[0].name);
         console.log(this.attachments)
         this.toastr.success('Success!', response.data.result.files.file[0].name + " file uploaded", this.toastserviceConfig);

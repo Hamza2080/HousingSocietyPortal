@@ -40,7 +40,7 @@
                   <td>{{item?.amount}}</td>
                   <td>{{item?.expenseDate}}</td>
                   <td>{{item?.status}}</td>
-                  <td>{{item?.employeeId}}</td>
+                  <td>{{item?.paidBy || item?.employeeId}}</td>
                   <td title="{{item?.additionalNotes}}">View Detail</td>
                   <td>
                     <button type="button" [disabled]="item?.attachment?.length == 0" (click)="openAttachmentDetail(item, attachmentModal)" class="btn btn-primary btn-sm" title="Installments">Attachment</button>

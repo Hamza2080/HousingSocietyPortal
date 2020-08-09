@@ -51,7 +51,7 @@ export class InstallmentComponent implements OnInit {
   };
   
   constructor(private adminService: AdminService, public relatedModal: NgbActiveModal, private toastr: ToastrService) {
-    this.uploader  = new FileUploader({url: 'http://localhost:3000/api/attachments/attachment/upload', itemAlias: 'file', removeAfterUpload: true});
+    this.uploader  = new FileUploader({url: 'https://housing-society-backend.herokuapp.com/api/attachments/attachment/upload', itemAlias: 'file', removeAfterUpload: true});
 
     this.uploader.onBeforeUploadItem = (item) => {
         item.withCredentials = false;

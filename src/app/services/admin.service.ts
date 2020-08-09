@@ -26,7 +26,7 @@ export class AdminService {
         this.toastr.success('Success!', res.message, this.toastserviceConfig);
         localStorage.setItem('token', res.data.id);
         localStorage.setItem('userId', res.data.userId);
-        this.router.navigateByUrl('/admin/manager')
+        this.router.navigateByUrl('/admin/Town')
       }, err => {
         this.toastr.error('Error!', err.error.error.message);
         reject(err);
