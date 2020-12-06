@@ -14,6 +14,8 @@ export class AddEmployeesComponent implements OnInit {
     registerDate: null,
     age: null,
     contact: null,
+    salary: null,
+    designation: null,
     id: null,
     townId: null
   };
@@ -37,6 +39,7 @@ export class AddEmployeesComponent implements OnInit {
     });
   }
   onSubmit() {
+    console.log(this.payload)
     this.isLoading = true;
     if (!this.isEdit) {
       this.adminService.addEmployee(this.payload).then(res => {
