@@ -144,7 +144,7 @@ export class AdminService {
         if (!res.data.isExist) {
           this.toastr.success('Success!', 'Plot Number is Valid', this.toastserviceConfig);
         } else {
-          this.toastr.error('Error!', res.messagee);
+          // this.toastr.error('Error!', res.messagee);
         }
         console.log(res);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
@@ -316,7 +316,7 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/expense_types').subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        // 
+        //
         resolve(res.data);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);
@@ -333,7 +333,7 @@ export class AdminService {
     return new Promise((resolve, reject) => {
       this.httpSecure.get('/land_measuring_units').subscribe(res => {
         // if (res.status.result === 'SUCCESS') {
-        // 
+        //
         resolve(res.data);
         // this.toastr.success('Success!', res.message, this.toastserviceConfig);
         // localStorage.setItem('token', res.data.id);

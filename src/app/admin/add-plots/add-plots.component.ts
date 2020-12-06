@@ -74,6 +74,7 @@ export class AddPlotsComponent implements OnInit {
   public plotcategories = [];
   public townList = [];
   public isLoading = false;
+  isPlotNumberExisted: boolean = false;
 
   toastserviceConfig: object = {
     toastClass: 'ngx-toastr',
@@ -96,7 +97,7 @@ export class AddPlotsComponent implements OnInit {
       this.payload.installments.forEach(data => {
         data.dueDate = new Date(data.dueDate);
       })
- 
+
     }
     // this.getStreet();
     // this.getCustomers();
@@ -135,6 +136,10 @@ export class AddPlotsComponent implements OnInit {
       this.payload.noOfInstallment = Number(this.payload.noOfInstallment);
       this.payload.installmentAmount = Number(this.payload.installmentAmount);
       this.payload.attachment = this.attachments;
+      if(this.isPlotNumberExisted){
+        this.toastr.error('Error!', 'Plot Name Already Existed, It must be unique.')
+        return
+      }
       if(this.isUpdate){
         this.adminService.updatePlots(this.payload).then(res => {
           this.isLoading = false;
@@ -163,6 +168,12 @@ export class AddPlotsComponent implements OnInit {
     // this.isLoaded = true;
     this.adminService.getStreetsByTownId(townId).then(res => {
       this.streetList = res as any[];
+      // for testing only
+      if(this.streetList.length < 1){
+        var obj = new Object()
+        obj['id'] = 'Huzaifa';
+        obj['name'] = 'Huzaifa';
+      }
       // this.isLoaded = false;
     }).catch(err => {
       console.log(err);
@@ -180,7 +191,14 @@ export class AddPlotsComponent implements OnInit {
     else return false;
   }
 
+  fileOverBase(e){
+
+  }
   createInstallment() {
+    if(this.isPlotNumberExisted){
+      this.toastr.error('Error!', 'Plot Number already Existed, It Should be Unique.')
+      return;
+    }
     let categoryObject = this.plotcategories.find(element => element.id == this.payload.plotcategoriesId);
     // if (this.payload.totalPayment == Number(this.payload.downPayment) + Number(this.payload.noOfInstallment * this.payload.installmentAmount)){
     this.payload.installments = [];
@@ -301,9 +319,18 @@ export class AddPlotsComponent implements OnInit {
   checkPlotNumber(value) {
     const payload = {
       plotNumber: value
+
     }
+    console.log(payload)
     this.adminService.checkPlotNumber(payload).then(res => {
       // this.measurementsList = res as any[];
+      console.log(res)
+      if(res['isExist']){
+        this.isPlotNumberExisted = true
+        this.toastr.error('Error!', `Plot Name Already Existed.`);
+      } else {
+        this.isPlotNumberExisted = false;
+      }
     }).catch(err => {
       console.log(err);
     })

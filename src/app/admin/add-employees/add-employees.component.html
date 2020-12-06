@@ -56,14 +56,11 @@
     </div>
 
 
-
-
-
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label class="marginLeft">Salary</label>
-          <input type="text" name="salaryofinstallment" placeholder="Salary"
+          <input type="text" name="salaryofinstallment" placeholder="Salary like : 55000"
             #salaryofinstallment="ngModel" [(ngModel)]="payload.salary" class="form-control"
             [ngClass]="{ 'is-invalid': f.submitted && salaryofinstallment.invalid }" required>
           <div *ngIf="f.submitted && salaryofinstallment.invalid" class="invalid-feedback">
@@ -83,8 +80,6 @@
         </div>
       </div>
     </div>
-
-
 
 
       <div class="row">

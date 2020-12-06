@@ -14,6 +14,7 @@ import { LandDetailViewComponent } from '../land-detail-view/land-detail-view.co
 export class LandComponent implements OnInit {
 public isLoaded = false;
 public landList = []
+p =1
   constructor(private modelService:NgbModal,private adminService: AdminService) { }
 
   ngOnInit() {
