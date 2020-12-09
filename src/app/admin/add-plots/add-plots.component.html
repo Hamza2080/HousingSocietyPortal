@@ -53,7 +53,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Plot Size In kanal</label>
+          <label class="marginLeft">Plot Size In Kanal</label>
           <input type="text" class="form-control" placeholder="Plot Size" name="sizeKanal" pattern="[0-9]*" #sizeKanal="ngModel"
             [(ngModel)]="payload.kanal" [ngClass]="{ 'is-invalid': f.submitted && sizeKanal.invalid }">
           <div *ngIf="f.submitted && sizeKanal.invalid" class="invalid-feedback">
@@ -64,7 +64,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label class="marginLeft">Plot Size In marla</label>
+          <label class="marginLeft">Plot Size In Marla</label>
           <input type="text" class="form-control" placeholder="Plot Size" name="sizemarla" pattern="[0-9]*" #sizemarla="ngModel"
             [(ngModel)]="payload.marla" [ngClass]="{ 'is-invalid': f.submitted && sizemarla.invalid }">
           <div *ngIf="f.submitted && sizemarla.invalid" class="invalid-feedback">
@@ -421,7 +421,7 @@
                   </tr>
                 </tbody>
               </table>
-              
+
             </div>
           </div>
         </div>
