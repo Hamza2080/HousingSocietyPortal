@@ -49,7 +49,7 @@ export class InstallmentComponent implements OnInit {
     positionClass: 'toast-top-right',
     closeButton: true
   };
-  
+
   constructor(private adminService: AdminService, public relatedModal: NgbActiveModal, private toastr: ToastrService) {
     this.uploader  = new FileUploader({url: 'https://housing-society-backend.herokuapp.com/api/attachments/attachment/upload', itemAlias: 'file', removeAfterUpload: true});
 
@@ -62,17 +62,29 @@ export class InstallmentComponent implements OnInit {
         this.attachments.push(response.data.result.files.file[0].name);
         this.toastr.success('Success!', response.data.result.files.file[0].name + " file uploaded", this.toastserviceConfig);
     };
- 
+
     this.hasBaseDropZoneOver = false;
     this.hasAnotherDropZoneOver = false;
- 
+
     this.response = '';
     }
+
+    allowNextPaid: boolean = true;
 
   ngOnInit() {
     this.payload.plotId = this.plotId;
     this.landPayload.landId = this.landId;
     this.installment.forEach(element =>{
+
+      if(this.allowNextPaid == false){
+        element.allowNextPaid = 'false';
+      } else {
+        element.allowNextPaid = 'true';
+      }
+      if(element.status === 'Due'){
+        this.allowNextPaid = false;
+      }
+
       if (new Date(element.dueDate).getTime() <= new Date().getTime() && element.status === 'Due'){
         element.status = 'Upcoming Due';
       }
@@ -81,6 +93,10 @@ export class InstallmentComponent implements OnInit {
   onSubmitPlotInstallment(item) {
     // this.payload.plotId = item.plotId;
     this.isAdded = true;
+  }
+  showToasteraboutPreviousInstallmentnotSubmitted(){
+    this.isAdded = false;
+    this.toastr.error('Error!', "First You Have to Pay Previous Month Installment, then You Can Proceed next.");
   }
   onSubmit(){
     this.isLoading = true;
@@ -130,7 +146,7 @@ export class InstallmentComponent implements OnInit {
   public fileOverBase(e:any):void {
     this.hasBaseDropZoneOver = e;
   }
- 
+
   public fileOverAnother(e:any):void {
     this.hasAnotherDropZoneOver = e;
   }

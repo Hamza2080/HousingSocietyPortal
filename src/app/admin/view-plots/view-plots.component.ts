@@ -15,6 +15,7 @@ import { InstallmentComponent } from '../installment/installment.component';
   styleUrls: ['./view-plots.component.css']
 })
 export class ViewPlotsComponent implements OnInit {
+  p = 1;
   public plotsList = [];
   public customerList = [];
   public isLoaded = false;
