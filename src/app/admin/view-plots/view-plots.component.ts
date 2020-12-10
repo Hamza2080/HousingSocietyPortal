@@ -60,6 +60,7 @@ export class ViewPlotsComponent implements OnInit {
     this.isLoaded = true;
     this.adminService.getAllPlots().then(res => {
       this.plotsList = res as any[];
+      console.log(this.plotsList)
       this.isLoaded = false;
     }).catch(err => {
       console.log(err);

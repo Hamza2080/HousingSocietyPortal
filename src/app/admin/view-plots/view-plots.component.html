@@ -106,7 +106,7 @@
         <div *ngIf="!isResale" class="col-md-12">
         <div class="form-group">
           <label class="marginLeft">Authorized Dealer</label>
-          <select class="form-control select-box-height" name="townId" #townId="ngModel" [(ngModel)]="selectedDealer" (change)="onchange(townId.value)" 
+          <select class="form-control select-box-height" name="townId" #townId="ngModel" [(ngModel)]="selectedDealer" (change)="onchange(townId.value)"
             [ngClass]="{ 'is-invalid': f.submitted && townId.invalid }" required>
             <option [value]=null disabled>Select Authorized Dealer</option>
             <option *ngFor="let item of authDealerList" [ngValue]="item"> {{item?.name}}</option>
@@ -152,6 +152,9 @@
             <th>Customer Id</th>
             <th>Purchase Date</th>
             <th>Purchase From</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>CNIC</th>
             <th>Plot Id</th>
             <!-- <th>Actions</th> -->
           </tr>
@@ -162,6 +165,9 @@
             <td>{{item?.customerId}}</td>
             <td>{{item?.purchaseDate |date:'mediumDate'}}</td>
             <td>{{item?.purchaseFrom}}</td>
+            <td>{{item?.customer.name}}</td>
+            <td>{{item?.customer.contact}}</td>
+            <td>{{item?.customer.cnic}}</td>
             <!-- <td>{{item?.townPhase}}</td> -->
             <td>{{item?.plotId}}</td>
           </tr>
