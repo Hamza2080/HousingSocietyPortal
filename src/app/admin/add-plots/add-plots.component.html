@@ -12,9 +12,12 @@
         <div class="form-group">
           <label class="marginLeft">Plot Number</label>
           <input type="text" class="form-control" placeholder="Plot Number" name="name" #name="ngModel"
-            [(ngModel)]="payload.plotNumber" (focusout)="checkPlotNumber(name.value)" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+            [(ngModel)]="payload.plotNumber" (focusout)="checkPlotNumber(name.value)" [ngClass]="{ 'is-invalid': f.submitted && name.invalid || isPlotNumberExisted }" required>
           <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
             <div *ngIf="name.errors.required">Name is required</div>
+          </div>
+          <div *ngIf="isPlotNumberExisted" class="invalid-feedback">
+            <div>NAme Already Existed</div>
           </div>
         </div>
       </div>
@@ -310,7 +313,7 @@
         <div>
           <div>
             Queue progress:
-            <div class="progress" style="">
+            <div class="progress">
               <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
             </div>
           </div>
