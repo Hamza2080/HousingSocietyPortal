@@ -11,6 +11,7 @@ export class HttpService {
   header: HttpHeaders = new HttpHeaders({authorization: localStorage.getItem('token')});
   public get(endpoint): Observable<any> {
     return this.http.get(environment.API_URL + endpoint,{headers: this.header});
+    // return this.http.get('http://localhost:3000/api' + endpoint,{headers: this.header});
   }
   public post(endpoint,payLoad): Observable<any> {
     return this.http.post(environment.API_URL + endpoint, payLoad,{headers: this.header});
