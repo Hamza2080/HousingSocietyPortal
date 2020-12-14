@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { ViewPlotDetailModalComponent } from '../view-plot-detail-modal/view-plot-detail-modal.component';
 import { InstallmentComponent } from '../installment/installment.component';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/public_api';
 
 @Component({
   selector: 'app-view-plots',
@@ -42,6 +43,18 @@ export class ViewPlotsComponent implements OnInit {
     plotId: null
   }
 
+
+  public payload = {
+
+    name: null,
+    cnic: null,
+    dob: null,
+    contact: null,
+    address: null,
+    registered_at: new Date(),
+    userRole: 'customer',
+  };
+
   toastserviceConfig: object = {
     toastClass: 'ngx-toastr',
     timeOut: 10000,
@@ -50,6 +63,7 @@ export class ViewPlotsComponent implements OnInit {
     closeButton: true
   };
   modalRef: BsModalRef;
+  public bsConfig: Partial<BsDatepickerConfig>;
 
   constructor(private adminService: AdminService, private modelService: BsModalService, private modalService: NgbModal, private toastr: ToastrService) { }
 
@@ -175,12 +189,27 @@ export class ViewPlotsComponent implements OnInit {
       this.isLoaded = false;
     })
   }
-
-  openSalePlotModel(item, model) {
-    this.getCustomerList();
-    this.getAuthDealers();
+  PlotStoreditem;
+  openMethodOfSellingPlot(item, model) {
     this.salePlotItem = item;
     this.salePayload.plotId = item.id;
+    this.PlotStoreditem = item;
+    this.modalRef = this.modelService.show(model);
+  }
+
+  onExistingCustomer(model){
+    this.modalRef.hide();
+    this.openSalePlotModel(this.salePlotItem, model)
+  }
+  onNewCustomer(model){
+    this.modalRef.hide();
+    this.openSalePlotModel(this.salePlotItem, model)
+  }
+  openSalePlotModel(item, model:any) {
+    this.getCustomerList();
+    this.getAuthDealers();
+    // this.salePlotItem = item;
+    // this.salePayload.plotId = item.id;
     this.modalRef = this.modelService.show(model);
   }
   openResalePlotModel(item, model) {
@@ -196,5 +225,23 @@ export class ViewPlotsComponent implements OnInit {
   onchange(item) {
     this.salePayload.percentage = item.commision_percentage;
     this.salePayload.dealerId = item.id;
+  }
+
+
+
+
+
+  onSubmit(model) {
+    this.isLoading = true;
+    // this.payload.phone = Number(this.payload.phone);
+    this.adminService.addCustomer(this.payload).then(res => {
+      console.log(res);
+      this.isLoading = false;
+      this.modalRef.hide();
+      this.openSalePlotModel(this.salePlotItem, model);
+    }).catch(err => {
+      console.log(err);
+      this.isLoading = false;
+    })
   }
 }

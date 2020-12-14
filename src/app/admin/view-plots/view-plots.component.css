@@ -1,6 +1,6 @@
 .btnColor{
     background-color: #3472F7 !important;
-    color: white !important; 
+    color: white !important;
     font-weight: bold !important;
 }
 .btnSlaeBtn{
@@ -34,4 +34,15 @@
   .table thead {
     background: #f7f5f5 !important;
     color: rgba(0, 0, 0, 0.87) !important;
+  }
+
+
+
+  .plot_selection:visited {
+    color: green;
+  }
+
+  /* mouse over link */
+  .plot_selection:hover {
+    color: rgb(90, 93, 140);
   }
