@@ -54,6 +54,7 @@ export class GetTownComponent implements OnInit {
 
 
   onSubmit(){
+    console.log(this.town_name)
     this.relatedModal.close(true);
   }
 
