@@ -42,7 +42,7 @@ export class GetTownComponent implements OnInit {
     console.log('town_name',this.town_name)
     let obj = this.data.find(o => o.id === this.town_name);
     console.log(obj)
-    if(obj.phases.length > 0){
+    if(typeof obj.phases != 'undefined' && obj.phases.length > 0){
       this.phaseData = obj.phases
       console.log('Working')
     } else {

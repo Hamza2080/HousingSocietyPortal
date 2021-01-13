@@ -32,8 +32,8 @@
           <div class="form-group">
               <label class="marginLeft">Phases</label>
               <select class="form-control" [(ngModel)]="phase_name" name="phasename" (change)="getTownData()"
-                      #phasename="ngModel" required [ngClass]="{ 'is-invalid': f.submitted && phasename.invalid }">
-                      <option [value]=null disabled>Selet Your Phase</option>
+                      #phasename="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phasename.invalid }">
+                      <option [value]=null>Selet Your Phase</option>
                       <option *ngFor="let town of phaseData" [value]="town"> {{town}}</option>
               </select>
                   <div *ngIf="f.submitted && phasename.invalid" class="invalid-feedback">
