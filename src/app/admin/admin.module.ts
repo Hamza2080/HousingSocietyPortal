@@ -49,6 +49,7 @@ import { UpdatePublicBuildingComponent } from './update-public-building/update-p
 import { ViewEmployeesComponent } from './view-employees/view-employees.component';
 import { AddEmployeesComponent } from './add-employees/add-employees.component';
 import { UpdateExpenseStatusComponent } from './update-expense-status/update-expense-status.component';
+import { GetTownComponent } from './get-town/get-town.component';
 
 @NgModule({
   entryComponents: [
@@ -80,9 +81,10 @@ import { UpdateExpenseStatusComponent } from './update-expense-status/update-exp
     AddPublicBuildingComponent,
     UpdatePublicBuildingComponent,
     AddEmployeesComponent,
-    UpdateExpenseStatusComponent
+    UpdateExpenseStatusComponent,
+    GetTownComponent
   ],
-  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, PublicBuildingComponent, UpdatePublicBuildingComponent, AddPublicBuildingComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, ParkComponent, UpdateParkComponent, AddParkComponent, StreetComponent, AddStreetComponent, UpdateStreetComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent, ViewEmployeesComponent, AddEmployeesComponent, UpdateExpenseStatusComponent],
+  declarations: [AdminComponent, ViewManagerComponent, SideBarComponent, NavBarComponent, PublicBuildingComponent, UpdatePublicBuildingComponent, AddPublicBuildingComponent, ViewPlotDetailModalComponent, UpdateExpenseComponent, ParkComponent, UpdateParkComponent, AddParkComponent, StreetComponent, AddStreetComponent, UpdateStreetComponent, AddExpenseComponent, LandDetailViewComponent, ExpenseComponent, AddManagerComponent, AddLandMeasuringComponent, AddExpenseTypeComponent, TownComponent, PaymentPlanComponent, LandComponent, AddTownsComponent, ViewLandLordComponent, AddLandLordComponent, AddLandComponent, ViewCustomerComponent, AuthorizedDealerComponent, AddAuthorizedDealerComponent, AddCustomerComponent, AddPaymentPlanComponent, ViewPlotsComponent, AddPlotsComponent, PlotCategoriesComponent, InstallmentComponent, EditLandLordComponent, ViewEmployeesComponent, AddEmployeesComponent, UpdateExpenseStatusComponent, GetTownComponent],
   imports: [
     CommonModule,
     FormsModule,
