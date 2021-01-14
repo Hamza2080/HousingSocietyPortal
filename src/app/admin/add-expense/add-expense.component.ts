@@ -89,6 +89,7 @@ export class AddExpenseComponent implements OnInit {
     this.isLoading = true;
     this.payload.amount = Number(this.payload.amount);
     this.payload.attachment = this.attachments;
+    console.log(this.payload, 'payload')
     this.adminService.addExpense(this.payload).then(res => {
       console.log(res);
       this.isLoading = false;
@@ -101,6 +102,7 @@ export class AddExpenseComponent implements OnInit {
   getAllEmplyees(){
     this.adminService.getAllEmployees().then(res =>{
       this.employees = res as any[];
+      console.log(this.employees, 'Employee')
     })
     .catch(err =>{
       console.log(err);

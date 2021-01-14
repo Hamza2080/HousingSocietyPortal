@@ -28,6 +28,7 @@ export class UpdateExpenseComponent implements OnInit {
       expenseDate: new Date(),
       status: 'Paid', // Paid | Due
       paidBy: null,
+      employeeId: null,
       attachment: [],
       additionalNotes: null,
   };
@@ -63,6 +64,7 @@ export class UpdateExpenseComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('Expense', this.expenseDetail)
     this.payload = {
       expenseName:  this.expenseDetail.expenseName ,
       expenseType: this.expenseDetail.expenseType ,
@@ -70,6 +72,7 @@ export class UpdateExpenseComponent implements OnInit {
       expenseDate: new Date(this.expenseDetail.expenseDate),
       status: this.expenseDetail.status,
       paidBy: this.expenseDetail.paidBy,
+      employeeId: this.expenseDetail.employeeId,
       attachment: this.expenseDetail.attachment,
       additionalNotes: this.expenseDetail.additionalNotes,
   };
