@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { FileUploader } from 'ng2-file-upload';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-add-street',
@@ -29,6 +30,9 @@ export class AddStreetComponent implements OnInit {
   townList: any[];
   measurementsList: any[];
 
+  public townid = null;
+  public phase = null;
+
   public isLoading = false;
   toastserviceConfig: object = {
     toastClass: 'ngx-toastr',
@@ -38,8 +42,12 @@ export class AddStreetComponent implements OnInit {
     closeButton: true
   };
 
-  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService) {
+  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private toastr: ToastrService, private dataservice: DataService) {
     // this.initializeAttahmentCode();
+    this.townid = this.dataservice.getTwonId();
+    this.phase = this.dataservice.getPhaseName();
+    this.payload.townId = this.townid;
+    this.payload.townPhase = this.phase;
   }
 
   ngOnInit() {
@@ -85,8 +93,8 @@ export class AddStreetComponent implements OnInit {
     this.adminService.getAllTowns().then(res => {
       this.townList = res as any[];
       if (this.townList.length) {
-        this.payload.townId = this.townList[0].id;
-          this.townSelectionUpdated(this.townList[0].id);
+        // this.payload.townId = this.townList[0].id;
+          this.townSelectionUpdated(this.payload.townId);
       }
 
     }).catch(err => {

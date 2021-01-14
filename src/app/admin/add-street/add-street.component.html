@@ -114,8 +114,8 @@
           <select class="form-control select-box-height" (ngModelChange)="townSelectionUpdated($event)"
             name="SubCategoryId" #SubCategoryId="ngModel" [(ngModel)]="payload.townId"
             [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
-            <option [value]='null' disabled>Select Town</option>
-            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+            <!-- <option [value]='null' disabled>Select Town</option> -->
+            <option *ngFor="let item of townList" [value]="item?.id" [disabled]="this.townid != item.id" [selected]="this.townid == item.id"> {{item?.name}}</option>
           </select>
           <div *ngIf="f.submitted && SubCategoryId.invalid" class="invalid-feedback">
             <div *ngIf="SubCategoryId.errors.required">Town is required</div>
@@ -128,8 +128,8 @@
           <label class="marginLeft">Town Phase</label>
           <select class="form-control select-box-height" name="townPhase" #townPhase="ngModel"
             [(ngModel)]="payload.townPhase" [ngClass]="{ 'is-invalid': f.submitted && townPhase.invalid }" required>
-            <option [value]='null' disabled selected>Select town Phase</option>
-            <option *ngFor="let item of selectTown?.phases" [value]="item"> {{item}}</option>
+            <!-- <option [value]='null' disabled selected>Select town Phase</option> -->
+            <option *ngFor="let item of selectTown?.phases" [value]="item" [disabled]="this.phase != item" [selected]="this.phase == item"> {{item}}</option>
           </select>
           <div *ngIf="f.submitted && townPhase.invalid" class="invalid-feedback">
             <div *ngIf="townPhase.errors.required">Town phase is required</div>

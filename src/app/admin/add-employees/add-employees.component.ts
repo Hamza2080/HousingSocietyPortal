@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/services/admin.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-add-employees',
@@ -22,7 +23,13 @@ export class AddEmployeesComponent implements OnInit {
   public isEdit = false;
   public isLoading = false;
   public townList = [];
-  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService) { }
+  public townid;
+  public phase;
+  constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private dataservice: DataService) { 
+    this.townid = this.dataservice.getTwonId();
+    this.phase = this.dataservice.getPhaseName();
+    this.payload.townId = this.townid;
+  }
 
   ngOnInit() {
     this.getTowns();

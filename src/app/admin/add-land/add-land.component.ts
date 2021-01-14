@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { FileUploader } from 'ng2-file-upload';
 import { element } from 'protractor';
+import { DataService } from 'src/app/services/data.service';
 
 class Installment {
   public srNo: number;
@@ -84,8 +85,15 @@ export class AddLandComponent implements OnInit {
     closeButton: true
   };
 
-  constructor(public relatedModal: NgbActiveModal, private modelService: NgbModal, private adminService: AdminService, private toastr: ToastrService) {
+  public townid;
+  public phase;
+
+  constructor(public relatedModal: NgbActiveModal, private modelService: NgbModal, private adminService: AdminService, private toastr: ToastrService, private dataservice: DataService) {
     this.initializeAttahmentCode();
+    this.townid = this.dataservice.getTwonId();
+    this.phase = this.dataservice.getPhaseName();
+    // this.showTownList = true;
+    this.payload.townId = this.townid;
   }
 
   ngOnInit() {
@@ -212,9 +220,9 @@ export class AddLandComponent implements OnInit {
   getTowns() {
     this.adminService.getAllTowns().then(res => {
       this.townList = res as any[];
-      if (this.townList.length) {
-        this.payload.townId = this.townList[0].id;
-      }
+      // if (this.townList.length) {
+      //   this.payload.townId = this.townList[0].id;
+      // }
 
     }).catch(err => {
       console.log(err);

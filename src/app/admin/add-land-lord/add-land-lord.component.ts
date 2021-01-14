@@ -20,8 +20,8 @@ export class AddLandLordComponent implements OnInit {
 
   public townList = [];
   public isLoading = false;
-  public townid = null
-  public phase = null
+  public townid = null;
+  public phase = null;
   showTownList: boolean = false;
   constructor(public relatedModal: NgbActiveModal, private adminService: AdminService, private dataservice:  DataService) {
     this.townid = this.dataservice.getTwonId();
