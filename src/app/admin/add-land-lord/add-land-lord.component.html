@@ -35,7 +35,7 @@
   <div class="col-md-12">
       <div class="form-group">
           <label class="marginLeft">CNIC Number</label>
-          <input type="text" class="form-control" placeholder="CNIC..." name="CNIC" pattern="[0-9]*" minlength="13" maxlength="13" 
+          <input type="text" class="form-control" placeholder="CNIC..." name="CNIC" pattern="[0-9]*" minlength="13" maxlength="13"
               #CNIC="ngModel" [(ngModel)]="payload.cnic" [ngClass]="{ 'is-invalid': f.submitted && CNIC.invalid }" required >
               <div *ngIf="f.submitted && CNIC.invalid" class="invalid-feedback">
                 <div *ngIf="CNIC.errors.required">CNIC is required</div>
@@ -57,13 +57,13 @@
       </div>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="showTownList">
   <div class="col-md-12">
       <div class="form-group">
           <label class="marginLeft">Town</label>
           <select class="form-control" name="SubCategoryId" #SubCategoryId="ngModel" [(ngModel)]="payload.townId" [ngClass]="{ 'is-invalid': f.submitted && SubCategoryId.invalid }" required>
-            <option [value]= 'null' disabled>Select Town</option>
-            <option *ngFor="let item of townList" [value]="item?.id"> {{item?.name}}</option>
+            <!-- <option value=null >Select Town</option> -->
+            <option *ngFor="let item of townList" [value]="item?.id" [disabled]="this.townid != item.id" [selected]="this.townid == item.id"> {{item?.name}}</option>
           </select>
               <div *ngIf="f.submitted && SubCategoryId.invalid" class="invalid-feedback">
                 <div *ngIf="SubCategoryId.errors.required">Town is required</div>
