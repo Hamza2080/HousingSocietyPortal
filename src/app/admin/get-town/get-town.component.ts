@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-get-town',
@@ -29,7 +30,7 @@ export class GetTownComponent implements OnInit {
 
   data = []
 
-  constructor(private relatedModal:NgbActiveModal, private toastr: ToastrService) { }
+  constructor(private relatedModal:NgbActiveModal, private toastr: ToastrService, private dataservice: DataService) { }
 
   ngOnInit() {
     console.log(this.data)
@@ -39,14 +40,11 @@ export class GetTownComponent implements OnInit {
 
 
   getTownData(){
-    console.log('town_name',this.town_name)
     let obj = this.data.find(o => o.id === this.town_name);
     console.log(obj)
     if(typeof obj.phases != 'undefined' && obj.phases.length > 0){
       this.phaseData = obj.phases
-      console.log('Working')
     } else {
-      console.log('Else Condition Working')
       this.toastr.error('Error!', "No Phasse Under Selected Town");
     }
     this.showPhase = true;
@@ -54,7 +52,14 @@ export class GetTownComponent implements OnInit {
 
 
   onSubmit(){
-    console.log(this.town_name)
+    if(typeof this.town_name == 'undefined'){
+      this.town_name = null
+    }
+    if(typeof this.phase_name == 'undefined'){
+      this.phase_name = null
+    }
+    this.dataservice.saveTwonId(this.town_name)
+    this.dataservice.savePhaseName(this.phase_name)
     this.relatedModal.close(true);
   }
 
