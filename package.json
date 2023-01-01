@@ -36,13 +36,13 @@
     "ngx-bootstrap": "^5.1.2",
     "ngx-pagination": "^4.1.0",
     "ngx-toastr": "^10.0.2",
-    "postcss-loader": "^3.0.0",
+    "postcss-loader": "^7.0.2",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.13.0",
+    "@angular-devkit/build-angular": "~15.0.4",
     "@angular/cli": "~7.3.8",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
